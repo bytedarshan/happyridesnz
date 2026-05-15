@@ -71,6 +71,22 @@ const Admin = () => {
     try { await login(email, password); } catch (error) { setAuthError('Invalid credentials.'); } finally { setIsSubmitting(false); }
   };
 
+  const handleCreateAdmin = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await createAdmin(newAdminEmail, newAdminPassword);
+      alert('New admin registered successfully!');
+      setNewAdminEmail('');
+      setNewAdminPassword('');
+      setEditingItem(null);
+    } catch (error) {
+      alert('Error: ' + error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const adminTabs = [
     { id: 'dashboard', label: 'Stats', icon: <LayoutDashboard size={18} /> },
     { id: 'packages', label: 'Tours', icon: <Package size={18} /> },
@@ -96,6 +112,52 @@ const Admin = () => {
     );
   }
 
+  const renderDashboard = () => (
+    <div className="admin-section">
+      <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Performance</h2>
+      <div className="responsive-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
+        <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
+          <Package size={32} color="var(--primary-color)" style={{ marginBottom: '1rem' }} />
+          <h3>Active Packages</h3>
+          <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{Object.values(siteData.packages).reduce((acc, curr) => acc + curr.length, 0)}</p>
+        </div>
+        <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
+          <MessageSquare size={32} color="#10B981" style={{ marginBottom: '1rem' }} />
+          <h3>Reviews</h3>
+          <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{siteData.testimonials.length}</p>
+        </div>
+        <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
+          <Users size={32} color="#F59E0B" style={{ marginBottom: '1rem' }} />
+          <h3>Admin Team</h3>
+          <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{admins.length}</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderTeam = () => (
+    <div className="admin-section">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+        <h2 className="responsive-hero-title">Admin Team</h2>
+        <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'team_add' })} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><UserPlus size={18} /> New Admin</button>
+      </div>
+      <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        {admins.map(admin => (
+          <div key={admin.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ShieldCheck size={20} color={admin.role === 'super_admin' ? '#F59E0B' : 'var(--primary-color)'} /></div>
+              <div><h4 style={{ fontSize: '1.1rem' }}>{admin.email}</h4><p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>{admin.role.replace('_', ' ').toUpperCase()} • Created {new Date(admin.createdAt).toLocaleDateString()}</p></div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.8rem' }}>
+              <button className="btn-outline admin-btn" title="Reset Password" onClick={() => resetAdminPassword(admin.email)}><RefreshCw size={16} /></button>
+              {admin.email !== user.email && (<button className="btn-outline admin-btn" style={{ color: '#EF4444' }} title="Remove Admin" onClick={() => window.confirm(`Remove ${admin.email}?`) && removeAdmin(admin.email)}><Trash2 size={16} /></button>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   const renderPackages = () => (
     <div className="admin-section">
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}><h2 className="responsive-hero-title">Tour Packages</h2><button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'package', mode: 'add', category: selectedCategory })}><Plus size={18} /> New Package</button></div>
@@ -109,6 +171,20 @@ const Admin = () => {
           <div key={pkg.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}><img src={getImagePath(pkg.image)} alt="" style={{ width: '60px', height: '60px', borderRadius: '1rem', objectFit: 'cover' }} /><div><h4>{pkg.title}</h4><p>{pkg.price} • {pkg.duration}</p></div></div>
             <div style={{ display: 'flex', gap: '1rem' }}><button className="btn-outline admin-btn" onClick={() => setEditingItem({ ...pkg, type: 'package', mode: 'edit', category: selectedCategory })}><Edit3 size={18} /></button><button className="btn-outline admin-btn" style={{ color: '#EF4444' }} onClick={() => removePackage(selectedCategory, pkg.id)}><Trash2 size={18} /></button></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderTestimonials = () => (
+    <div className="admin-section">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}><h2 className="responsive-hero-title">Testimonials</h2><button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'testimonial', mode: 'add' })}><Plus size={18} /> Add Review</button></div>
+      <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        {siteData.testimonials.map(test => (
+          <div key={test.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ flex: 1, paddingRight: '2rem' }}><h4 style={{ fontSize: '1.2rem', marginBottom: '0.2rem' }}>{test.name}</h4><p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{test.location} • {test.rating} Stars</p><p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '0.5rem', fontStyle: 'italic' }}>"{test.text.substring(0, 80)}..."</p></div>
+            <button className="btn-outline admin-btn" style={{ color: '#EF4444', flexShrink: 0, width: '45px', height: '45px', padding: 0 }} onClick={() => removeTestimonial(test.id)}><Trash2 size={18} /></button>
           </div>
         ))}
       </div>
@@ -130,7 +206,41 @@ const Admin = () => {
     </div>
   );
 
+  const renderSettings = () => (
+    <div className="admin-section">
+      <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Configuration</h2>
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '2rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)' }}>General Information</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
+          <div className="input-group"><label className="input-label">Hero Headline</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }} value={siteData.settings.heroTitle} onChange={(e) => updateSettings({ heroTitle: e.target.value })} /></div>
+          <div className="input-group"><label className="input-label">About Us Description</label><textarea className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem', height: '150px', resize: 'none' }} value={siteData.settings.aboutText} onChange={(e) => updateSettings({ aboutText: e.target.value })} /></div>
+        </div>
+      </div>
+      <div className="admin-glass-panel" style={{ padding: '3rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+        <h3 style={{ marginBottom: '1rem', color: '#EF4444' }}>Danger Zone</h3>
+        <button className="btn-outline admin-btn" style={{ borderColor: '#EF4444', color: '#EF4444' }} onClick={() => resetSiteData()}>Reset Data</button>
+      </div>
+    </div>
+  );
+
   const renderEditor = () => {
+    if (editingItem.type === 'team_add') {
+      return (
+        <div className="admin-editor" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="content-container" style={{ width: '95%', maxWidth: '800px' }}>
+            <motion.div className="admin-glass-panel" style={{ padding: '2.5rem' }} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2.5rem' }}><h2>New Admin</h2><button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={20} /></button></div>
+              <form onSubmit={handleCreateAdmin} style={{ display: 'grid', gap: '2rem' }}>
+                <input type="email" className="input-field admin-glass-panel" placeholder="Email" value={newAdminEmail} onChange={(e) => setNewAdminEmail(e.target.value)} required />
+                <input type="password" className="input-field admin-glass-panel" placeholder="Password" value={newAdminPassword} onChange={(e) => setNewAdminPassword(e.target.value)} required />
+                <button className="btn-primary-glass admin-btn w-full" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Processing...' : 'Register Admin'}</button>
+              </form>
+            </motion.div>
+          </div>
+        </div>
+      );
+    }
+
     const isPackage = editingItem.type === 'package';
     return (
       <div className="admin-editor" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -178,14 +288,16 @@ const Admin = () => {
       <NavigationBar />
       <div className="content-container page-padding" style={{ paddingBottom: '140px' }}>
         <AnimatePresence mode="wait">
+          {activeTab === 'dashboard' && <motion.div key="dash" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderDashboard()}</motion.div>}
           {activeTab === 'packages' && <motion.div key="pkg" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderPackages()}</motion.div>}
+          {activeTab === 'testimonials' && <motion.div key="test" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderTestimonials()}</motion.div>}
+          {activeTab === 'team' && <motion.div key="team" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderTeam()}</motion.div>}
           {activeTab === 'gallery' && <motion.div key="gal" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderGallery()}</motion.div>}
-          {activeTab === 'dashboard' && <motion.div key="dash" initial={{ opacity: 0 }} animate={{ opacity: 1 }}><h2 className="responsive-hero-title">Stats</h2></motion.div>}
-          {activeTab === 'settings' && <motion.div key="set" initial={{ opacity: 0 }} animate={{ opacity: 1 }}><button className="btn-outline admin-btn" onClick={() => resetSiteData()}>Reset Data</button></motion.div>}
+          {activeTab === 'settings' && <motion.div key="set" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderSettings()}</motion.div>}
         </AnimatePresence>
       </div>
       <AnimatePresence>{editingItem && renderEditor()}</AnimatePresence>
-      <div className="category-nav-wrapper"><div className="category-nav">{adminTabs.map((tab) => (<button key={tab.id} className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)}>{tab.icon}<span>{tab.label}</span></button>))}<button className="category-nav-item" onClick={() => logout()}><LogOut size={18} /><span>Logout</span></button></div></div>
+      <div className="category-nav-wrapper"><div className="category-nav">{adminTabs.map((tab) => (<button key={tab.id} className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)}><span className="nav-icon">{tab.icon}</span><span className="nav-label">{tab.label}</span></button>))}<button className="category-nav-item" onClick={() => logout()}><span className="nav-icon"><LogOut size={18} /></span><span className="nav-label">Logout</span></button></div></div>
     </div>
   );
 };
