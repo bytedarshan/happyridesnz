@@ -497,12 +497,27 @@ const Admin = () => {
       <div className="category-nav-wrapper">
         <div className="category-nav" style={{ padding: '0.5rem' }}>
           {adminTabs.map((tab) => (
-            <motion.button key={tab.id} className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)} whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}>
+            <motion.button 
+              key={tab.id} 
+              className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} 
+              onClick={() => setActiveTab(tab.id)} 
+              whileHover={{ scale: 1.05 }} 
+              whileTap={{ scale: 0.98 }}
+            >
               <span className="nav-icon">{tab.icon}</span>
               <span className="nav-label">{tab.label}</span>
             </motion.button>
           ))}
-          <motion.button className="category-nav-item" style={{ color: '#EF4444' }} onClick={() => logout()} whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}><span className="nav-icon"><LogOut size={18} /></span><span className="nav-label">Logout</span></motion.button>
+          <motion.button 
+            className="category-nav-item" 
+            style={{ color: '#EF4444' }} 
+            onClick={() => logout()} 
+            whileHover={{ scale: 1.05 }} 
+            whileTap={{ scale: 0.98 }}
+          >
+            <span className="nav-icon"><LogOut size={18} /></span>
+            <span className="nav-label">Logout</span>
+          </motion.button>
         </div>
       </div>
     </div>
