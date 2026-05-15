@@ -20,7 +20,7 @@ function App() {
           <CustomCursor />
 
           {/* Global dark background image for the glass effect */}
-          <img src="/hero_bg.jpeg" className="global-bg" alt="background" />
+          <img src="./hero_bg.jpeg" className="global-bg" alt="background" />
 
           <Routes>
             <Route path="/" element={<Home />} />

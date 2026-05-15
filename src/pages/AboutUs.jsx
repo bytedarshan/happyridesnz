@@ -28,7 +28,7 @@ const AboutUs = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <img src="/auckland_city.png" alt="Our Story" className="glass-image" />
+            <img src="./auckland_city.png" alt="Our Story" className="glass-image" />
           </motion.div>
           <motion.div 
             initial={{ opacity: 0, x: 50 }}
