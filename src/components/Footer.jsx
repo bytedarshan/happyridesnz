@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../assets/logo.png';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
@@ -9,7 +8,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section footer-info">
           <div className="logo-container" style={{ marginBottom: '1.5rem' }}>
-            <img src={logo} alt="Happy Rides Logo" className="navbar-logo" />
+            <img src="/logo.png" alt="Happy Rides Logo" className="navbar-logo" />
             <div className="logo-text-wrapper">
               <h1 className="logo-title">Happy Rides</h1>
               <span className="logo-tagline">Enjoy the journey. Love the ride</span>

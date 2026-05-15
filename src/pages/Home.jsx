@@ -5,9 +5,6 @@ import CategoryNav from '../components/CategoryNav';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Shield, Clock, Car, MapPin, Home as HomeIcon, Info, Settings, Package } from 'lucide-react';
-import aucklandImg from '../assets/auckland_city.png';
-import rotoruaImg from '../assets/rotorua_geothermal.png';
-
 import { useSiteData } from '../context/SiteContext';
 
 const Home = () => {
@@ -63,7 +60,7 @@ const Home = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <img src={aucklandImg} alt="About Us" className="glass-image" />
+            <img src="/auckland_city.png" alt="About Us" className="glass-image" />
           </motion.div>
         </div>
       </section>
@@ -107,7 +104,7 @@ const Home = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <img src={rotoruaImg} alt="Packages" className="glass-image" />
+            <img src="/rotorua_geothermal.png" alt="Packages" className="glass-image" />
           </motion.div>
           <motion.div 
             className="brief-text"

@@ -1,8 +1,6 @@
 import React from 'react';
 import NavigationBar from '../components/NavigationBar';
 import { motion } from 'framer-motion';
-import aucklandImg from '../assets/auckland_city.png';
-
 import { useSiteData } from '../context/SiteContext';
 
 const AboutUs = () => {
@@ -30,7 +28,7 @@ const AboutUs = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <img src={aucklandImg} alt="Our Story" className="glass-image" />
+            <img src="/auckland_city.png" alt="Our Story" className="glass-image" />
           </motion.div>
           <motion.div 
             initial={{ opacity: 0, x: 50 }}

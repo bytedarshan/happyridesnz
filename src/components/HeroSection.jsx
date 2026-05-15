@@ -2,8 +2,6 @@ import React from 'react';
 import NavigationBar from './NavigationBar';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import tour1 from '../assets/auckland.jpg';
-
 const HeroSection = ({ title }) => {
   return (
     <section className="hero-section">
@@ -42,7 +40,7 @@ const HeroSection = ({ title }) => {
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
         >
-          <img src={tour1} alt="New Zealand Landscape" className="visual-image" />
+          <img src="/auckland.jpg" alt="New Zealand Landscape" className="visual-image" />
           <div className="visual-overlay glass-panel">
             <h3 className="visual-title">Auckland City Highlights</h3>
             <p className="visual-price">Starting from $85</p>
