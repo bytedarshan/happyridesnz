@@ -96,7 +96,8 @@ export const rotoruaActivities = [
 
 export const paihiaTours = [
   { id: "pai-abp", title: "Auckland & Bay of Paihia", image: "tour2.jpeg", duration: "Full Day", price: "$180+", description: "Main tourist hub of the Bay of Islands maritime park." },
-  { id: "pai-apa", title: "Auckland Paihia Auckland", image: "tour3.jpeg", duration: "12 - 13 Hours", price: "$180+", description: "Comprehensive round-trip from Auckland." }
+  { id: "pai-apa", title: "Auckland Paihia Auckland", image: "tour3.jpeg", duration: "12 - 13 Hours", price: "$180+", description: "Comprehensive round-trip from Auckland." },
+  { id: "pai-apcr", title: "Auckland Paihia Cape Reinga Auckland", image: "tour7.jpeg", duration: "Full Day / 2 Days", price: "$250+", description: "Experience the ultimate Northland journey from Auckland to the iconic Cape Reinga via Paihia." }
 ];
 
 export const paihiaActivities = [
