@@ -11,10 +11,6 @@ import {
   Save, 
   X,
   Image as ImageIcon,
-  DollarSign,
-  Clock,
-  ArrowLeft,
-  ChevronRight,
   LogOut,
   UserPlus,
   ShieldCheck,
@@ -51,18 +47,27 @@ const Admin = () => {
   const [editingItem, setEditingItem] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('aucklandCityTours');
   
-  // New Admin State
   const [newAdminEmail, setNewAdminEmail] = useState('');
   const [newAdminPassword, setNewAdminPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
+  // Large list of images from the public folder
   const availableAssets = [
     'tour1.jpeg', 'tour2.jpeg', 'tour3.jpeg', 'tour4.jpeg', 'tour5.jpeg', 'tour6.jpeg', 'tour7.jpeg',
-    'image20.jpeg', 'image37.jpeg', 'image38.jpeg', 'image39.jpeg', 'image42.jpeg', 'image49.jpeg', 
-    'image51.jpeg', 'image64.jpeg', 'image81.jpeg', 'auckland.jpg', 'auckland_city.png', 
-    'hero_bg.jpeg', 'nz_landscape.png', 'rotorua_geothermal.png', 'logo.png', 'hero.png'
+    'image1.jpeg', 'image2.png', 'image3.jpeg', 'image4.jpeg', 'image5.png', 'image6.png', 'image8.png', 'image9.jpeg',
+    'image10.png', 'image12.png', 'image13.png', 'image18.png', 'image20.jpeg', 'image21.jpeg', 'image22.jpeg',
+    'image27.jpeg', 'image29.png', 'image30.jpeg', 'image31.jpeg', 'image32.jpeg', 'image33.jpeg', 'image34.jpeg',
+    'image35.jpeg', 'image36.jpeg', 'image37.jpeg', 'image38.jpeg', 'image39.jpeg', 'image40.jpeg', 'image41.jpeg',
+    'image42.jpeg', 'image43.jpeg', 'image44.jpeg', 'image45.jpeg', 'image46.jpeg', 'image47.jpeg', 'image48.jpeg',
+    'image49.jpeg', 'image50.jpeg', 'image51.jpeg', 'image52.jpeg', 'image53.jpeg', 'image54.jpeg', 'image55.jpeg',
+    'image56.jpeg', 'image57.jpeg', 'image58.jpeg', 'image59.jpeg', 'image60.jpeg', 'image61.jpeg', 'image62.jpeg',
+    'image63.jpg', 'image64.jpeg', 'image65.jpeg', 'image66.jpeg', 'image67.jpeg', 'image68.jpeg', 'image69.jpeg',
+    'image70.jpeg', 'image71.jpeg', 'image72.jpeg', 'image73.jpeg', 'image74.jpeg', 'image75.jpeg', 'image76.jpeg',
+    'image77.jpeg', 'image78.jpeg', 'image79.jpeg', 'image80.jpeg', 'image81.jpeg', 'image82.jpeg', 'image83.jpeg',
+    'image84.jpeg', 'image85.jpeg', 'image86.jpeg', 'image87.jpeg', 'image88.jpeg', 'image89.jpeg', 'image93.jpeg', 'image97.png',
+    'auckland.jpg', 'auckland_city.png', 'hero.png', 'hero_bg.jpeg', 'nz_landscape.png', 'rotorua_geothermal.png', 'logo.png'
   ];
 
   const handleLogin = async (e) => {
@@ -106,53 +111,17 @@ const Admin = () => {
   if (!user) {
     return (
       <div className="admin-login-page page-padding" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-        <motion.div 
-          className="admin-glass-panel" 
-          style={{ padding: '3rem', width: '100%', maxWidth: '450px', textAlign: 'center' }}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-        >
+        <motion.div className="admin-glass-panel" style={{ padding: '3rem', width: '100%', maxWidth: '450px', textAlign: 'center' }} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
           <div style={{ marginBottom: '2rem' }}>
-            <div style={{ display: 'inline-flex', padding: '1rem', background: 'rgba(56, 189, 248, 0.1)', borderRadius: '1.5rem', marginBottom: '1rem' }}>
-              <ShieldCheck size={40} color="var(--primary-color)" />
-            </div>
+            <div style={{ display: 'inline-flex', padding: '1rem', background: 'rgba(56, 189, 248, 0.1)', borderRadius: '1.5rem', marginBottom: '1rem' }}><ShieldCheck size={40} color="var(--primary-color)" /></div>
             <h2 className="responsive-hero-title" style={{ fontSize: '2rem', margin: 0 }}>Secure Admin</h2>
             <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem' }}>Enter credentials to manage Happy Rides</p>
           </div>
-
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-            <div className="input-group">
-              <div style={{ position: 'relative' }}>
-                <Mail size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
-                <input 
-                  type="email" 
-                  className="input-field admin-glass-panel" 
-                  style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.03)' }}
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-            <div className="input-group">
-              <div style={{ position: 'relative' }}>
-                <Lock size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
-                <input 
-                  type="password" 
-                  className="input-field admin-glass-panel" 
-                  style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.03)' }}
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
+            <div className="input-group"><div style={{ position: 'relative' }}><Mail size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} /><input type="email" className="input-field admin-glass-panel" style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.03)' }} placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} required /></div></div>
+            <div className="input-group"><div style={{ position: 'relative' }}><Lock size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} /><input type="password" className="input-field admin-glass-panel" style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.03)' }} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required /></div></div>
             {authError && <p style={{ color: '#EF4444', fontSize: '0.9rem' }}>{authError}</p>}
-            <button className="btn-primary-glass admin-btn w-full" type="submit" disabled={isSubmitting} style={{ padding: '1.2rem', marginTop: '1rem' }}>
-              {isSubmitting ? 'Verifying...' : 'Access Dashboard'}
-            </button>
+            <button className="btn-primary-glass admin-btn w-full" type="submit" disabled={isSubmitting} style={{ padding: '1.2rem', marginTop: '1rem' }}>{isSubmitting ? 'Verifying...' : 'Access Dashboard'}</button>
           </form>
         </motion.div>
       </div>
@@ -163,23 +132,9 @@ const Admin = () => {
     <div className="admin-section">
       <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Performance</h2>
       <div className="responsive-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
-        <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
-          <Package size={32} color="var(--primary-color)" style={{ marginBottom: '1rem' }} />
-          <h3>Active Packages</h3>
-          <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>
-            {Object.values(siteData.packages).reduce((acc, curr) => acc + curr.length, 0)}
-          </p>
-        </div>
-        <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
-          <MessageSquare size={32} color="#10B981" style={{ marginBottom: '1rem' }} />
-          <h3>Reviews</h3>
-          <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{siteData.testimonials.length}</p>
-        </div>
-        <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
-          <Users size={32} color="#F59E0B" style={{ marginBottom: '1rem' }} />
-          <h3>Admin Team</h3>
-          <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{admins.length}</p>
-        </div>
+        <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}><Package size={32} color="var(--primary-color)" style={{ marginBottom: '1rem' }} /><h3>Active Packages</h3><p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{Object.values(siteData.packages).reduce((acc, curr) => acc + curr.length, 0)}</p></div>
+        <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}><MessageSquare size={32} color="#10B981" style={{ marginBottom: '1rem' }} /><h3>Reviews</h3><p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{siteData.testimonials.length}</p></div>
+        <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}><Users size={32} color="#F59E0B" style={{ marginBottom: '1rem' }} /><h3>Admin Team</h3><p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{admins.length}</p></div>
       </div>
     </div>
   );
@@ -188,27 +143,18 @@ const Admin = () => {
     <div className="admin-section">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <h2 className="responsive-hero-title">Admin Team</h2>
-        <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'team_add' })} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <UserPlus size={18} /> New Admin
-        </button>
+        <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'team_add' })} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><UserPlus size={18} /> New Admin</button>
       </div>
       <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {admins.map(admin => (
           <div key={admin.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <ShieldCheck size={20} color={admin.role === 'super_admin' ? '#F59E0B' : 'var(--primary-color)'} />
-              </div>
-              <div>
-                <h4 style={{ fontSize: '1.1rem' }}>{admin.email}</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>{admin.role.replace('_', ' ').toUpperCase()} • Created {new Date(admin.createdAt).toLocaleDateString()}</p>
-              </div>
+              <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ShieldCheck size={20} color={admin.role === 'super_admin' ? '#F59E0B' : 'var(--primary-color)'} /></div>
+              <div><h4 style={{ fontSize: '1.1rem' }}>{admin.email}</h4><p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>{admin.role.replace('_', ' ').toUpperCase()} • Created {new Date(admin.createdAt).toLocaleDateString()}</p></div>
             </div>
             <div style={{ display: 'flex', gap: '0.8rem' }}>
               <button className="btn-outline admin-btn" title="Reset Password" onClick={() => resetAdminPassword(admin.email)}><RefreshCw size={16} /></button>
-              {admin.email !== user.email && (
-                <button className="btn-outline admin-btn" style={{ color: '#EF4444' }} title="Remove Admin" onClick={() => window.confirm(`Remove ${admin.email}?`) && removeAdmin(admin.email)}><Trash2 size={16} /></button>
-              )}
+              {admin.email !== user.email && (<button className="btn-outline admin-btn" style={{ color: '#EF4444' }} title="Remove Admin" onClick={() => window.confirm(`Remove ${admin.email}?`) && removeAdmin(admin.email)}><Trash2 size={16} /></button>)}
             </div>
           </div>
         ))}
@@ -220,26 +166,19 @@ const Admin = () => {
     <div className="admin-section">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <h2 className="responsive-hero-title">Tour Packages</h2>
-        <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'package', mode: 'add', category: selectedCategory })} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Plus size={18} /> New Package
-        </button>
+        <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'package', mode: 'add', category: selectedCategory })} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Plus size={18} /> New Package</button>
       </div>
       <div className="category-tabs" style={{ display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '1rem', marginBottom: '2rem' }}>
         {Object.keys(siteData.packages).map(cat => (
-          <button key={cat} className={`pop-tag ${selectedCategory === cat ? 'active' : ''}`} onClick={() => setSelectedCategory(cat)} style={{ background: selectedCategory === cat ? 'var(--primary-color)' : 'rgba(255,255,255,0.05)', color: 'white', cursor: 'pointer', border: 'none', padding: '0.6rem 1.2rem', whiteSpace: 'nowrap' }}>
-            {cat.replace(/([A-Z])/g, ' $1').trim()}
-          </button>
+          <button key={cat} className={`pop-tag ${selectedCategory === cat ? 'active' : ''}`} onClick={() => setSelectedCategory(cat)} style={{ background: selectedCategory === cat ? 'var(--primary-color)' : 'rgba(255,255,255,0.05)', color: 'white', cursor: 'pointer', border: 'none', padding: '0.6rem 1.2rem', whiteSpace: 'nowrap' }}>{cat.replace(/([A-Z])/g, ' $1').trim()}</button>
         ))}
       </div>
       <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {siteData.packages[selectedCategory].map(pkg => (
           <div key={pkg.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <img src={pkg.image} alt="" style={{ width: '60px', height: '60px', borderRadius: '1rem', objectFit: 'cover', background: 'rgba(255,255,255,0.05)' }} />
-              <div>
-                <h4 style={{ fontSize: '1.2rem' }}>{pkg.title}</h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{pkg.price} • {pkg.duration}</p>
-              </div>
+              <img src={pkg.image?.startsWith('/') ? pkg.image : `/${pkg.image}`} alt="" style={{ width: '60px', height: '60px', borderRadius: '1rem', objectFit: 'cover', background: 'rgba(255,255,255,0.05)' }} />
+              <div><h4 style={{ fontSize: '1.2rem' }}>{pkg.title}</h4><p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{pkg.price} • {pkg.duration}</p></div>
             </div>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <button className="btn-outline admin-btn" onClick={() => setEditingItem({ ...pkg, type: 'package', mode: 'edit', category: selectedCategory })}><Edit3 size={18} /></button>
@@ -255,23 +194,36 @@ const Admin = () => {
     <div className="admin-section">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <h2 className="responsive-hero-title">Testimonials</h2>
-        <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'testimonial', mode: 'add' })} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Plus size={18} /> Add Review
-        </button>
+        <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'testimonial', mode: 'add' })} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Plus size={18} /> Add Review</button>
       </div>
       <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {siteData.testimonials.map(test => (
           <div key={test.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ flex: 1, paddingRight: '2rem' }}>
-              <h4 style={{ fontSize: '1.2rem', marginBottom: '0.2rem' }}>{test.name}</h4>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{test.location} • {test.rating} Stars</p>
-              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '0.5rem', fontStyle: 'italic' }}>"{test.text.substring(0, 80)}..."</p>
-            </div>
-            <button className="btn-outline admin-btn" style={{ color: '#EF4444', flexShrink: 0, width: '45px', height: '45px', padding: 0 }} onClick={() => removeTestimonial(test.id)}>
-              <Trash2 size={18} />
-            </button>
+            <div style={{ flex: 1, paddingRight: '2rem' }}><h4 style={{ fontSize: '1.2rem', marginBottom: '0.2rem' }}>{test.name}</h4><p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{test.location} • {test.rating} Stars</p><p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '0.5rem', fontStyle: 'italic' }}>"{test.text.substring(0, 80)}..."</p></div>
+            <button className="btn-outline admin-btn" style={{ color: '#EF4444', flexShrink: 0, width: '45px', height: '45px', padding: 0 }} onClick={() => removeTestimonial(test.id)}><Trash2 size={18} /></button>
           </div>
         ))}
+      </div>
+    </div>
+  );
+
+  const renderGallery = () => (
+    <div className="admin-section">
+      <div style={{ marginBottom: '3rem' }}>
+        <h2 className="responsive-hero-title">Asset Gallery</h2>
+        <p style={{ color: 'var(--text-muted)' }}>{availableAssets.length} images found in your public folder.</p>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '1.5rem', padding: '1rem' }}>
+        {availableAssets.map(asset => (
+          <div key={asset} className="admin-glass-panel" style={{ padding: '0.8rem', textAlign: 'center' }}>
+            <img src={`/${asset}`} alt={asset} style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '1rem', marginBottom: '0.8rem' }} />
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{asset}</p>
+          </div>
+        ))}
+      </div>
+      <div className="admin-glass-panel" style={{ padding: '2rem', marginTop: '3rem', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
+        <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}><ImageIcon size={20} color="var(--primary-color)" /> GitHub Sync</h4>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.6' }}>All images you just added to the folder have been pushed to GitHub. They are now available to be picked for any tour package.</p>
       </div>
     </div>
   );
@@ -282,23 +234,11 @@ const Admin = () => {
       <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '2rem' }}>
         <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)' }}>General Information</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
-          <div className="input-group">
-            <label className="input-label">Hero Headline</label>
-            <input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }} value={siteData.settings.heroTitle} onChange={(e) => updateSettings({ heroTitle: e.target.value })} />
-          </div>
-          <div className="input-group">
-            <label className="input-label">About Us Description</label>
-            <textarea className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem', height: '150px', resize: 'none' }} value={siteData.settings.aboutText} onChange={(e) => updateSettings({ aboutText: e.target.value })} />
-          </div>
+          <div className="input-group"><label className="input-label">Hero Headline</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }} value={siteData.settings.heroTitle} onChange={(e) => updateSettings({ heroTitle: e.target.value })} /></div>
+          <div className="input-group"><label className="input-label">About Us Description</label><textarea className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem', height: '150px', resize: 'none' }} value={siteData.settings.aboutText} onChange={(e) => updateSettings({ aboutText: e.target.value })} /></div>
           <div className="responsive-grid" style={{ gap: '2rem' }}>
-            <div className="input-group">
-              <label className="input-label">Contact Email</label>
-              <input type="email" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }} value={siteData.settings.contactEmail} onChange={(e) => updateSettings({ contactEmail: e.target.value })} />
-            </div>
-            <div className="input-group">
-              <label className="input-label">Contact Phone</label>
-              <input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }} value={siteData.settings.contactPhone} onChange={(e) => updateSettings({ contactPhone: e.target.value })} />
-            </div>
+            <div className="input-group"><label className="input-label">Contact Email</label><input type="email" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }} value={siteData.settings.contactEmail} onChange={(e) => updateSettings({ contactEmail: e.target.value })} /></div>
+            <div className="input-group"><label className="input-label">Contact Phone</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }} value={siteData.settings.contactPhone} onChange={(e) => updateSettings({ contactPhone: e.target.value })} /></div>
           </div>
         </div>
       </div>
@@ -317,27 +257,12 @@ const Admin = () => {
           <div className="content-container" style={{ width: '95%', maxWidth: '800px', paddingTop: '0' }}>
             <motion.div className="admin-glass-panel" style={{ padding: '2.5rem', background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.1)' }} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <UserPlus size={28} color="var(--primary-color)" />
-                  <h2 className="responsive-hero-title" style={{ fontSize: '2rem', margin: 0 }}>Register New Team Member</h2>
-                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}><UserPlus size={28} color="var(--primary-color)" /><h2 className="responsive-hero-title" style={{ fontSize: '2rem', margin: 0 }}>Register New Team Member</h2></div>
                 <button className="btn-outline admin-btn" onClick={() => setEditingItem(null)} style={{ border: 'none', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><X size={20} /></button>
               </div>
               <form onSubmit={handleCreateAdmin} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                <div className="input-group">
-                  <label className="input-label" style={{ opacity: 0.7 }}>Email Address</label>
-                  <div style={{ position: 'relative' }}>
-                    <Mail size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
-                    <input type="email" className="input-field admin-glass-panel" style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.02)' }} placeholder="admin@happyrides.co.nz" value={newAdminEmail} onChange={(e) => setNewAdminEmail(e.target.value)} required />
-                  </div>
-                </div>
-                <div className="input-group">
-                  <label className="input-label" style={{ opacity: 0.7 }}>Initial Password</label>
-                  <div style={{ position: 'relative' }}>
-                    <Lock size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
-                    <input type="password" className="input-field admin-glass-panel" style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.02)' }} placeholder="••••••••" value={newAdminPassword} onChange={(e) => setNewAdminPassword(e.target.value)} required />
-                  </div>
-                </div>
+                <div className="input-group"><label className="input-label" style={{ opacity: 0.7 }}>Email Address</label><div style={{ position: 'relative' }}><Mail size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} /><input type="email" className="input-field admin-glass-panel" style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.02)' }} placeholder="admin@happyrides.co.nz" value={newAdminEmail} onChange={(e) => setNewAdminEmail(e.target.value)} required /></div></div>
+                <div className="input-group"><label className="input-label" style={{ opacity: 0.7 }}>Initial Password</label><div style={{ position: 'relative' }}><Lock size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} /><input type="password" className="input-field admin-glass-panel" style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.02)' }} placeholder="••••••••" value={newAdminPassword} onChange={(e) => setNewAdminPassword(e.target.value)} required /></div></div>
                 <div style={{ gridColumn: '1 / -1' }}><button className="btn-primary-glass admin-btn w-full" type="submit" disabled={isSubmitting} style={{ padding: '1.2rem', fontSize: '1.1rem', fontWeight: 600 }}>{isSubmitting ? 'Processing...' : 'Add to Admin Team'}</button></div>
               </form>
             </motion.div>
@@ -361,24 +286,12 @@ const Admin = () => {
                     <div style={{ flexShrink: 0 }}>
                       <label className="input-label">Package Image</label>
                       <div style={{ position: 'relative', width: '120px', height: '120px' }}>
-                        <img 
-                          src={editingItem.image?.startsWith('/') ? editingItem.image : `/${editingItem.image}`} 
-                          alt="" 
-                          style={{ width: '120px', height: '120px', borderRadius: '1rem', objectFit: 'cover', border: '2px solid var(--primary-color)' }} 
-                        />
-                        <button 
-                          onClick={() => setIsGalleryOpen(true)}
-                          style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'white', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }}
-                        >
-                          <ImageIcon size={18} />
-                        </button>
+                        <img src={editingItem.image?.startsWith('/') ? editingItem.image : `/${editingItem.image}`} alt="" style={{ width: '120px', height: '120px', borderRadius: '1rem', objectFit: 'cover', border: '2px solid var(--primary-color)' }} />
+                        <button onClick={() => setIsGalleryOpen(true)} style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'white', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }}><ImageIcon size={18} /></button>
                       </div>
                     </div>
-                    <div style={{ flex: 1 }}>
-                      <div className="input-group"><label className="input-label">Title</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.title || ''} onChange={(e) => setEditingItem({...editingItem, title: e.target.value})} /></div>
-                    </div>
+                    <div style={{ flex: 1 }}><div className="input-group"><label className="input-label">Title</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.title || ''} onChange={(e) => setEditingItem({...editingItem, title: e.target.value})} /></div></div>
                   </div>
-                  
                   <div className="responsive-grid" style={{ gap: '2rem' }}>
                     <div className="input-group"><label className="input-label">Price</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.price || ''} onChange={(e) => setEditingItem({...editingItem, price: e.target.value})} /></div>
                     <div className="input-group"><label className="input-label">Duration</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.duration || ''} onChange={(e) => setEditingItem({...editingItem, duration: e.target.value})} /></div>
@@ -386,42 +299,18 @@ const Admin = () => {
                   <div className="input-group"><label className="input-label">Description</label><textarea className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '150px', resize: 'none' }} value={editingItem.description || ''} onChange={(e) => setEditingItem({...editingItem, description: e.target.value})} /></div>
                 </>
               ) : (
-                <>
-                  <div className="input-group"><label className="input-label">Name</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.name || ''} onChange={(e) => setEditingItem({...editingItem, name: e.target.value})} /></div>
-                  <div className="input-group"><label className="input-label">Location</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.location || ''} onChange={(e) => setEditingItem({...editingItem, location: e.target.value})} /></div>
-                  <div className="input-group"><label className="input-label">Review Text</label><textarea className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '120px', resize: 'none' }} value={editingItem.text || ''} onChange={(e) => setEditingItem({...editingItem, text: e.target.value})} /></div>
-                </>
+                <><div className="input-group"><label className="input-label">Name</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.name || ''} onChange={(e) => setEditingItem({...editingItem, name: e.target.value})} /></div><div className="input-group"><label className="input-label">Location</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.location || ''} onChange={(e) => setEditingItem({...editingItem, location: e.target.value})} /></div><div className="input-group"><label className="input-label">Review Text</label><textarea className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '120px', resize: 'none' }} value={editingItem.text || ''} onChange={(e) => setEditingItem({...editingItem, text: e.target.value})} /></div></>
               )}
-              <button className="btn-primary-glass admin-btn w-full" style={{ padding: '1.2rem', fontSize: '1.1rem', marginTop: '1rem' }} onClick={() => {
-                  if (isPackage) { if (editingItem.mode === 'add') addPackage(editingItem.category, editingItem); else updatePackage(editingItem.category, editingItem.id, editingItem); }
-                  else { addTestimonial(editingItem); }
-                  setEditingItem(null);
-                }}><Save size={20} style={{ marginRight: '0.5rem' }} /> Save Changes</button>
+              <button className="btn-primary-glass admin-btn w-full" style={{ padding: '1.2rem', fontSize: '1.1rem', marginTop: '1rem' }} onClick={() => { if (isPackage) { if (editingItem.mode === 'add') addPackage(editingItem.category, editingItem); else updatePackage(editingItem.category, editingItem.id, editingItem); } else { addTestimonial(editingItem); } setEditingItem(null); }}><Save size={20} style={{ marginRight: '0.5rem' }} /> Save Changes</button>
             </div>
-
-            {/* Nested Image Picker Modal */}
             <AnimatePresence>
               {isGalleryOpen && (
                 <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 3000, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
                   <motion.div className="admin-glass-panel" style={{ width: '100%', maxWidth: '900px', maxHeight: '80vh', overflowY: 'auto', padding: '2.5rem' }} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                      <h3 style={{ fontSize: '1.8rem' }}>Choose Image</h3>
-                      <button className="btn-outline admin-btn" onClick={() => setIsGalleryOpen(false)} style={{ border: 'none', background: 'rgba(255,255,255,0.1)', borderRadius: '50%', width: '40px', height: '40px' }}><X size={20} /></button>
-                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}><h3 style={{ fontSize: '1.8rem' }}>Choose Image</h3><button className="btn-outline admin-btn" onClick={() => setIsGalleryOpen(false)} style={{ border: 'none', background: 'rgba(255,255,255,0.1)', borderRadius: '50%', width: '40px', height: '40px' }}><X size={20} /></button></div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1.2rem' }}>
                       {availableAssets.map(asset => (
-                        <div 
-                          key={asset} 
-                          className={`admin-glass-panel ${editingItem.image === asset ? 'active' : ''}`} 
-                          style={{ padding: '0.5rem', cursor: 'pointer', border: editingItem.image === asset ? '2px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.1)' }}
-                          onClick={() => {
-                            setEditingItem({ ...editingItem, image: asset });
-                            setIsGalleryOpen(false);
-                          }}
-                        >
-                          <img src={`/${asset}`} alt="" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '0.8rem' }} />
-                          <p style={{ fontSize: '0.7rem', textAlign: 'center', marginTop: '0.5rem', opacity: 0.7 }}>{asset}</p>
-                        </div>
+                        <div key={asset} className={`admin-glass-panel ${editingItem.image === asset ? 'active' : ''}`} style={{ padding: '0.5rem', cursor: 'pointer', border: editingItem.image === asset ? '2px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.1)' }} onClick={() => { setEditingItem({ ...editingItem, image: asset }); setIsGalleryOpen(false); }}><img src={`/${asset}`} alt="" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '0.8rem' }} /><p style={{ fontSize: '0.7rem', textAlign: 'center', marginTop: '0.5rem', opacity: 0.7 }}>{asset}</p></div>
                       ))}
                     </div>
                   </motion.div>
@@ -433,49 +322,6 @@ const Admin = () => {
       </div>
     );
   };
-
-  const renderGallery = () => (
-    <div className="admin-section">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <div>
-          <h2 className="responsive-hero-title">Asset Gallery</h2>
-          <p style={{ color: 'var(--text-muted)' }}>All available images in your project folder.</p>
-        </div>
-      </div>
-      
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', 
-        gap: '1.5rem',
-        padding: '1rem'
-      }}>
-        {availableAssets.map(asset => (
-          <div key={asset} className="admin-glass-panel" style={{ padding: '0.8rem', textAlign: 'center' }}>
-            <img 
-              src={`/${asset}`} 
-              alt={asset} 
-              style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '1rem', marginBottom: '0.8rem' }} 
-            />
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {asset}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="admin-glass-panel" style={{ padding: '2rem', marginTop: '3rem', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
-        <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <ImageIcon size={20} color="var(--primary-color)" /> Note on Uploads
-        </h4>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.6' }}>
-          Because this website is hosted on Vercel, the local project folder is read-only during runtime. 
-          To add <strong>new</strong> pictures to this list, you must currently add them to the <code>public/</code> folder in your GitHub repository.
-          <br /><br />
-          If you want to upload pictures directly from this dashboard, we need to upgrade your Firebase plan to enable "Firebase Storage".
-        </p>
-      </div>
-    </div>
-  );
 
   return (
     <div className="admin-page page-wrapper">
@@ -494,10 +340,7 @@ const Admin = () => {
       <div className="category-nav-wrapper">
         <div className="category-nav" style={{ padding: '0.5rem' }}>
           {adminTabs.map((tab) => (
-            <motion.button key={tab.id} className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-              <span className="nav-icon">{tab.icon}</span>
-              <span className="nav-label">{tab.label}</span>
-            </motion.button>
+            <motion.button key={tab.id} className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}><span className="nav-icon">{tab.icon}</span><span className="nav-label">{tab.label}</span></motion.button>
           ))}
           <motion.button className="category-nav-item" style={{ color: '#EF4444' }} onClick={() => logout()} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}><span className="nav-icon"><LogOut size={18} /></span><span className="nav-label">Logout</span></motion.button>
         </div>
