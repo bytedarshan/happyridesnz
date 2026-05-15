@@ -5,51 +5,11 @@ import CategoryNav from '../components/CategoryNav';
 import { motion } from 'framer-motion';
 import { Star, Quote, User } from 'lucide-react';
 
+import { useSiteData } from '../context/SiteContext';
+
 const Testimonials = () => {
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      location: "Sydney, Australia",
-      text: "The Auckland City Tour was the highlight of our trip! The driver was professional and knew all the best spots for photos. The frosted glass design of the website really reflects the premium service they provide.",
-      rating: 5
-    },
-    {
-      id: 2,
-      name: "Mark Thompson",
-      location: "London, UK",
-      text: "Seamless airport transfer. I arrived after a long flight and having a friendly face waiting for me made all the difference. Highly recommend Happy Rides for anyone visiting New Zealand.",
-      rating: 5
-    },
-    {
-      id: 3,
-      name: "Emily Chen",
-      location: "Singapore",
-      text: "We booked the Rotorua day trip. The itinerary was perfectly balanced and the luxury transport was incredibly comfortable for the long drive. Five stars!",
-      rating: 5
-    },
-    {
-      id: 4,
-      name: "David Miller",
-      location: "New York, USA",
-      text: "Professional, punctual, and premium. Happy Rides handled our large group with ease. The Hobbiton tour was magical and the transport was top-notch.",
-      rating: 5
-    },
-    {
-      id: 5,
-      name: "Sofia Rodriguez",
-      location: "Madrid, Spain",
-      text: "The best way to see the North Island. Our driver was more like a local guide who shared so many stories about the culture and history. Truly a personalized experience.",
-      rating: 5
-    },
-    {
-      id: 6,
-      name: "James Wilson",
-      location: "Auckland, NZ",
-      text: "Even as a local, I use Happy Rides for corporate events. They are the most reliable luxury transport service in the city. Always a pleasure.",
-      rating: 5
-    }
-  ];
+  const { siteData } = useSiteData();
+  const testimonials = siteData.testimonials;
 
   const testimonialLinks = [
     { id: 'top', label: 'Back to Top' },

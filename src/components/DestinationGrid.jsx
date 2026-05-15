@@ -2,17 +2,20 @@ import React from 'react';
 import TourCard from './TourCard';
 import AirportTransfers from './AirportTransfers';
 import SliderSection from './SliderSection';
-import { 
-  aucklandCityTours, 
-  aucklandActivities, 
-  intercityTours,
-  rotoruaTours,
-  rotoruaActivities,
-  paihiaTours,
-  paihiaActivities
-} from '../data/mockData';
 
-const DestinationGrid = ({ onTourClick }) => {
+const DestinationGrid = ({ onTourClick, packages }) => {
+  if (!packages) return null;
+  
+  const { 
+    aucklandCityTours, 
+    aucklandActivities, 
+    intercityTours,
+    rotoruaTours,
+    rotoruaActivities,
+    paihiaTours,
+    paihiaActivities
+  } = packages;
+
   return (
     <main className="main-content">
       <AirportTransfers />

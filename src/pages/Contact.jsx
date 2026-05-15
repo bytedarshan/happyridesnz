@@ -3,7 +3,12 @@ import NavigationBar from '../components/NavigationBar';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
+import { useSiteData } from '../context/SiteContext';
+
 const Contact = () => {
+  const { siteData } = useSiteData();
+  const { contactEmail, contactPhone, contactAddress } = siteData.settings;
+
   return (
     <div className="page-wrapper">
       <NavigationBar />
@@ -31,21 +36,21 @@ const Contact = () => {
               <div className="icon-box" style={{ color: 'var(--primary-color)' }}><Mail /></div>
               <div>
                 <h4 style={{ margin: 0 }}>Email Us</h4>
-                <p style={{ margin: 0, color: 'var(--text-muted)' }}>info@happyrides.co.nz</p>
+                <p style={{ margin: 0, color: 'var(--text-muted)' }}>{contactEmail}</p>
               </div>
             </div>
             <div className="info-item glass-panel" style={{ padding: '2rem', marginBottom: '1.5rem', display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
               <div className="icon-box" style={{ color: 'var(--primary-color)' }}><Phone /></div>
               <div>
                 <h4 style={{ margin: 0 }}>Call Us</h4>
-                <p style={{ margin: 0, color: 'var(--text-muted)' }}>+64 21 244 0244</p>
+                <p style={{ margin: 0, color: 'var(--text-muted)' }}>{contactPhone}</p>
               </div>
             </div>
             <div className="info-item glass-panel" style={{ padding: '2rem', display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
               <div className="icon-box" style={{ color: 'var(--primary-color)' }}><MapPin /></div>
               <div>
                 <h4 style={{ margin: 0 }}>Visit Us</h4>
-                <p style={{ margin: 0, color: 'var(--text-muted)' }}>Auckland, New Zealand</p>
+                <p style={{ margin: 0, color: 'var(--text-muted)' }}>{contactAddress}</p>
               </div>
             </div>
           </motion.div>

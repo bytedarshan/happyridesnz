@@ -8,7 +8,11 @@ import { Shield, Clock, Car, MapPin, Home as HomeIcon, Info, Settings, Package }
 import aucklandImg from '../assets/auckland_city.png';
 import rotoruaImg from '../assets/rotorua_geothermal.png';
 
+import { useSiteData } from '../context/SiteContext';
+
 const Home = () => {
+  const { siteData } = useSiteData();
+  
   const homeLinks = [
     { id: 'hero', label: 'Home', icon: <HomeIcon size={18} /> },
     { id: 'about', label: 'About Us', icon: <Info size={18} /> },
@@ -21,7 +25,7 @@ const Home = () => {
       <NavigationBar />
       
       <div id="hero">
-        <HeroSection />
+        <HeroSection title={siteData.settings.heroTitle} />
       </div>
 
       {/* Brief About Us */}
@@ -34,7 +38,7 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <h2 className="section-title">Why Choose Happy Rides?</h2>
-            <p>Welcome to Happy Rides, your trusted partner for safe, reliable, and comfortable transport in New Zealand. We understand that travel can be stressful, which is why we are dedicated to taking that weight off your shoulders.</p>
+            <p>{siteData.settings.aboutText}</p>
             <div className="brief-features">
               <div className="brief-feature-item">
                 <Shield className="feature-icon" />

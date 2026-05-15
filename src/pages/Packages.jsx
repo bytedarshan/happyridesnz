@@ -6,8 +6,11 @@ import CategoryNav from '../components/CategoryNav';
 import { AnimatePresence } from 'framer-motion';
 import { MapPin, Plane, Car, Trees, Zap, Anchor, Compass } from 'lucide-react';
 
+import { useSiteData } from '../context/SiteContext';
+
 const Packages = () => {
   const [selectedTour, setSelectedTour] = useState(null);
+  const { siteData } = useSiteData();
 
   const packageLinks = [
     { id: 'city-tours', label: 'Auckland City', icon: <MapPin size={18} /> },
@@ -32,7 +35,7 @@ const Packages = () => {
                 Explore the beauty of New Zealand with our curated tours and activities.
               </p>
             </div>
-            <DestinationGrid onTourClick={setSelectedTour} />
+            <DestinationGrid onTourClick={setSelectedTour} packages={siteData.packages} />
             <CategoryNav links={packageLinks} />
           </div>
         ) : (

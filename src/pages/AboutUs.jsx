@@ -3,7 +3,11 @@ import NavigationBar from '../components/NavigationBar';
 import { motion } from 'framer-motion';
 import aucklandImg from '../assets/auckland_city.png';
 
+import { useSiteData } from '../context/SiteContext';
+
 const AboutUs = () => {
+  const { siteData } = useSiteData();
+  
   return (
     <div className="page-wrapper">
       <NavigationBar />
@@ -16,7 +20,7 @@ const AboutUs = () => {
         >
           <h1 className="responsive-hero-title">About Happy Rides</h1>
           <p className="logo-tagline" style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
-            We are dedicated to providing the safest, most reliable, and comfortable transport services across New Zealand.
+            {siteData.settings.aboutText}
           </p>
         </motion.div>
 

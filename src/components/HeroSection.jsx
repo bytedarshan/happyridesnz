@@ -4,7 +4,7 @@ import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import tour1 from '../assets/auckland.jpg';
 
-const HeroSection = () => {
+const HeroSection = ({ title }) => {
   return (
     <section className="hero-section">
       <div className="hero-main-layout">
@@ -14,7 +14,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h2 className="hero-title">Your Premium Getaway to New Zealand - Search, Compare & Save</h2>
+          <h2 className="hero-title">{title || "Your Premium Getaway to New Zealand - Search, Compare & Save"}</h2>
 
           <div className="hero-features">
             {[

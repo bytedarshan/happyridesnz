@@ -1310,6 +1310,71 @@ body {
   width: 100%;
 }
 
+/* Form & Admin Styles */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.input-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.input-field {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+}
+
+.admin-section {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.admin-login-page {
+  background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.05), transparent),
+              radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.05), transparent);
+}
+
+/* Category Nav Overlap Fix */
+.category-nav-wrapper {
+  z-index: 1500;
+}
+
 /* Intelligent Floating Navigation - Exact Reference Match */
 .category-nav-wrapper {
   position: fixed;

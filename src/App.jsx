@@ -9,29 +9,34 @@ import Testimonials from './pages/Testimonials';
 import CustomCursor from './components/CustomCursor';
 import Footer from './components/Footer';
 import heroBg from './assets/hero_bg.jpeg';
+import Admin from './pages/Admin';
+import { SiteProvider } from './context/SiteContext';
 import './index.css';
 
 function App() {
   return (
-    <Router>
-      <div className="app-wrapper">
-        <CustomCursor />
+    <SiteProvider>
+      <Router>
+        <div className="app-wrapper">
+          <CustomCursor />
 
-        {/* Global dark background image for the glass effect */}
-        <img src={heroBg} className="global-bg" alt="background" />
+          {/* Global dark background image for the glass effect */}
+          <img src={heroBg} className="global-bg" alt="background" />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/packages" element={<Packages />} />
-          <Route path="/testimonials" element={<Testimonials />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/packages" element={<Packages />} />
+            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/admin" element={<Admin />} />
+          </Routes>
 
-        <Footer />
-      </div>
-    </Router>
+          <Footer />
+        </div>
+      </Router>
+    </SiteProvider>
   );
 }
 

@@ -1,17 +1,18 @@
 import React from 'react';
 import NavigationBar from '../components/NavigationBar';
 import { motion } from 'framer-motion';
-import { Plane, Building, Users, Map, Clock, Shield } from 'lucide-react';
+import { useSiteData } from '../context/SiteContext';
+import { Plane, Building, Users, Map, Clock, Shield, Car } from 'lucide-react';
 
 const Services = () => {
-  const allServices = [
-    { icon: <Plane size={40} />, title: 'Airport Transfers', desc: 'Reliable and punctual transfers to and from all major airports. We monitor your flight to ensure we are there when you land.' },
-    { icon: <Building size={40} />, title: 'Corporate Travel', desc: 'Discreet and professional transport for business professionals. Priority bookings and dedicated accounts available.' },
-    { icon: <Users size={40} />, title: 'Group Transfers', desc: 'Spacious vehicles perfect for families or large groups. Ideal for events, weddings, and group tours.' },
-    { icon: <Map size={40} />, title: 'Custom Tours', desc: 'Tailor-made itineraries to explore New Zealand at your own pace. Choose your destinations and we handle the rest.' },
-    { icon: <Clock size={40} />, title: '24/7 Availability', desc: 'We operate around the clock. Day or night, Happy Rides is just a booking away.' },
-    { icon: <Shield size={40} />, title: 'Safety First', desc: 'Our vehicles undergo regular safety inspections, and our drivers are fully vetted and professionally trained.' },
-  ];
+  const { siteData } = useSiteData();
+  
+  const icons = [<Plane size={40} />, <Building size={40} />, <Users size={40} />, <Map size={40} />, <Clock size={40} />, <Shield size={40} />];
+  
+  const allServices = siteData.services.map((s, i) => ({
+    ...s,
+    icon: icons[i] || <Car size={40} />
+  }));
 
   return (
     <div className="page-wrapper">
