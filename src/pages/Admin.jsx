@@ -56,6 +56,14 @@ const Admin = () => {
   const [newAdminPassword, setNewAdminPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+
+  const availableAssets = [
+    'tour1.jpeg', 'tour2.jpeg', 'tour3.jpeg', 'tour4.jpeg', 'tour5.jpeg', 'tour6.jpeg', 'tour7.jpeg',
+    'image20.jpeg', 'image37.jpeg', 'image38.jpeg', 'image39.jpeg', 'image42.jpeg', 'image49.jpeg', 
+    'image51.jpeg', 'image64.jpeg', 'image81.jpeg', 'auckland.jpg', 'auckland_city.png', 
+    'hero_bg.jpeg', 'nz_landscape.png', 'rotorua_geothermal.png', 'logo.png', 'hero.png'
+  ];
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -91,6 +99,7 @@ const Admin = () => {
     { id: 'packages', label: 'Tours', icon: <Package size={18} /> },
     { id: 'testimonials', label: 'Reviews', icon: <MessageSquare size={18} /> },
     { id: 'team', label: 'Team', icon: <Users size={18} /> },
+    { id: 'gallery', label: 'Gallery', icon: <ImageIcon size={18} /> },
     { id: 'settings', label: 'Global', icon: <Settings size={18} /> }
   ];
 
@@ -348,7 +357,28 @@ const Admin = () => {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
               {isPackage ? (
                 <>
-                  <div className="input-group"><label className="input-label">Title</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.title || ''} onChange={(e) => setEditingItem({...editingItem, title: e.target.value})} /></div>
+                  <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
+                    <div style={{ flexShrink: 0 }}>
+                      <label className="input-label">Package Image</label>
+                      <div style={{ position: 'relative', width: '120px', height: '120px' }}>
+                        <img 
+                          src={editingItem.image?.startsWith('/') ? editingItem.image : `/${editingItem.image}`} 
+                          alt="" 
+                          style={{ width: '120px', height: '120px', borderRadius: '1rem', objectFit: 'cover', border: '2px solid var(--primary-color)' }} 
+                        />
+                        <button 
+                          onClick={() => setIsGalleryOpen(true)}
+                          style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'white', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }}
+                        >
+                          <ImageIcon size={18} />
+                        </button>
+                      </div>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div className="input-group"><label className="input-label">Title</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.title || ''} onChange={(e) => setEditingItem({...editingItem, title: e.target.value})} /></div>
+                    </div>
+                  </div>
+                  
                   <div className="responsive-grid" style={{ gap: '2rem' }}>
                     <div className="input-group"><label className="input-label">Price</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.price || ''} onChange={(e) => setEditingItem({...editingItem, price: e.target.value})} /></div>
                     <div className="input-group"><label className="input-label">Duration</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.duration || ''} onChange={(e) => setEditingItem({...editingItem, duration: e.target.value})} /></div>
@@ -368,11 +398,84 @@ const Admin = () => {
                   setEditingItem(null);
                 }}><Save size={20} style={{ marginRight: '0.5rem' }} /> Save Changes</button>
             </div>
+
+            {/* Nested Image Picker Modal */}
+            <AnimatePresence>
+              {isGalleryOpen && (
+                <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 3000, background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
+                  <motion.div className="admin-glass-panel" style={{ width: '100%', maxWidth: '900px', maxHeight: '80vh', overflowY: 'auto', padding: '2.5rem' }} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                      <h3 style={{ fontSize: '1.8rem' }}>Choose Image</h3>
+                      <button className="btn-outline admin-btn" onClick={() => setIsGalleryOpen(false)} style={{ border: 'none', background: 'rgba(255,255,255,0.1)', borderRadius: '50%', width: '40px', height: '40px' }}><X size={20} /></button>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1.2rem' }}>
+                      {availableAssets.map(asset => (
+                        <div 
+                          key={asset} 
+                          className={`admin-glass-panel ${editingItem.image === asset ? 'active' : ''}`} 
+                          style={{ padding: '0.5rem', cursor: 'pointer', border: editingItem.image === asset ? '2px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.1)' }}
+                          onClick={() => {
+                            setEditingItem({ ...editingItem, image: asset });
+                            setIsGalleryOpen(false);
+                          }}
+                        >
+                          <img src={`/${asset}`} alt="" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '0.8rem' }} />
+                          <p style={{ fontSize: '0.7rem', textAlign: 'center', marginTop: '0.5rem', opacity: 0.7 }}>{asset}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                </div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       </div>
     );
   };
+
+  const renderGallery = () => (
+    <div className="admin-section">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <div>
+          <h2 className="responsive-hero-title">Asset Gallery</h2>
+          <p style={{ color: 'var(--text-muted)' }}>All available images in your project folder.</p>
+        </div>
+      </div>
+      
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', 
+        gap: '1.5rem',
+        padding: '1rem'
+      }}>
+        {availableAssets.map(asset => (
+          <div key={asset} className="admin-glass-panel" style={{ padding: '0.8rem', textAlign: 'center' }}>
+            <img 
+              src={`/${asset}`} 
+              alt={asset} 
+              style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '1rem', marginBottom: '0.8rem' }} 
+            />
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {asset}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="admin-glass-panel" style={{ padding: '2rem', marginTop: '3rem', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
+        <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+          <ImageIcon size={20} color="var(--primary-color)" /> Note on Uploads
+        </h4>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: '1.6' }}>
+          Because this website is hosted on Vercel, the local project folder is read-only during runtime. 
+          To add <strong>new</strong> pictures to this list, you must currently add them to the <code>public/</code> folder in your GitHub repository.
+          <br /><br />
+          If you want to upload pictures directly from this dashboard, we need to upgrade your Firebase plan to enable "Firebase Storage".
+        </p>
+      </div>
+    </div>
+  );
 
   return (
     <div className="admin-page page-wrapper">
@@ -383,6 +486,7 @@ const Admin = () => {
           {activeTab === 'packages' && <motion.div key="pkg" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{renderPackages()}</motion.div>}
           {activeTab === 'testimonials' && <motion.div key="test" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{renderTestimonials()}</motion.div>}
           {activeTab === 'team' && <motion.div key="team" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{renderTeam()}</motion.div>}
+          {activeTab === 'gallery' && <motion.div key="gal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{renderGallery()}</motion.div>}
           {activeTab === 'settings' && <motion.div key="set" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{renderSettings()}</motion.div>}
         </AnimatePresence>
       </div>
