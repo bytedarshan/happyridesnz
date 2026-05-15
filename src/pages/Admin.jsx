@@ -190,7 +190,7 @@ const Admin = () => {
 
       <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {admins.map(admin => (
-          <div key={admin.id} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div key={admin.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <ShieldCheck size={20} color={admin.role === 'super_admin' ? '#F59E0B' : 'var(--primary-color)'} />
@@ -264,7 +264,7 @@ const Admin = () => {
 
       <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {siteData.packages[selectedCategory].map(pkg => (
-          <div key={pkg.id} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div key={pkg.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
               <img src={pkg.image} alt="" style={{ width: '60px', height: '60px', borderRadius: '1rem', objectFit: 'cover' }} />
               <div>
@@ -301,7 +301,7 @@ const Admin = () => {
 
       <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {siteData.testimonials.map(test => (
-          <div key={test.id} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div key={test.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
               <h4 style={{ fontSize: '1.2rem' }}>{test.name}</h4>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{test.location} • {test.rating} Stars</p>
@@ -318,7 +318,7 @@ const Admin = () => {
   const renderSettings = () => (
     <div className="admin-section">
       <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Configuration</h2>
-      <div className="glass-panel" style={{ padding: '3rem', marginBottom: '2rem' }}>
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '2rem' }}>
         <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)' }}>General Information</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
           <div className="input-group">
@@ -365,14 +365,14 @@ const Admin = () => {
         </div>
       </div>
 
-      <div className="glass-panel" style={{ padding: '3rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+      <div className="admin-glass-panel" style={{ padding: '3rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
         <h3 style={{ marginBottom: '1rem', color: '#EF4444' }}>Danger Zone</h3>
         <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>
           If your images are not showing or you want to restore all original tour packages from the PPT, click the button below. This will overwrite all current site content.
         </p>
         <button 
-          className="btn-outline" 
-          style={{ borderColor: '#EF4444', color: '#EF4444', padding: '1rem 2rem' }}
+          className="btn-outline admin-btn" 
+          style={{ borderColor: '#EF4444', color: '#EF4444', padding: '1rem 2rem', cursor: 'pointer' }}
           onClick={() => resetSiteData()}
         >
           Reset Site Data & Images

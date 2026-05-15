@@ -89,8 +89,36 @@ body {
 }
 
 .glass-panel:active {
-  transform: scale(0.96); /* Clean compression */
-  transition-duration: 0.2s;
+  transform: scale(0.98); /* Clean compression */
+  transition-duration: 0.1s;
+}
+
+/* Admin Specific Glass - No Bounce */
+.admin-glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 2rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+}
+
+.admin-glass-panel:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.admin-btn {
+  transition: all 0.2s ease;
+}
+
+.admin-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.admin-btn:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* Refined Liquid Scroll Arrival */
