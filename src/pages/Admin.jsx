@@ -384,26 +384,26 @@ const Admin = () => {
   const renderEditor = () => {
     if (editingItem.type === 'team_add') {
       return (
-        <div className="admin-editor page-padding" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.9)', backdropFilter: 'blur(20px)', overflowY: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div className="content-container" style={{ width: '100%', maxWidth: '600px', paddingTop: '0' }}>
-            <motion.div className="glass-panel" style={{ padding: '4rem' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+        <div className="admin-editor page-padding" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', overflowY: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="content-container" style={{ width: '95%', maxWidth: '800px', paddingTop: '0' }}>
+            <motion.div className="glass-panel" style={{ padding: '2.5rem', background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.1)' }} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <UserPlus size={32} color="var(--primary-color)" />
-                  <h2 className="responsive-hero-title" style={{ fontSize: '2.5rem', margin: 0 }}>Add Admin</h2>
+                  <UserPlus size={28} color="var(--primary-color)" />
+                  <h2 className="responsive-hero-title" style={{ fontSize: '2rem', margin: 0 }}>Register New Team Member</h2>
                 </div>
-                <button className="btn-outline" onClick={() => setEditingItem(null)} style={{ padding: '0.8rem' }}><X size={24} /></button>
+                <button className="btn-outline" onClick={() => setEditingItem(null)} style={{ border: 'none', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><X size={20} /></button>
               </div>
               
-              <form onSubmit={handleCreateAdmin} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              <form onSubmit={handleCreateAdmin} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
                 <div className="input-group">
-                  <label className="input-label" style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Full Email Address</label>
+                  <label className="input-label" style={{ opacity: 0.7 }}>Email Address</label>
                   <div style={{ position: 'relative' }}>
-                    <Mail size={20} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
+                    <Mail size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
                     <input 
                       type="email" 
                       className="input-field glass-panel" 
-                      style={{ padding: '1.5rem 1.5rem 1.5rem 3.8rem', background: 'rgba(255,255,255,0.05)', fontSize: '1.1rem' }} 
+                      style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.02)' }} 
                       placeholder="admin@happyrides.co.nz"
                       value={newAdminEmail} 
                       onChange={(e) => setNewAdminEmail(e.target.value)} 
@@ -412,13 +412,13 @@ const Admin = () => {
                   </div>
                 </div>
                 <div className="input-group">
-                  <label className="input-label" style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Secure Password</label>
+                  <label className="input-label" style={{ opacity: 0.7 }}>Initial Password</label>
                   <div style={{ position: 'relative' }}>
-                    <Lock size={20} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
+                    <Lock size={18} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
                     <input 
                       type="password" 
                       className="input-field glass-panel" 
-                      style={{ padding: '1.5rem 1.5rem 1.5rem 3.8rem', background: 'rgba(255,255,255,0.05)', fontSize: '1.1rem' }} 
+                      style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.02)' }} 
                       placeholder="••••••••"
                       value={newAdminPassword} 
                       onChange={(e) => setNewAdminPassword(e.target.value)} 
@@ -426,14 +426,16 @@ const Admin = () => {
                     />
                   </div>
                 </div>
-                <button 
-                  className="btn-primary-glass w-full" 
-                  type="submit" 
-                  disabled={isSubmitting} 
-                  style={{ padding: '1.5rem', fontSize: '1.2rem', marginTop: '1rem', fontWeight: 700 }}
-                >
-                  {isSubmitting ? 'Registering...' : 'Confirm Registration'}
-                </button>
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <button 
+                    className="btn-primary-glass w-full" 
+                    type="submit" 
+                    disabled={isSubmitting} 
+                    style={{ padding: '1.2rem', fontSize: '1.1rem', fontWeight: 600 }}
+                  >
+                    {isSubmitting ? 'Processing...' : 'Add to Admin Team'}
+                  </button>
+                </div>
               </form>
             </motion.div>
           </div>
