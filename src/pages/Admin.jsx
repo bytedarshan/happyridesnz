@@ -19,7 +19,9 @@ import {
   UserPlus,
   ShieldCheck,
   Mail,
-  Lock
+  Lock,
+  RefreshCw,
+  Users
 } from 'lucide-react';
 import { useSiteData } from '../context/SiteContext';
 import NavigationBar from '../components/NavigationBar';
@@ -27,10 +29,13 @@ import NavigationBar from '../components/NavigationBar';
 const Admin = () => {
   const { 
     siteData, 
+    admins,
     user,
     login,
     logout,
     createAdmin,
+    removeAdmin,
+    resetAdminPassword,
     updateSettings, 
     addPackage, 
     updatePackage, 
@@ -49,35 +54,42 @@ const Admin = () => {
   const [newAdminEmail, setNewAdminEmail] = useState('');
   const [newAdminPassword, setNewAdminPassword] = useState('');
   const [authError, setAuthError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setAuthError('');
+    setIsSubmitting(true);
     try {
       await login(email, password);
     } catch (error) {
-      setAuthError('Invalid credentials. Please try again.');
+      setAuthError('Invalid credentials or unauthorized account.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleCreateAdmin = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       await createAdmin(newAdminEmail, newAdminPassword);
-      alert('New admin created successfully!');
+      alert('New admin registered successfully!');
       setNewAdminEmail('');
       setNewAdminPassword('');
     } catch (error) {
-      alert('Error creating admin: ' + error.message);
+      alert('Error: ' + error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const adminTabs = [
-    { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={18} /> },
-    { id: 'packages', label: 'Packages', icon: <Package size={18} /> },
-    { id: 'testimonials', label: 'Testimonials', icon: <MessageSquare size={18} /> },
-    { id: 'team', label: 'Admins', icon: <UserPlus size={18} /> },
-    { id: 'settings', label: 'Settings', icon: <Settings size={18} /> }
+    { id: 'dashboard', label: 'Stats', icon: <LayoutDashboard size={18} /> },
+    { id: 'packages', label: 'Tours', icon: <Package size={18} /> },
+    { id: 'testimonials', label: 'Reviews', icon: <MessageSquare size={18} /> },
+    { id: 'team', label: 'Team', icon: <Users size={18} /> },
+    { id: 'settings', label: 'Global', icon: <Settings size={18} /> }
   ];
 
   if (!user) {
@@ -93,8 +105,8 @@ const Admin = () => {
             <div style={{ display: 'inline-flex', padding: '1rem', background: 'rgba(56, 189, 248, 0.1)', borderRadius: '1.5rem', marginBottom: '1rem' }}>
               <ShieldCheck size={40} color="var(--primary-color)" />
             </div>
-            <h2 className="responsive-hero-title" style={{ fontSize: '2rem', margin: 0 }}>Secure Admin Entry</h2>
-            <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem' }}>Authorized access only</p>
+            <h2 className="responsive-hero-title" style={{ fontSize: '2rem', margin: 0 }}>Secure Admin</h2>
+            <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem' }}>Enter credentials to manage Happy Rides</p>
           </div>
 
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
@@ -105,7 +117,7 @@ const Admin = () => {
                   type="email" 
                   className="input-field glass-panel" 
                   style={{ padding: '1.2rem 1.2rem 1.2rem 3.5rem', background: 'rgba(255,255,255,0.03)' }}
-                  placeholder="Admin Email"
+                  placeholder="Email Address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -129,8 +141,8 @@ const Admin = () => {
             
             {authError && <p style={{ color: '#EF4444', fontSize: '0.9rem' }}>{authError}</p>}
             
-            <button className="btn-primary-glass w-full" type="submit" style={{ padding: '1.2rem', marginTop: '1rem' }}>
-              Verify & Login
+            <button className="btn-primary-glass w-full" type="submit" disabled={isSubmitting} style={{ padding: '1.2rem', marginTop: '1rem' }}>
+              {isSubmitting ? 'Verifying...' : 'Access Dashboard'}
             </button>
           </form>
         </motion.div>
@@ -140,25 +152,79 @@ const Admin = () => {
 
   const renderDashboard = () => (
     <div className="admin-section">
-      <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Overview</h2>
+      <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Performance</h2>
       <div className="responsive-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
         <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
           <Package size={32} color="var(--primary-color)" style={{ marginBottom: '1rem' }} />
-          <h3>Total Packages</h3>
+          <h3>Active Packages</h3>
           <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>
             {Object.values(siteData.packages).reduce((acc, curr) => acc + curr.length, 0)}
           </p>
         </div>
         <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
           <MessageSquare size={32} color="#10B981" style={{ marginBottom: '1rem' }} />
-          <h3>Testimonials</h3>
+          <h3>Reviews</h3>
           <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{siteData.testimonials.length}</p>
         </div>
         <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
-          <ShieldCheck size={32} color="#F59E0B" style={{ marginBottom: '1rem' }} />
-          <h3>Admin Status</h3>
-          <p style={{ fontSize: '1rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user.email}</p>
+          <Users size={32} color="#F59E0B" style={{ marginBottom: '1rem' }} />
+          <h3>Admin Team</h3>
+          <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{admins.length}</p>
         </div>
+      </div>
+    </div>
+  );
+
+  const renderTeam = () => (
+    <div className="admin-section">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+        <h2 className="responsive-hero-title">Admin Team</h2>
+        <button 
+          className="btn-primary-glass" 
+          onClick={() => setEditingItem({ type: 'team_add' })}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+        >
+          <UserPlus size={18} /> New Admin
+        </button>
+      </div>
+
+      <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        {admins.map(admin => (
+          <div key={admin.id} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <ShieldCheck size={20} color={admin.role === 'super_admin' ? '#F59E0B' : 'var(--primary-color)'} />
+              </div>
+              <div>
+                <h4 style={{ fontSize: '1.1rem' }}>{admin.email}</h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>{admin.role.replace('_', ' ').toUpperCase()} • Created {new Date(admin.createdAt).toLocaleDateString()}</p>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.8rem' }}>
+              <button 
+                className="btn-outline" 
+                title="Reset Password"
+                onClick={() => resetAdminPassword(admin.email)}
+              >
+                <RefreshCw size={16} />
+              </button>
+              {admin.email !== user.email && (
+                <button 
+                  className="btn-outline" 
+                  style={{ color: '#EF4444' }} 
+                  title="Remove Admin"
+                  onClick={() => {
+                    if (window.confirm(`Are you sure you want to remove access for ${admin.email}?`)) {
+                      removeAdmin(admin.email);
+                    }
+                  }}
+                >
+                  <Trash2 size={16} />
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -166,7 +232,7 @@ const Admin = () => {
   const renderPackages = () => (
     <div className="admin-section">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
-        <h2 className="responsive-hero-title">Manage Packages</h2>
+        <h2 className="responsive-hero-title">Tour Packages</h2>
         <button 
           className="btn-primary-glass" 
           onClick={() => setEditingItem({ type: 'package', mode: 'add', category: selectedCategory })}
@@ -220,47 +286,6 @@ const Admin = () => {
     </div>
   );
 
-  const renderTeam = () => (
-    <div className="admin-section">
-      <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Admin Team Management</h2>
-      <div className="glass-panel" style={{ padding: '3rem', maxWidth: '600px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <UserPlus size={40} color="var(--primary-color)" style={{ marginBottom: '1rem' }} />
-          <h3>Add New Administrator</h3>
-          <p style={{ color: 'var(--text-muted)' }}>This will create a new login credential for your team.</p>
-        </div>
-        
-        <form onSubmit={handleCreateAdmin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <div className="input-group">
-            <label className="input-label">New Admin Email</label>
-            <input 
-              type="email" 
-              className="input-field glass-panel" 
-              style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }}
-              value={newAdminEmail}
-              onChange={(e) => setNewAdminEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label className="input-label">Initial Password</label>
-            <input 
-              type="password" 
-              className="input-field glass-panel" 
-              style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }}
-              value={newAdminPassword}
-              onChange={(e) => setNewAdminPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button className="btn-primary-glass w-full" type="submit" style={{ padding: '1.2rem' }}>
-            Register New Admin
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-
   const renderTestimonials = () => (
     <div className="admin-section">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
@@ -292,7 +317,7 @@ const Admin = () => {
 
   const renderSettings = () => (
     <div className="admin-section">
-      <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Global Settings</h2>
+      <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Configuration</h2>
       <div className="glass-panel" style={{ padding: '3rem' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
           <div className="input-group">
@@ -342,119 +367,65 @@ const Admin = () => {
   );
 
   const renderEditor = () => {
+    if (editingItem.type === 'team_add') {
+      return (
+        <div className="admin-editor page-padding" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.9)', backdropFilter: 'blur(20px)', overflowY: 'auto' }}>
+          <div className="content-container" style={{ maxWidth: '500px', paddingTop: '100px' }}>
+            <motion.div className="glass-panel" style={{ padding: '3rem' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                <h2 className="responsive-hero-title" style={{ fontSize: '1.8rem' }}>New Admin</h2>
+                <button className="btn-outline" onClick={() => setEditingItem(null)}><X size={24} /></button>
+              </div>
+              <form onSubmit={handleCreateAdmin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div className="input-group">
+                  <label className="input-label">Email Address</label>
+                  <input type="email" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={newAdminEmail} onChange={(e) => setNewAdminEmail(e.target.value)} required />
+                </div>
+                <div className="input-group">
+                  <label className="input-label">Initial Password</label>
+                  <input type="password" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={newAdminPassword} onChange={(e) => setNewAdminPassword(e.target.value)} required />
+                </div>
+                <button className="btn-primary-glass w-full" type="submit" disabled={isSubmitting} style={{ padding: '1.2rem' }}>
+                  {isSubmitting ? 'Registering...' : 'Add to Team'}
+                </button>
+              </form>
+            </motion.div>
+          </div>
+        </div>
+      );
+    }
+
     const isPackage = editingItem.type === 'package';
-    
     return (
       <div className="admin-editor page-padding" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.9)', backdropFilter: 'blur(20px)', overflowY: 'auto' }}>
         <div className="content-container" style={{ maxWidth: '800px', paddingTop: '100px' }}>
-          <motion.div 
-            className="glass-panel" 
-            style={{ padding: '3rem' }}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
+          <motion.div className="glass-panel" style={{ padding: '3rem' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
               <h2 className="responsive-hero-title">{editingItem.mode === 'add' ? 'Add New' : 'Edit'} {isPackage ? 'Package' : 'Testimonial'}</h2>
               <button className="btn-outline" onClick={() => setEditingItem(null)}><X size={24} /></button>
             </div>
-
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
               {isPackage ? (
                 <>
-                  <div className="input-group">
-                    <label className="input-label">Title</label>
-                    <input 
-                      type="text" 
-                      className="input-field glass-panel" 
-                      style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }}
-                      value={editingItem.title || ''}
-                      onChange={(e) => setEditingItem({...editingItem, title: e.target.value})}
-                    />
-                  </div>
+                  <div className="input-group"><label className="input-label">Title</label><input type="text" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.title || ''} onChange={(e) => setEditingItem({...editingItem, title: e.target.value})} /></div>
                   <div className="responsive-grid" style={{ gap: '2rem' }}>
-                    <div className="input-group">
-                      <label className="input-label">Price</label>
-                      <input 
-                        type="text" 
-                        className="input-field glass-panel" 
-                        style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }}
-                        value={editingItem.price || ''}
-                        onChange={(e) => setEditingItem({...editingItem, price: e.target.value})}
-                      />
-                    </div>
-                    <div className="input-group">
-                      <label className="input-label">Duration</label>
-                      <input 
-                        type="text" 
-                        className="input-field glass-panel" 
-                        style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }}
-                        value={editingItem.duration || ''}
-                        onChange={(e) => setEditingItem({...editingItem, duration: e.target.value})}
-                      />
-                    </div>
+                    <div className="input-group"><label className="input-label">Price</label><input type="text" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.price || ''} onChange={(e) => setEditingItem({...editingItem, price: e.target.value})} /></div>
+                    <div className="input-group"><label className="input-label">Duration</label><input type="text" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.duration || ''} onChange={(e) => setEditingItem({...editingItem, duration: e.target.value})} /></div>
                   </div>
-                  <div className="input-group">
-                    <label className="input-label">Description</label>
-                    <textarea 
-                      className="input-field glass-panel" 
-                      style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '150px', resize: 'none' }}
-                      value={editingItem.description || ''}
-                      onChange={(e) => setEditingItem({...editingItem, description: e.target.value})}
-                    />
-                  </div>
+                  <div className="input-group"><label className="input-label">Description</label><textarea className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '150px', resize: 'none' }} value={editingItem.description || ''} onChange={(e) => setEditingItem({...editingItem, description: e.target.value})} /></div>
                 </>
               ) : (
                 <>
-                  <div className="input-group">
-                    <label className="input-label">Name</label>
-                    <input 
-                      type="text" 
-                      className="input-field glass-panel" 
-                      style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }}
-                      value={editingItem.name || ''}
-                      onChange={(e) => setEditingItem({...editingItem, name: e.target.value})}
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label className="input-label">Location</label>
-                    <input 
-                      type="text" 
-                      className="input-field glass-panel" 
-                      style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }}
-                      value={editingItem.location || ''}
-                      onChange={(e) => setEditingItem({...editingItem, location: e.target.value})}
-                    />
-                  </div>
-                  <div className="input-group">
-                    <label className="input-label">Review Text</label>
-                    <textarea 
-                      className="input-field glass-panel" 
-                      style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '120px', resize: 'none' }}
-                      value={editingItem.text || ''}
-                      onChange={(e) => setEditingItem({...editingItem, text: e.target.value})}
-                    />
-                  </div>
+                  <div className="input-group"><label className="input-label">Name</label><input type="text" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.name || ''} onChange={(e) => setEditingItem({...editingItem, name: e.target.value})} /></div>
+                  <div className="input-group"><label className="input-label">Location</label><input type="text" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={editingItem.location || ''} onChange={(e) => setEditingItem({...editingItem, location: e.target.value})} /></div>
+                  <div className="input-group"><label className="input-label">Review Text</label><textarea className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '120px', resize: 'none' }} value={editingItem.text || ''} onChange={(e) => setEditingItem({...editingItem, text: e.target.value})} /></div>
                 </>
               )}
-
-              <button 
-                className="btn-primary-glass w-full" 
-                style={{ padding: '1.2rem', fontSize: '1.1rem', marginTop: '1rem' }}
-                onClick={() => {
-                  if (isPackage) {
-                    if (editingItem.mode === 'add') {
-                      addPackage(editingItem.category, editingItem);
-                    } else {
-                      updatePackage(editingItem.category, editingItem.id, editingItem);
-                    }
-                  } else {
-                    addTestimonial(editingItem);
-                  }
+              <button className="btn-primary-glass w-full" style={{ padding: '1.2rem', fontSize: '1.1rem', marginTop: '1rem' }} onClick={() => {
+                  if (isPackage) { if (editingItem.mode === 'add') addPackage(editingItem.category, editingItem); else updatePackage(editingItem.category, editingItem.id, editingItem); }
+                  else { addTestimonial(editingItem); }
                   setEditingItem(null);
-                }}
-              >
-                <Save size={20} style={{ marginRight: '0.5rem' }} /> Save Changes
-              </button>
+                }}><Save size={20} style={{ marginRight: '0.5rem' }} /> Save Changes</button>
             </div>
           </motion.div>
         </div>
@@ -465,7 +436,6 @@ const Admin = () => {
   return (
     <div className="admin-page page-wrapper">
       <NavigationBar />
-      
       <div className="content-container page-padding" style={{ paddingBottom: '140px' }}>
         <AnimatePresence mode="wait">
           {activeTab === 'dashboard' && <motion.div key="dash" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{renderDashboard()}</motion.div>}
@@ -475,36 +445,16 @@ const Admin = () => {
           {activeTab === 'settings' && <motion.div key="set" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{renderSettings()}</motion.div>}
         </AnimatePresence>
       </div>
-
-      <AnimatePresence>
-        {editingItem && renderEditor()}
-      </AnimatePresence>
-
-      {/* Admin Bottom Category Bar */}
+      <AnimatePresence>{editingItem && renderEditor()}</AnimatePresence>
       <div className="category-nav-wrapper">
         <div className="category-nav" style={{ padding: '0.5rem' }}>
           {adminTabs.map((tab) => (
-            <motion.button 
-              key={tab.id}
-              className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`}
-              onClick={() => setActiveTab(tab.id)}
-              whileHover={{ scale: 1.1, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-            >
+            <motion.button key={tab.id} className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)} whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}>
               <span className="nav-icon">{tab.icon}</span>
               <span className="nav-label">{tab.label}</span>
             </motion.button>
           ))}
-          <motion.button 
-            className="category-nav-item"
-            style={{ color: '#EF4444' }}
-            onClick={() => logout()}
-            whileHover={{ scale: 1.1, y: -5 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span className="nav-icon"><LogOut size={18} /></span>
-            <span className="nav-label">Logout</span>
-          </motion.button>
+          <motion.button className="category-nav-item" style={{ color: '#EF4444' }} onClick={() => logout()} whileHover={{ scale: 1.1, y: -5 }} whileTap={{ scale: 0.95 }}><span className="nav-icon"><LogOut size={18} /></span><span className="nav-label">Logout</span></motion.button>
         </div>
       </div>
     </div>
