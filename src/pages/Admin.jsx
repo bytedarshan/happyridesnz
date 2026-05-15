@@ -318,14 +318,15 @@ const Admin = () => {
   const renderSettings = () => (
     <div className="admin-section">
       <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Configuration</h2>
-      <div className="glass-panel" style={{ padding: '3rem' }}>
+      <div className="glass-panel" style={{ padding: '3rem', marginBottom: '2rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)' }}>General Information</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
           <div className="input-group">
             <label className="input-label">Hero Headline</label>
             <input 
               type="text" 
               className="input-field glass-panel" 
-              style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }}
+              style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }}
               value={siteData.settings.heroTitle}
               onChange={(e) => updateSettings({ heroTitle: e.target.value })}
             />
@@ -334,7 +335,7 @@ const Admin = () => {
             <label className="input-label">About Us Description</label>
             <textarea 
               className="input-field glass-panel" 
-              style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '150px', resize: 'none' }}
+              style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem', height: '150px', resize: 'none' }}
               value={siteData.settings.aboutText}
               onChange={(e) => updateSettings({ aboutText: e.target.value })}
             />
@@ -345,7 +346,7 @@ const Admin = () => {
               <input 
                 type="email" 
                 className="input-field glass-panel" 
-                style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }}
+                style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }}
                 value={siteData.settings.contactEmail}
                 onChange={(e) => updateSettings({ contactEmail: e.target.value })}
               />
@@ -355,7 +356,7 @@ const Admin = () => {
               <input 
                 type="text" 
                 className="input-field glass-panel" 
-                style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }}
+                style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }}
                 value={siteData.settings.contactPhone}
                 onChange={(e) => updateSettings({ contactPhone: e.target.value })}
               />
@@ -363,30 +364,75 @@ const Admin = () => {
           </div>
         </div>
       </div>
+
+      <div className="glass-panel" style={{ padding: '3rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+        <h3 style={{ marginBottom: '1rem', color: '#EF4444' }}>Danger Zone</h3>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>
+          If your images are not showing or you want to restore all original tour packages from the PPT, click the button below. This will overwrite all current site content.
+        </p>
+        <button 
+          className="btn-outline" 
+          style={{ borderColor: '#EF4444', color: '#EF4444', padding: '1rem 2rem' }}
+          onClick={() => resetSiteData()}
+        >
+          Reset Site Data & Images
+        </button>
+      </div>
     </div>
   );
 
   const renderEditor = () => {
     if (editingItem.type === 'team_add') {
       return (
-        <div className="admin-editor page-padding" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.9)', backdropFilter: 'blur(20px)', overflowY: 'auto' }}>
-          <div className="content-container" style={{ maxWidth: '500px', paddingTop: '100px' }}>
-            <motion.div className="glass-panel" style={{ padding: '3rem' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 className="responsive-hero-title" style={{ fontSize: '1.8rem' }}>New Admin</h2>
-                <button className="btn-outline" onClick={() => setEditingItem(null)}><X size={24} /></button>
+        <div className="admin-editor page-padding" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.9)', backdropFilter: 'blur(20px)', overflowY: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="content-container" style={{ width: '100%', maxWidth: '600px', paddingTop: '0' }}>
+            <motion.div className="glass-panel" style={{ padding: '4rem' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <UserPlus size={32} color="var(--primary-color)" />
+                  <h2 className="responsive-hero-title" style={{ fontSize: '2.5rem', margin: 0 }}>Add Admin</h2>
+                </div>
+                <button className="btn-outline" onClick={() => setEditingItem(null)} style={{ padding: '0.8rem' }}><X size={24} /></button>
               </div>
-              <form onSubmit={handleCreateAdmin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              
+              <form onSubmit={handleCreateAdmin} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                 <div className="input-group">
-                  <label className="input-label">Email Address</label>
-                  <input type="email" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={newAdminEmail} onChange={(e) => setNewAdminEmail(e.target.value)} required />
+                  <label className="input-label" style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Full Email Address</label>
+                  <div style={{ position: 'relative' }}>
+                    <Mail size={20} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
+                    <input 
+                      type="email" 
+                      className="input-field glass-panel" 
+                      style={{ padding: '1.5rem 1.5rem 1.5rem 3.8rem', background: 'rgba(255,255,255,0.05)', fontSize: '1.1rem' }} 
+                      placeholder="admin@happyrides.co.nz"
+                      value={newAdminEmail} 
+                      onChange={(e) => setNewAdminEmail(e.target.value)} 
+                      required 
+                    />
+                  </div>
                 </div>
                 <div className="input-group">
-                  <label className="input-label">Initial Password</label>
-                  <input type="password" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} value={newAdminPassword} onChange={(e) => setNewAdminPassword(e.target.value)} required />
+                  <label className="input-label" style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Secure Password</label>
+                  <div style={{ position: 'relative' }}>
+                    <Lock size={20} style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
+                    <input 
+                      type="password" 
+                      className="input-field glass-panel" 
+                      style={{ padding: '1.5rem 1.5rem 1.5rem 3.8rem', background: 'rgba(255,255,255,0.05)', fontSize: '1.1rem' }} 
+                      placeholder="••••••••"
+                      value={newAdminPassword} 
+                      onChange={(e) => setNewAdminPassword(e.target.value)} 
+                      required 
+                    />
+                  </div>
                 </div>
-                <button className="btn-primary-glass w-full" type="submit" disabled={isSubmitting} style={{ padding: '1.2rem' }}>
-                  {isSubmitting ? 'Registering...' : 'Add to Team'}
+                <button 
+                  className="btn-primary-glass w-full" 
+                  type="submit" 
+                  disabled={isSubmitting} 
+                  style={{ padding: '1.5rem', fontSize: '1.2rem', marginTop: '1rem', fontWeight: 700 }}
+                >
+                  {isSubmitting ? 'Registering...' : 'Confirm Registration'}
                 </button>
               </form>
             </motion.div>

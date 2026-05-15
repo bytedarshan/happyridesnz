@@ -41,20 +41,21 @@ export const SiteProvider = ({ children }) => {
   const initialData = {
     packages: { aucklandCityTours, aucklandActivities, intercityTours, rotoruaTours, rotoruaActivities, paihiaTours, paihiaActivities },
     testimonials: [
-      { id: 1, name: "Sarah Johnson", location: "Sydney, Australia", text: "The Auckland City Tour was the highlight of our trip!", rating: 5 },
-      { id: 2, name: "Mark Thompson", location: "London, UK", text: "Seamless airport transfer.", rating: 5 }
+      { id: 1, name: "Sarah Johnson", location: "Sydney, Australia", text: "The Auckland City Tour was the highlight of our trip! The driver was professional and knew all the best spots for photos. The frosted glass design of the website really reflects the premium service they provide.", rating: 5 },
+      { id: 2, name: "Mark Thompson", location: "London, UK", text: "Seamless airport transfer. I arrived after a long flight and having a friendly face waiting for me made all the difference. Highly recommend Happy Rides for anyone visiting New Zealand.", rating: 5 },
+      { id: 3, name: "Emily Chen", location: "Singapore", text: "We booked the Rotorua day trip. The itinerary was perfectly balanced and the luxury transport was incredibly comfortable for the long drive. Five stars!", rating: 5 }
     ],
     services: [
-      { title: 'Airport Transfers', desc: 'Reliable and punctual transfers to and from all major airports.' },
-      { title: 'Corporate Travel', desc: 'Discreet and professional transport for business professionals.' },
-      { title: 'Group Transfers', desc: 'Spacious vehicles perfect for families or large groups.' },
-      { title: 'Custom Tours', desc: 'Tailor-made itineraries to explore New Zealand at your own pace.' },
-      { title: '24/7 Availability', desc: 'We operate around the clock.' },
-      { title: 'Safety First', desc: 'Our vehicles undergo regular safety inspections.' }
+      { title: 'Airport Transfers', desc: 'Reliable and punctual transfers to and from all major airports. We monitor your flight to ensure we are there when you land.' },
+      { title: 'Corporate Travel', desc: 'Discreet and professional transport for business professionals. Priority bookings and dedicated accounts available.' },
+      { title: 'Group Transfers', desc: 'Spacious vehicles perfect for families or large groups. Ideal for events, weddings, and group tours.' },
+      { title: 'Custom Tours', desc: 'Tailor-made itineraries to explore New Zealand at your own pace. Choose your destinations and we handle the rest.' },
+      { title: '24/7 Availability', desc: 'We operate around the clock. Day or night, Happy Rides is just a booking away.' },
+      { title: 'Safety First', desc: 'Our vehicles undergo regular safety inspections, and our drivers are fully vetted and professionally trained.' }
     ],
     settings: {
       heroTitle: "Your Premium Getaway to New Zealand - Search, Compare & Save",
-      aboutText: "Welcome to Happy Rides, your trusted partner for safe, reliable, and comfortable transport in New Zealand.",
+      aboutText: "Welcome to Happy Rides, your trusted partner for safe, reliable, and comfortable transport in New Zealand. We understand that travel can be stressful, which is why we are dedicated to taking that weight off your shoulders.",
       contactEmail: "info@happyrides.co.nz",
       contactPhone: "+64 21 244 0244",
       contactAddress: "Auckland, New Zealand"
@@ -65,25 +66,15 @@ export const SiteProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        // Check if admins collection is empty
         const adminsSnap = await getDocs(query(collection(db, 'admins'), limit(1)));
-        
         if (adminsSnap.empty) {
-          // If no admins exist yet, the first person to log in becomes the super admin
-          console.log("No admins found. Promoting first user to admin.");
-          await setDoc(doc(db, 'admins', currentUser.email), {
-            email: currentUser.email,
-            role: 'super_admin',
-            createdAt: new Date().toISOString()
-          });
+          await setDoc(doc(db, 'admins', currentUser.email), { email: currentUser.email, role: 'super_admin', createdAt: new Date().toISOString() });
           setUser(currentUser);
         } else {
-          // Verify if user is in the authorized admins collection
           const adminDoc = await getDoc(doc(db, 'admins', currentUser.email));
           if (adminDoc.exists()) {
             setUser(currentUser);
           } else {
-            console.error("Unauthorized access attempt.");
             await signOut(auth);
             setUser(null);
             alert("This account is not authorized as an admin.");
@@ -125,25 +116,21 @@ export const SiteProvider = ({ children }) => {
   const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
   const logout = () => signOut(auth);
 
+  const resetSiteData = async () => {
+    if (window.confirm("This will reset all packages and site content to default. Are you sure?")) {
+      await setDoc(doc(db, 'content', 'siteData'), initialData);
+      alert("Site data reset successfully with new images.");
+    }
+  };
+
   const createAdmin = async (email, password) => {
-    // Note: This creates the account in Firebase Auth. 
-    // To create OTHER users, you'd usually use a backend, but for this frontend-only 
-    // we can use a secondary firebase app instance or just guide the user.
-    // However, for this project, let's assume the admin can register them.
     const res = await createUserWithEmailAndPassword(auth, email, password);
-    await setDoc(doc(db, 'admins', email), {
-      email,
-      role: 'admin',
-      createdAt: new Date().toISOString()
-    });
+    await setDoc(doc(db, 'admins', email), { email, role: 'admin', createdAt: new Date().toISOString() });
     return res;
   };
 
   const removeAdmin = async (email) => {
-    if (user && email === user.email) {
-      alert("You cannot remove yourself!");
-      return;
-    }
+    if (user && email === user.email) { alert("You cannot remove yourself!"); return; }
     await deleteDoc(doc(db, 'admins', email));
   };
 
@@ -188,7 +175,7 @@ export const SiteProvider = ({ children }) => {
   return (
     <SiteContext.Provider value={{ 
       siteData, admins, user, loading,
-      login, logout, createAdmin, removeAdmin, resetAdminPassword,
+      login, logout, createAdmin, removeAdmin, resetAdminPassword, resetSiteData,
       updateSettings, addPackage, updatePackage, removePackage, addTestimonial, removeTestimonial
     }}>
       {!loading && children}
