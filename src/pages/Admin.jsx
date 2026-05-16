@@ -28,7 +28,7 @@ const Admin = () => {
     siteData, admins, user, login, logout, createAdmin, removeAdmin, 
     resetAdminPassword, resetSiteData, updateSettings, addPackage, 
     updatePackage, removePackage, addTestimonial, removeTestimonial,
-    addService, updateService, removeService
+    addService, updateService, removeService, syncNewDefaults
   } = useSiteData();
 
   const [email, setEmail] = useState('');
@@ -480,6 +480,14 @@ const Admin = () => {
           <div className="input-group"><label className="input-label">Instagram URL</label><input type="text" className="input-field" value={siteData.settings.instagramUrl} onChange={(e) => updateSettings({ instagramUrl: e.target.value })} /></div>
           <div className="input-group"><label className="input-label">WhatsApp Number</label><input type="text" className="input-field" value={siteData.settings.whatsappNumber} onChange={(e) => updateSettings({ whatsappNumber: e.target.value })} /></div>
         </div>
+      </div>
+
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
+        <h3 style={{ marginBottom: '1rem', color: '#3B82F6' }}>Maintenance & Updates</h3>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Only add new tours and services that were recently added to the system. This will NOT affect your existing photos or descriptions.</p>
+        <button className="btn-primary-glass admin-btn" style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#3B82F6', borderColor: 'rgba(59, 130, 246, 0.3)' }} onClick={() => syncNewDefaults()}>
+          <RefreshCw size={18} /> Sync New Tours
+        </button>
       </div>
 
       <div className="admin-glass-panel" style={{ padding: '3rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>

@@ -178,6 +178,29 @@ export const SiteProvider = ({ children }) => {
     }
   };
 
+  const syncNewDefaults = async () => {
+    if (!siteData) return;
+    const newPackages = { ...siteData.packages };
+    let addedCount = 0;
+
+    Object.keys(initialData.packages).forEach(category => {
+      const existingIds = new Set(siteData.packages[category]?.map(p => p.id) || []);
+      initialData.packages[category].forEach(p => {
+        if (!existingIds.has(p.id)) {
+          newPackages[category] = [...(newPackages[category] || []), p];
+          addedCount++;
+        }
+      });
+    });
+
+    if (addedCount > 0) {
+      await syncToFirestore({ ...siteData, packages: newPackages });
+      alert(`Successfully added ${addedCount} new tours without affecting your existing photos!`);
+    } else {
+      alert("Your site is already up to date with all default tours.");
+    }
+  };
+
   const createAdmin = async (email, password) => {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     await setDoc(doc(db, 'admins', email), { email, role: 'admin', createdAt: new Date().toISOString() });
@@ -245,7 +268,7 @@ export const SiteProvider = ({ children }) => {
   return (
     <SiteContext.Provider value={{ 
       siteData, admins, user, loading,
-      login, logout, createAdmin, removeAdmin, resetAdminPassword, resetSiteData,
+      login, logout, createAdmin, removeAdmin, resetAdminPassword, resetSiteData, syncNewDefaults,
       updateSettings, addPackage, updatePackage, removePackage, addTestimonial, removeTestimonial,
       addService, updateService, removeService
     }}>
