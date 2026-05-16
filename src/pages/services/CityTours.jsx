@@ -12,7 +12,13 @@ import {
   paihiaActivities 
 } from '../../data/mockData';
 
+import { useSiteData } from '../../context/SiteContext';
+
 const CityTours = () => {
+  const { siteData } = useSiteData();
+  
+  if (!siteData) return null;
+
   const cities = [
     { name: 'Auckland', desc: 'The "City of Sails," Auckland is a vibrant metropolitan area built on a volcanic field. Explore its stunning harbors, iconic Sky Tower, and lush parklands.', tours: aucklandCityTours, activities: aucklandActivities, image: siteData.settings.cityAucklandImage || 'auckland_city.png' },
     { name: 'Waitomo', desc: 'Journey to the glowing depths of the Waitomo caves. Experience thousands of tiny glowworms lighting up the limestone caverns like a starry night sky.', tours: intercityTours.filter(t => t.title.includes('Waitomo')), image: siteData.settings.cityWaitomoImage || 'image81.jpeg' },
