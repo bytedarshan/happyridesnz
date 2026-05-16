@@ -35,7 +35,7 @@ const Footer = () => {
             )}
             {settings.whatsappNumber && (
               <a 
-                href={`https://wa.me/${settings.whatsappNumber}`} 
+                href={`https://wa.me/${settings.whatsappNumber.replace(/\D/g, '')}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="social-link-static"

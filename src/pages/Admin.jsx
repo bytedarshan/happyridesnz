@@ -441,7 +441,12 @@ const Admin = () => {
         </h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
           <div className="input-group"><label className="input-label">Contact Email</label><input type="email" className="input-field" value={siteData.settings.contactEmail} onChange={(e) => updateSettings({ contactEmail: e.target.value })} /></div>
-          <div className="input-group"><label className="input-label">Contact Phone</label><input type="text" className="input-field" value={siteData.settings.contactPhone} onChange={(e) => updateSettings({ contactPhone: e.target.value })} /></div>
+          <div className="input-group"><label className="input-label">Contact Phone (Display)</label><input type="text" className="input-field" value={siteData.settings.contactPhone} onChange={(e) => updateSettings({ contactPhone: e.target.value })} /></div>
+          <div className="input-group">
+            <label className="input-label">WhatsApp Number</label>
+            <input type="text" className="input-field" placeholder="e.g. 64212440244" value={siteData.settings.whatsappNumber || ''} onChange={(e) => updateSettings({ whatsappNumber: e.target.value })} />
+            <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.4rem' }}>Format: +64 21... (Spaces and + are now automatically handled)</p>
+          </div>
           <div className="input-group"><label className="input-label">Physical Address</label><input type="text" className="input-field" value={siteData.settings.contactAddress} onChange={(e) => updateSettings({ contactAddress: e.target.value })} /></div>
         </div>
         <div className="input-group" style={{ marginBottom: '3rem' }}>
