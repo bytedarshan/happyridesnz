@@ -17,7 +17,8 @@ import {
   Mail,
   Lock,
   RefreshCw,
-  Users
+  Users,
+  Car
 } from 'lucide-react';
 import { useSiteData } from '../context/SiteContext';
 import NavigationBar from '../components/NavigationBar';
@@ -26,7 +27,8 @@ const Admin = () => {
   const { 
     siteData, admins, user, login, logout, createAdmin, removeAdmin, 
     resetAdminPassword, resetSiteData, updateSettings, addPackage, 
-    updatePackage, removePackage, addTestimonial, removeTestimonial
+    updatePackage, removePackage, addTestimonial, removeTestimonial,
+    addService, updateService, removeService
   } = useSiteData();
 
   const [email, setEmail] = useState('');
