@@ -18,7 +18,8 @@ import {
   Lock,
   RefreshCw,
   Users,
-  Car
+  Car,
+  MapPin
 } from 'lucide-react';
 import { useSiteData } from '../context/SiteContext';
 import NavigationBar from '../components/NavigationBar';
