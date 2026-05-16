@@ -93,21 +93,6 @@ body {
   transition-duration: 0.1s;
 }
 
-/* Admin Specific Glass - No Bounce */
-.admin-glass-panel {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 2rem;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease;
-}
-
-.admin-glass-panel:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
 .admin-btn {
   transition: all 0.2s ease;
 }
@@ -1358,7 +1343,10 @@ body {
 
 .input-field {
   width: 100%;
+  padding: 1rem 1.25rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.05);
   color: white;
   font-size: 1rem;
   font-family: inherit;
@@ -1368,13 +1356,29 @@ body {
 
 .input-field:focus {
   border-color: var(--primary-color);
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
 }
 
+textarea.input-field {
+  min-height: 100px;
+  line-height: 1.6;
+}
+
 .admin-section {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.admin-glass-panel {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
 }
 
 .btn-outline {
