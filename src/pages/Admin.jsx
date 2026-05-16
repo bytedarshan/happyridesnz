@@ -267,13 +267,29 @@ const Admin = () => {
         <div style={{ display: 'grid', gap: '3rem' }}>
           <div className="input-group">
             <label className="input-label">Main Hero Headline</label>
-            <textarea className="input-field" style={{ height: '120px', resize: 'vertical' }} value={siteData.settings.heroTitle} onChange={(e) => updateSettings({ heroTitle: e.target.value })} />
+            <textarea className="input-field" style={{ height: '100px' }} value={siteData.settings.heroTitle} onChange={(e) => updateSettings({ heroTitle: e.target.value })} />
+          </div>
+          <div className="input-group">
+            <label className="input-label">Hero Subtitle / Description</label>
+            <textarea className="input-field" style={{ height: '150px' }} value={siteData.settings.heroSubtitle} onChange={(e) => updateSettings({ heroSubtitle: e.target.value })} />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
             <div className="input-group"><label className="input-label">Feature 1</label><input type="text" className="input-field" value={siteData.settings.heroFeature1} onChange={(e) => updateSettings({ heroFeature1: e.target.value })} /></div>
             <div className="input-group"><label className="input-label">Feature 2</label><input type="text" className="input-field" value={siteData.settings.heroFeature2} onChange={(e) => updateSettings({ heroFeature2: e.target.value })} /></div>
             <div className="input-group"><label className="input-label">Feature 3</label><input type="text" className="input-field" value={siteData.settings.heroFeature3} onChange={(e) => updateSettings({ heroFeature3: e.target.value })} /></div>
           </div>
+        </div>
+      </div>
+
+      {/* Booking Integration */}
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <RefreshCw size={24} /> Booking Integration
+        </h3>
+        <div className="input-group">
+          <label className="input-label">Booking Software URL (Iframe Link)</label>
+          <input type="text" className="input-field" placeholder="https://booking-software.com/your-id" value={siteData.settings.bookingLink || ''} onChange={(e) => updateSettings({ bookingLink: e.target.value })} />
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>This link will be used in the frames across Home, Airport Transfer, and Intercity Transfer pages.</p>
         </div>
       </div>
 

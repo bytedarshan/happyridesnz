@@ -23,8 +23,8 @@ const Home = () => {
       
       <div id="hero">
         <HeroSection 
-          title="Reliable & Comfortable Airport Transfers & Tours" 
-          subtitle="At Happy Rides, we are committed to providing seamless, professional and reliable transportation service. Whether you are heading to the airport, attending a business engagement or exploring the breathtaking landscapes of New Zealand, we ensure a smooth and stress-free travel experience."
+          title={siteData.settings.heroTitle} 
+          subtitle={siteData.settings.heroSubtitle}
         />
       </div>
 
@@ -46,16 +46,21 @@ const Home = () => {
             height: '500px', 
             background: 'rgba(255,255,255,0.02)', 
             borderRadius: '2.5rem', 
-            border: '2px dashed rgba(255,255,255,0.1)',
+            border: siteData.settings.bookingLink ? 'none' : '2px dashed rgba(255,255,255,0.1)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            overflow: 'hidden'
           }}>
-            <div style={{ textAlign: 'center', opacity: 0.5 }}>
-              <Clock size={48} style={{ marginBottom: '1rem' }} />
-              <p>Booking Software Frame Placeholder</p>
-              <p style={{ fontSize: '0.8rem' }}>(Iframe link to be provided)</p>
-            </div>
+            {siteData.settings.bookingLink ? (
+              <iframe src={siteData.settings.bookingLink} width="100%" height="100%" frameBorder="0" title="Booking Software"></iframe>
+            ) : (
+              <div style={{ textAlign: 'center', opacity: 0.5 }}>
+                <Clock size={48} style={{ marginBottom: '1rem' }} />
+                <p>Booking Software Frame Placeholder</p>
+                <p style={{ fontSize: '0.8rem' }}>(Iframe link to be provided in Admin)</p>
+              </div>
+            )}
           </div>
         </motion.div>
       </section>

@@ -18,9 +18,9 @@ const HeroSection = ({ title, subtitle }) => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h2 className="hero-title">{title || settings.heroTitle}</h2>
-          {subtitle && (
+          {(subtitle || settings.heroSubtitle) && (
             <p className="logo-tagline" style={{ fontSize: '1.2rem', marginBottom: '2.5rem', lineHeight: '1.6', opacity: 0.9 }}>
-              {subtitle}
+              {subtitle || settings.heroSubtitle}
             </p>
           )}
 

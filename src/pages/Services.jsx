@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from '../components/NavigationBar';
 import { motion } from 'framer-motion';
 import { useSiteData } from '../context/SiteContext';
-import { Plane, Building, Users, Map, Clock, Shield, Car } from 'lucide-react';
+import { Plane, Building, Users, MapPin, Clock, Shield, Car } from 'lucide-react';
 
 const Services = () => {
   const { siteData } = useSiteData();

@@ -2,8 +2,10 @@ import React from 'react';
 import NavigationBar from '../../components/NavigationBar';
 import { motion } from 'framer-motion';
 import { Plane, MapPin, Clock, Car } from 'lucide-react';
+import { useSiteData } from '../../context/SiteContext';
 
 const AirportTransfer = () => {
+  const { siteData } = useSiteData();
   const airportToAuckland = [
     { destination: 'Auckland CBD', sedan: '$85', suv: '$110', peopleMover: '$140', minibus: '$180' },
     { destination: 'Parnell / Newmarket', sedan: '$85', suv: '$110', peopleMover: '$140', minibus: '$180' },
@@ -92,19 +94,22 @@ const AirportTransfer = () => {
             height: '600px', 
             background: 'rgba(255,255,255,0.02)', 
             borderRadius: '1.5rem', 
-            border: '2px dashed rgba(255,255,255,0.1)',
+            border: siteData.settings.bookingLink ? 'none' : '2px dashed rgba(255,255,255,0.1)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             position: 'relative',
             overflow: 'hidden'
           }}>
-            <div style={{ textAlign: 'center', opacity: 0.5 }}>
-              <Clock size={48} style={{ marginBottom: '1rem' }} />
-              <p>Booking Software Frame Placeholder</p>
-              <p style={{ fontSize: '0.8rem' }}>(Iframe will be loaded here)</p>
-            </div>
-            {/* Real Iframe will go here: <iframe src="USER_LINK" width="100%" height="100%" frameBorder="0"></iframe> */}
+            {siteData.settings.bookingLink ? (
+              <iframe src={siteData.settings.bookingLink} width="100%" height="100%" frameBorder="0" title="Booking Software"></iframe>
+            ) : (
+              <div style={{ textAlign: 'center', opacity: 0.5 }}>
+                <Clock size={48} style={{ marginBottom: '1rem' }} />
+                <p>Booking Software Frame Placeholder</p>
+                <p style={{ fontSize: '0.8rem' }}>(Iframe link to be provided in Admin)</p>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

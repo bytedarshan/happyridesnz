@@ -88,7 +88,11 @@ export const SiteProvider = ({ children }) => {
       servicesHeadline: "Our Premium Services",
       servicesSubline: "Tailored transport solutions to meet every travel need.",
       testimonialsHeadline: "Guest Testimonials",
-      testimonialsSubline: "Hear from travelers who explored the beauty of New Zealand with Happy Rides. We take pride in delivering unforgettable experiences."
+      testimonialsSubline: "Hear from travelers who explored the beauty of New Zealand with Happy Rides. We take pride in delivering unforgettable experiences.",
+      
+      // New Settings from Plan
+      heroSubtitle: "At Happy Rides, we are committed to providing seamless, professional and reliable transportation service. Whether you are heading to the airport, attending a business engagement or exploring the breathtaking landscapes of New Zealand, we ensure a smooth and stress-free travel experience.",
+      bookingLink: "" 
     }
   };
 

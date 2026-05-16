@@ -2,8 +2,10 @@ import React from 'react';
 import NavigationBar from '../../components/NavigationBar';
 import { motion } from 'framer-motion';
 import { Car, MapPin, Navigation, Clock } from 'lucide-react';
+import { useSiteData } from '../../context/SiteContext';
 
 const IntercityTransfer = () => {
+  const { siteData } = useSiteData();
   const intercityRoutes = [
     { destination: 'Auckland to Hamilton', sedan: '$280', suv: '$350', peopleMover: '$420', minibus: '$550' },
     { destination: 'Auckland to Rotorua', sedan: '$450', suv: '$580', peopleMover: '$720', minibus: '$900' },
@@ -79,18 +81,22 @@ const IntercityTransfer = () => {
             height: '600px', 
             background: 'rgba(255,255,255,0.02)', 
             borderRadius: '2.5rem', 
-            border: '2px dashed rgba(255,255,255,0.1)',
+            border: siteData.settings.bookingLink ? 'none' : '2px dashed rgba(255,255,255,0.1)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             position: 'relative',
             overflow: 'hidden'
           }}>
-            <div style={{ textAlign: 'center', opacity: 0.5 }}>
-              <Clock size={48} style={{ marginBottom: '1rem' }} />
-              <p>Booking Software Frame Placeholder</p>
-              <p style={{ fontSize: '0.8rem' }}>(Iframe will be loaded here)</p>
-            </div>
+            {siteData.settings.bookingLink ? (
+              <iframe src={siteData.settings.bookingLink} width="100%" height="100%" frameBorder="0" title="Booking Software"></iframe>
+            ) : (
+              <div style={{ textAlign: 'center', opacity: 0.5 }}>
+                <Clock size={48} style={{ marginBottom: '1rem' }} />
+                <p>Booking Software Frame Placeholder</p>
+                <p style={{ fontSize: '0.8rem' }}>(Iframe link to be provided in Admin)</p>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
