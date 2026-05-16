@@ -91,7 +91,8 @@ const Admin = () => {
     'image63.jpg', 'image64.jpeg', 'image65.jpeg', 'image66.jpeg', 'image67.jpeg', 'image68.jpeg', 'image69.jpeg',
     'image70.jpeg', 'image71.jpeg', 'image72.jpeg', 'image73.jpeg', 'image74.jpeg', 'image75.jpeg', 'image76.jpeg',
     'image77.jpeg', 'image78.jpeg', 'image79.jpeg', 'image80.jpeg', 'image81.jpeg', 'image82.jpeg', 'image83.jpeg',
-    'image84.jpeg', 'image85.jpeg', 'image86.jpeg', 'image87.jpeg', 'image88.jpeg', 'image89.jpeg', 'image93.jpeg', 'image97.png'
+    'image84.jpeg', 'image85.jpeg', 'image86.jpeg', 'image87.jpeg', 'image88.jpeg', 'image89.jpeg', 'image93.jpeg', 'image97.png',
+    'SUV.jpg', 'Sedan.jpg', 'minibus.jpg', 'people mover.jpg'
   ];
 
   const getImagePath = (path) => {
