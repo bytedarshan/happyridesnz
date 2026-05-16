@@ -16,7 +16,7 @@ const AboutUs = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="responsive-hero-title">About Happy Rides</h1>
+          <h1 className="responsive-hero-title">{siteData.settings.aboutTitle}</h1>
           <p className="logo-tagline" style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
             {siteData.settings.aboutText}
           </p>
@@ -35,11 +35,9 @@ const AboutUs = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <h2 className="section-title">Our Story</h2>
-            <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1.1rem' }}>
-              Happy Rides was founded with a simple mission: to make travel in New Zealand as enjoyable as the destinations themselves. We understand that punctuality and peace of mind are non-negotiable for our clients.
-              <br /><br />
-              Whether you're a first-time visitor or a regular traveler, our professional drivers and pristine modern fleet are at your service 24/7. We pride ourselves on our fixed-fare policy—no hidden costs, no surge pricing, just honest service.
+            <h2 className="section-title">{siteData.settings.aboutStoryTitle}</h2>
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1.1rem', whiteSpace: 'pre-line' }}>
+              {siteData.settings.aboutStoryText}
             </p>
           </motion.div>
         </div>

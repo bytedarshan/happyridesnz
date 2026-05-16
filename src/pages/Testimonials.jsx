@@ -29,7 +29,7 @@ const Testimonials = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              Guest Testimonials
+              {siteData.settings.testimonialsHeadline || "Guest Testimonials"}
             </motion.h1>
             <motion.p 
               className="logo-tagline" 
@@ -38,7 +38,7 @@ const Testimonials = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              Hear from travelers who explored the beauty of New Zealand with Happy Rides. We take pride in delivering unforgettable experiences.
+              {siteData.settings.testimonialsSubline || "Hear from travelers who explored the beauty of New Zealand with Happy Rides. We take pride in delivering unforgettable experiences."}
             </motion.p>
           </div>
 

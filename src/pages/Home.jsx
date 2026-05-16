@@ -34,20 +34,20 @@ const Home = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="section-title">Why Choose Happy Rides?</h2>
-            <p>{siteData.settings.aboutText}</p>
+            <h2 className="section-title">{siteData.settings.homeWhyTitle}</h2>
+            <p>{siteData.settings.homeWhyText}</p>
             <div className="brief-features">
               <div className="brief-feature-item">
                 <Shield className="feature-icon" />
-                <span>Professional Drivers</span>
+                <span>{siteData.settings.heroFeature1}</span>
               </div>
               <div className="brief-feature-item">
                 <Clock className="feature-icon" />
-                <span>Punctuality Guaranteed</span>
+                <span>{siteData.settings.heroFeature2}</span>
               </div>
               <div className="brief-feature-item">
                 <Car className="feature-icon" />
-                <span>Modern Fleet</span>
+                <span>{siteData.settings.heroFeature3}</span>
               </div>
             </div>
             <Link to="/about" className="btn-primary-glass" style={{ display: 'inline-block', marginTop: '2rem', textDecoration: 'none' }}>
@@ -67,7 +67,7 @@ const Home = () => {
 
       {/* Brief Services */}
       <section id="services" className="brief-section">
-        <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '3rem' }}>Our Premium Services</h2>
+        <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '3rem' }}>{siteData.settings.homeServicesTitle}</h2>
         <div className="services-brief-grid">
           {[
             { title: 'Airport Transfers', icon: <Clock />, desc: 'Seamless door-to-door transfers from Auckland Airport to the CBD and beyond.' },
@@ -112,8 +112,8 @@ const Home = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="section-title">Popular Travel Packages</h2>
-            <p>From the geothermal wonders of Rotorua to the magical Shire in Hobbiton, discover our most loved travel experiences. We offer both half-day highlights and multi-day adventures.</p>
+            <h2 className="section-title">{siteData.settings.homePackagesTitle}</h2>
+            <p>{siteData.settings.homePackagesText}</p>
             <div className="popular-tags">
               <span className="pop-tag">Auckland City</span>
               <span className="pop-tag">Rotorua Geothermal</span>

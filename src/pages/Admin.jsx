@@ -90,6 +90,7 @@ const Admin = () => {
   const adminTabs = [
     { id: 'dashboard', label: 'Stats', icon: <LayoutDashboard size={18} /> },
     { id: 'packages', label: 'Tours', icon: <Package size={18} /> },
+    { id: 'services', label: 'Services', icon: <Car size={18} /> },
     { id: 'testimonials', label: 'Reviews', icon: <MessageSquare size={18} /> },
     { id: 'team', label: 'Team', icon: <Users size={18} /> },
     { id: 'gallery', label: 'Gallery', icon: <ImageIcon size={18} /> },
@@ -158,6 +159,29 @@ const Admin = () => {
     </div>
   );
 
+  const renderServices = () => (
+    <div className="admin-section">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+        <h2 className="responsive-hero-title">Core Services</h2>
+        <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'service', mode: 'add' })} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Plus size={18} /> Add Service</button>
+      </div>
+      <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        {siteData.services.map(s => (
+          <div key={s.id || s.title} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ flex: 1, paddingRight: '2rem' }}>
+              <h4 style={{ fontSize: '1.2rem', marginBottom: '0.2rem' }}>{s.title}</h4>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{s.desc}</p>
+            </div>
+            <div style={{ display: 'flex', gap: '1rem' }}>
+              <button className="btn-outline admin-btn" onClick={() => setEditingItem({ ...s, type: 'service', mode: 'edit' })}><Edit3 size={18} /></button>
+              <button className="btn-outline admin-btn" style={{ color: '#EF4444' }} onClick={() => removeService(s.id || s.title)}><Trash2 size={18} /></button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   const renderPackages = () => (
     <div className="admin-section">
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}><h2 className="responsive-hero-title">Tour Packages</h2><button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'package', mode: 'add', category: selectedCategory })}><Plus size={18} /> New Package</button></div>
@@ -207,17 +231,99 @@ const Admin = () => {
   );
 
   const renderSettings = () => (
-    <div className="admin-section">
+    <div className="admin-section" style={{ paddingBottom: '5rem' }}>
       <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Configuration</h2>
-      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '2rem' }}>
-        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)' }}>General Information</h3>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
-          <div className="input-group"><label className="input-label">Hero Headline</label><input type="text" className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem' }} value={siteData.settings.heroTitle} onChange={(e) => updateSettings({ heroTitle: e.target.value })} /></div>
-          <div className="input-group"><label className="input-label">About Us Description</label><textarea className="input-field admin-glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1.2rem', height: '150px', resize: 'none' }} value={siteData.settings.aboutText} onChange={(e) => updateSettings({ aboutText: e.target.value })} /></div>
+      
+      {/* Branding Section */}
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <Settings size={24} /> Branding & Identity
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+          <div className="input-group">
+            <label className="input-label">Site Name (Title)</label>
+            <input type="text" className="input-field admin-glass-panel" value={siteData.settings.siteTitle} onChange={(e) => updateSettings({ siteTitle: e.target.value })} />
+          </div>
+          <div className="input-group">
+            <label className="input-label">Slogan (Tagline)</label>
+            <input type="text" className="input-field admin-glass-panel" value={siteData.settings.siteTagline} onChange={(e) => updateSettings({ siteTagline: e.target.value })} />
+          </div>
         </div>
       </div>
+
+      {/* Hero Section */}
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <ImageIcon size={24} /> Hero Section
+        </h3>
+        <div style={{ display: 'grid', gap: '2rem' }}>
+          <div className="input-group">
+            <label className="input-label">Main Hero Headline</label>
+            <textarea className="input-field admin-glass-panel" style={{ height: '80px', resize: 'none' }} value={siteData.settings.heroTitle} onChange={(e) => updateSettings({ heroTitle: e.target.value })} />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+            <div className="input-group"><label className="input-label">Feature 1</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.heroFeature1} onChange={(e) => updateSettings({ heroFeature1: e.target.value })} /></div>
+            <div className="input-group"><label className="input-label">Feature 2</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.heroFeature2} onChange={(e) => updateSettings({ heroFeature2: e.target.value })} /></div>
+            <div className="input-group"><label className="input-label">Feature 3</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.heroFeature3} onChange={(e) => updateSettings({ heroFeature3: e.target.value })} /></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Home Page Content */}
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <LayoutDashboard size={24} /> Home Page Sections
+        </h3>
+        <div style={{ display: 'grid', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
+            <div className="input-group"><label className="input-label">"Why Us" Title</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.homeWhyTitle} onChange={(e) => updateSettings({ homeWhyTitle: e.target.value })} /></div>
+            <div className="input-group"><label className="input-label">"Why Us" Text</label><textarea className="input-field admin-glass-panel" style={{ height: '100px', resize: 'none' }} value={siteData.settings.homeWhyText} onChange={(e) => updateSettings({ homeWhyText: e.target.value })} /></div>
+          </div>
+          <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.05)' }} />
+          <div className="input-group"><label className="input-label">Services Section Title</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.homeServicesTitle} onChange={(e) => updateSettings({ homeServicesTitle: e.target.value })} /></div>
+          <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.05)' }} />
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
+            <div className="input-group"><label className="input-label">Packages Title</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.homePackagesTitle} onChange={(e) => updateSettings({ homePackagesTitle: e.target.value })} /></div>
+            <div className="input-group"><label className="input-label">Packages Brief</label><textarea className="input-field admin-glass-panel" style={{ height: '100px', resize: 'none' }} value={siteData.settings.homePackagesText} onChange={(e) => updateSettings({ homePackagesText: e.target.value })} /></div>
+          </div>
+        </div>
+      </div>
+
+      {/* About Us Content */}
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <RefreshCw size={24} /> About Us Page
+        </h3>
+        <div style={{ display: 'grid', gap: '2rem' }}>
+          <div className="input-group"><label className="input-label">Main Heading</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.aboutTitle} onChange={(e) => updateSettings({ aboutTitle: e.target.value })} /></div>
+          <div className="input-group"><label className="input-label">Story Section Title</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.aboutStoryTitle} onChange={(e) => updateSettings({ aboutStoryTitle: e.target.value })} /></div>
+          <div className="input-group"><label className="input-label">Our Story Detailed Text</label><textarea className="input-field admin-glass-panel" style={{ height: '200px', resize: 'none' }} value={siteData.settings.aboutStoryText} onChange={(e) => updateSettings({ aboutStoryText: e.target.value })} /></div>
+        </div>
+      </div>
+
+      {/* Contact & Footer Section */}
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <Mail size={24} /> Contact & Footer
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+          <div className="input-group"><label className="input-label">Contact Email</label><input type="email" className="input-field admin-glass-panel" value={siteData.settings.contactEmail} onChange={(e) => updateSettings({ contactEmail: e.target.value })} /></div>
+          <div className="input-group"><label className="input-label">Contact Phone</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.contactPhone} onChange={(e) => updateSettings({ contactPhone: e.target.value })} /></div>
+          <div className="input-group"><label className="input-label">Physical Address</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.contactAddress} onChange={(e) => updateSettings({ contactAddress: e.target.value })} /></div>
+        </div>
+        <div className="input-group" style={{ marginBottom: '2rem' }}>
+          <label className="input-label">Footer Description Paragraph</label>
+          <textarea className="input-field admin-glass-panel" style={{ height: '100px', resize: 'none' }} value={siteData.settings.footerDesc} onChange={(e) => updateSettings({ footerDesc: e.target.value })} />
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+          <div className="input-group"><label className="input-label">Instagram URL</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.instagramUrl} onChange={(e) => updateSettings({ instagramUrl: e.target.value })} /></div>
+          <div className="input-group"><label className="input-label">WhatsApp Number (e.g. 64212440244)</label><input type="text" className="input-field admin-glass-panel" value={siteData.settings.whatsappNumber} onChange={(e) => updateSettings({ whatsappNumber: e.target.value })} /></div>
+        </div>
+      </div>
+
       <div className="admin-glass-panel" style={{ padding: '3rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
         <h3 style={{ marginBottom: '1rem', color: '#EF4444' }}>Danger Zone</h3>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Warning: Resetting data will wipe all custom text and revert to defaults.</p>
         <button className="btn-outline admin-btn" style={{ borderColor: '#EF4444', color: '#EF4444' }} onClick={() => resetSiteData()}>Reset Data</button>
       </div>
     </div>
@@ -242,11 +348,16 @@ const Admin = () => {
     }
 
     const isPackage = editingItem.type === 'package';
+    const isService = editingItem.type === 'service';
+
     return (
       <div className="admin-editor" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div className="content-container" style={{ width: '95%', maxWidth: '800px' }}>
           <motion.div className="admin-glass-panel" style={{ padding: '3rem' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}><h2>{editingItem.mode === 'add' ? 'Add' : 'Edit'} {isPackage ? 'Package' : 'Review'}</h2><button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={24} /></button></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}>
+              <h2>{editingItem.mode === 'add' ? 'Add' : 'Edit'} {isPackage ? 'Package' : isService ? 'Service' : 'Review'}</h2>
+              <button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={24} /></button>
+            </div>
             <div style={{ display: 'grid', gap: '2rem' }}>
               {isPackage && (
                 <div style={{ display: 'flex', gap: '2rem' }}>
@@ -257,8 +368,34 @@ const Admin = () => {
                   <div style={{ flex: 1 }}><label className="input-label">Title</label><input type="text" className="input-field admin-glass-panel" value={editingItem.title || ''} onChange={(e) => setEditingItem({...editingItem, title: e.target.value})} /></div>
                 </div>
               )}
-              {!isPackage && <input type="text" className="input-field admin-glass-panel" placeholder="Name" value={editingItem.name || ''} onChange={(e) => setEditingItem({...editingItem, name: e.target.value})} />}
-              <button className="btn-primary-glass admin-btn w-full" onClick={() => { if (isPackage) { if (editingItem.mode === 'add') addPackage(editingItem.category, editingItem); else updatePackage(editingItem.category, editingItem.id, editingItem); } else { addTestimonial(editingItem); } setEditingItem(null); }}><Save size={20} /> Save Changes</button>
+              {isService && (
+                <div style={{ display: 'grid', gap: '1.5rem' }}>
+                  <div className="input-group"><label className="input-label">Service Title</label><input type="text" className="input-field admin-glass-panel" value={editingItem.title || ''} onChange={(e) => setEditingItem({...editingItem, title: e.target.value})} /></div>
+                  <div className="input-group"><label className="input-label">Description</label><textarea className="input-field admin-glass-panel" style={{ height: '120px', resize: 'none' }} value={editingItem.desc || ''} onChange={(e) => setEditingItem({...editingItem, desc: e.target.value})} /></div>
+                </div>
+              )}
+              {!isPackage && !isService && (
+                <div style={{ display: 'grid', gap: '1.5rem' }}>
+                  <input type="text" className="input-field admin-glass-panel" placeholder="Name" value={editingItem.name || ''} onChange={(e) => setEditingItem({...editingItem, name: e.target.value})} />
+                  <textarea className="input-field admin-glass-panel" placeholder="Review Text" style={{ height: '120px', resize: 'none' }} value={editingItem.text || ''} onChange={(e) => setEditingItem({...editingItem, text: e.target.value})} />
+                </div>
+              )}
+              
+              <button className="btn-primary-glass admin-btn w-full" onClick={() => { 
+                if (isPackage) { 
+                  if (editingItem.mode === 'add') addPackage(editingItem.category, editingItem); 
+                  else updatePackage(editingItem.category, editingItem.id, editingItem); 
+                } else if (isService) {
+                  if (editingItem.mode === 'add') addService(editingItem);
+                  else updateService(editingItem.id || editingItem.title, editingItem);
+                } else { 
+                  if (editingItem.mode === 'add') addTestimonial(editingItem);
+                  else alert("Editing testimonials is currently read/remove only.");
+                } 
+                setEditingItem(null); 
+              }}>
+                <Save size={20} /> Save Changes
+              </button>
             </div>
           </motion.div>
         </div>
@@ -290,6 +427,7 @@ const Admin = () => {
         <AnimatePresence mode="wait">
           {activeTab === 'dashboard' && <motion.div key="dash" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderDashboard()}</motion.div>}
           {activeTab === 'packages' && <motion.div key="pkg" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderPackages()}</motion.div>}
+          {activeTab === 'services' && <motion.div key="svc" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderServices()}</motion.div>}
           {activeTab === 'testimonials' && <motion.div key="test" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderTestimonials()}</motion.div>}
           {activeTab === 'team' && <motion.div key="team" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderTeam()}</motion.div>}
           {activeTab === 'gallery' && <motion.div key="gal" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderGallery()}</motion.div>}

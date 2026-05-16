@@ -24,9 +24,9 @@ const Services = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="responsive-hero-title">Our Premium Services</h1>
+          <h1 className="responsive-hero-title">{siteData.settings.servicesHeadline || "Our Premium Services"}</h1>
           <p className="logo-tagline" style={{ fontSize: '1.2rem' }}>
-            Tailored transport solutions to meet every travel need.
+            {siteData.settings.servicesSubline || "Tailored transport solutions to meet every travel need."}
           </p>
         </motion.div>
 

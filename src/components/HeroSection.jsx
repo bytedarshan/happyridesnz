@@ -1,8 +1,13 @@
-import React from 'react';
-import NavigationBar from './NavigationBar';
+import { useSiteData } from '../context/SiteContext';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
+
 const HeroSection = ({ title }) => {
+  const { siteData } = useSiteData();
+  
+  if (!siteData) return null;
+  const { settings } = siteData;
+
   return (
     <section className="hero-section">
       <div className="hero-main-layout">
@@ -12,13 +17,13 @@ const HeroSection = ({ title }) => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h2 className="hero-title">{title || "Your Premium Getaway to New Zealand - Search, Compare & Save"}</h2>
+          <h2 className="hero-title">{title || settings.heroTitle}</h2>
 
           <div className="hero-features">
             {[
-              "Professional Drivers",
-              "24/7 Service",
-              "Luxury Fleet"
+              settings.heroFeature1,
+              settings.heroFeature2,
+              settings.heroFeature3
             ].map((feature, idx) => (
               <motion.div
                 key={idx}

@@ -2,9 +2,11 @@ import React from 'react';
 import { Globe, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { useSiteData } from '../context/SiteContext';
 import logo from './logo.png';
 
 const NavigationBar = () => {
+  const { siteData } = useSiteData();
   const [isOpen, setIsOpen] = React.useState(false);
   const location = useLocation();
 
@@ -19,6 +21,8 @@ const NavigationBar = () => {
 
   const isActive = (path) => location.pathname === path;
 
+  if (!siteData) return null;
+
   return (
     <motion.nav
       className="navbar glass-panel"
@@ -32,8 +36,8 @@ const NavigationBar = () => {
             <img src={logo} alt="Happy Rides Logo" className="navbar-logo" />
           </div>
           <div className="logo-text-wrapper">
-            <h1 className="logo-title">Happy Rides</h1>
-            <span className="logo-tagline">Enjoy the journey. Love the ride</span>
+            <h1 className="logo-title">{siteData.settings.siteTitle}</h1>
+            <span className="logo-tagline">{siteData.settings.siteTagline}</span>
           </div>
         </Link>
       </div>

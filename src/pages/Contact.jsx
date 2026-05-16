@@ -19,9 +19,9 @@ const Contact = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="responsive-hero-title">Get In Touch</h1>
+          <h1 className="responsive-hero-title">{siteData.settings.contactHeadline || "Get In Touch"}</h1>
           <p className="logo-tagline" style={{ fontSize: '1.2rem' }}>
-            Have questions or want to book a custom tour? We're here to help.
+            {siteData.settings.contactSubline || "Have questions or want to book a custom tour? We're here to help."}
           </p>
         </motion.div>
 

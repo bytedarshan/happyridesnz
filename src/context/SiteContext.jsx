@@ -54,11 +54,41 @@ export const SiteProvider = ({ children }) => {
       { title: 'Safety First', desc: 'Our vehicles undergo regular safety inspections, and our drivers are fully vetted and professionally trained.' }
     ],
     settings: {
+      // General
+      siteTitle: "Happy Rides",
+      siteTagline: "Enjoy the journey. Love the ride",
+      
+      // Hero Section
       heroTitle: "Your Premium Getaway to New Zealand - Search, Compare & Save",
-      aboutText: "Welcome to Happy Rides, your trusted partner for safe, reliable, and comfortable transport in New Zealand. We understand that travel can be stressful, which is why we are dedicated to taking that weight off your shoulders.",
+      heroFeature1: "Professional Drivers",
+      heroFeature2: "24/7 Service",
+      heroFeature3: "Luxury Fleet",
+      
+      // Home Page Sections
+      homeWhyTitle: "Why Choose Happy Rides?",
+      homeWhyText: "Welcome to Happy Rides, your trusted partner for safe, reliable, and comfortable transport in New Zealand. We understand that travel can be stressful, which is why we are dedicated to taking that weight off your shoulders.",
+      homeServicesTitle: "Our Premium Services",
+      homePackagesTitle: "Popular Travel Packages",
+      homePackagesText: "From the geothermal wonders of Rotorua to the magical Shire in Hobbiton, discover our most loved travel experiences. We offer both half-day highlights and multi-day adventures.",
+      
+      // About Us Page
+      aboutTitle: "About Happy Rides",
+      aboutStoryTitle: "Our Story",
+      aboutStoryText: "Happy Rides was founded with a simple mission: to make travel in New Zealand as enjoyable as the destinations themselves. We understand that punctuality and peace of mind are non-negotiable for our clients.\n\nWhether you're a first-time visitor or a regular traveler, our professional drivers and pristine modern fleet are at your service 24/7. We pride ourselves on our fixed-fare policy—no hidden costs, no surge pricing, just honest service.",
+      
+      // Contact & Footer
       contactEmail: "info@happyrides.co.nz",
       contactPhone: "+64 21 244 0244",
-      contactAddress: "Auckland, New Zealand"
+      contactAddress: "Auckland, New Zealand",
+      footerDesc: "Your premium gateway to exploring the stunning landscapes and vibrant culture of New Zealand. We provide curated tours and professional transfer services.",
+      instagramUrl: "https://www.instagram.com/happyridesnz/",
+      whatsappNumber: "64212440244",
+      contactHeadline: "Get In Touch",
+      contactSubline: "Have questions or want to book a custom tour? We're here to help.",
+      servicesHeadline: "Our Premium Services",
+      servicesSubline: "Tailored transport solutions to meet every travel need.",
+      testimonialsHeadline: "Guest Testimonials",
+      testimonialsSubline: "Hear from travelers who explored the beauty of New Zealand with Happy Rides. We take pride in delivering unforgettable experiences."
     }
   };
 
@@ -172,11 +202,27 @@ export const SiteProvider = ({ children }) => {
     await syncToFirestore(newData);
   };
 
+  const addService = async (service) => {
+    const newData = { ...siteData, services: [...siteData.services, { ...service, id: Date.now().toString() }] };
+    await syncToFirestore(newData);
+  };
+
+  const updateService = async (serviceId, updatedService) => {
+    const newData = { ...siteData, services: siteData.services.map(s => (s.id === serviceId || s.title === serviceId) ? { ...s, ...updatedService } : s) };
+    await syncToFirestore(newData);
+  };
+
+  const removeService = async (serviceId) => {
+    const newData = { ...siteData, services: siteData.services.filter(s => (s.id !== serviceId && s.title !== serviceId)) };
+    await syncToFirestore(newData);
+  };
+
   return (
     <SiteContext.Provider value={{ 
       siteData, admins, user, loading,
       login, logout, createAdmin, removeAdmin, resetAdminPassword, resetSiteData,
-      updateSettings, addPackage, updatePackage, removePackage, addTestimonial, removeTestimonial
+      updateSettings, addPackage, updatePackage, removePackage, addTestimonial, removeTestimonial,
+      addService, updateService, removeService
     }}>
       {!loading && children}
     </SiteContext.Provider>
