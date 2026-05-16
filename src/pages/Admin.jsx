@@ -148,7 +148,21 @@ const Admin = () => {
               <input type="password" className="input-field" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
             {authError && <p style={{ color: '#EF4444' }}>{authError}</p>}
-            <button className="btn-primary-glass admin-btn w-full" type="submit" disabled={isSubmitting} style={{ padding: '1.2rem' }}>{isSubmitting ? 'Verifying...' : 'Access Dashboard'}</button>
+            <button 
+              className="btn-primary-glass w-full" 
+              type="submit" 
+              disabled={isSubmitting} 
+              style={{ 
+                padding: '1.2rem', 
+                background: 'var(--primary-color)', 
+                opacity: isSubmitting ? 0.7 : 1,
+                cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                fontSize: '1rem',
+                border: '1px solid rgba(255,255,255,0.4)'
+              }}
+            >
+              {isSubmitting ? 'Verifying...' : 'Access Dashboard'}
+            </button>
           </form>
         </motion.div>
       </div>
