@@ -467,6 +467,8 @@ const Admin = () => {
           </div>
         </div>
       );
+    }
+
     if (editingItem.type === 'fleet_image') {
       return (
         <div className="admin-editor" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
