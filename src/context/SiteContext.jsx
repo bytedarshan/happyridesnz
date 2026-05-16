@@ -141,7 +141,13 @@ export const SiteProvider = ({ children }) => {
     const siteDocRef = doc(db, 'content', 'siteData');
     const unsubscribe = onSnapshot(siteDocRef, async (docSnap) => {
       if (docSnap.exists()) {
-        setSiteData(docSnap.data());
+        const data = docSnap.data();
+        const mergedSettings = {
+          ...initialData.settings,
+          ...(data.settings || {}),
+          fleet: data.settings?.fleet || initialData.settings.fleet
+        };
+        setSiteData({ ...data, settings: mergedSettings });
         setLoading(false);
       } else {
         await setDoc(siteDocRef, initialData);

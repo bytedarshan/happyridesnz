@@ -36,12 +36,39 @@ const Admin = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [editingItem, setEditingItem] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('aucklandCityTours');
+  const [bottomOffset, setBottomOffset] = useState(32);
   
   const [newAdminEmail, setNewAdminEmail] = useState('');
   const [newAdminPassword, setNewAdminPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+
+  // Re-sync fleet if missing
+  const fleetData = siteData?.settings?.fleet || [
+    { id: 'f1', type: 'SEDAN', img: 'image12.png', capacity: '1-3 Passengers' },
+    { id: 'f2', type: 'SUV', img: 'image13.png', capacity: '1-4 Passengers' },
+    { id: 'f3', type: 'PEOPLE MOVER', img: 'image18.png', capacity: '1-7 Passengers' },
+    { id: 'f4', type: 'MINIBUS', img: 'image10.png', capacity: '1-11 Passengers' }
+  ];
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const footer = document.querySelector('footer');
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const footerVisibleHeight = viewportHeight - footerRect.top;
+        if (footerVisibleHeight > 0) {
+          setBottomOffset(footerVisibleHeight + 20);
+        } else {
+          setBottomOffset(32);
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const availableAssets = [
     'auckland.jpg', 'auckland_city.png', 'rotorua_geothermal.png', 'nz_landscape.png', 'hero_bg.jpeg', 'logo.png', 'hero.png',
@@ -292,7 +319,7 @@ const Admin = () => {
           <Car size={24} /> Professional Fleet
         </h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-          {(siteData.settings.fleet || []).map((v, i) => (
+          {fleetData.map((v, i) => (
             <div key={v.id || i} className="admin-glass-panel" style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)' }}>
               <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <div style={{ position: 'relative' }}>
@@ -301,7 +328,7 @@ const Admin = () => {
                 </div>
                 <div style={{ flex: 1 }}>
                   <input type="text" className="input-field" style={{ fontSize: '0.9rem', padding: '0.5rem' }} value={v.type} onChange={(e) => {
-                    const newFleet = [...siteData.settings.fleet];
+                    const newFleet = [...fleetData];
                     newFleet[i] = { ...newFleet[i], type: e.target.value };
                     updateSettings({ fleet: newFleet });
                   }} placeholder="Vehicle Type" />
@@ -309,7 +336,7 @@ const Admin = () => {
               </div>
               <div className="input-group">
                 <input type="text" className="input-field" style={{ fontSize: '0.8rem', padding: '0.5rem' }} value={v.capacity} onChange={(e) => {
-                  const newFleet = [...siteData.settings.fleet];
+                  const newFleet = [...fleetData];
                   newFleet[i] = { ...newFleet[i], capacity: e.target.value };
                   updateSettings({ fleet: newFleet });
                 }} placeholder="Capacity Label" />
@@ -480,8 +507,8 @@ const Admin = () => {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1.5rem' }}>
                 {availableAssets.map(asset => (
-                  <div key={asset} className="admin-glass-panel" style={{ padding: '0.5rem', cursor: 'pointer', border: siteData.settings.fleet[editingItem.index].img === asset ? '2px solid var(--primary-color)' : 'none' }} onClick={() => { 
-                    const newFleet = [...siteData.settings.fleet];
+                  <div key={asset} className="admin-glass-panel" style={{ padding: '0.5rem', cursor: 'pointer', border: fleetData[editingItem.index].img === asset ? '2px solid var(--primary-color)' : 'none' }} onClick={() => { 
+                    const newFleet = [...fleetData];
                     newFleet[editingItem.index] = { ...newFleet[editingItem.index], img: asset };
                     updateSettings({ fleet: newFleet });
                     setEditingItem(null); 
@@ -592,7 +619,7 @@ const Admin = () => {
         </AnimatePresence>
       </div>
       <AnimatePresence>{editingItem && renderEditor()}</AnimatePresence>
-      <div className="category-nav-wrapper"><div className="category-nav">{adminTabs.map((tab) => (<button key={tab.id} className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)}><span className="nav-icon">{tab.icon}</span><span className="nav-label">{tab.label}</span></button>))}<button className="category-nav-item" onClick={() => logout()}><span className="nav-icon"><LogOut size={18} /></span><span className="nav-label">Logout</span></button></div></div>
+      <div className="category-nav-wrapper" style={{ bottom: `${bottomOffset}px`, position: 'fixed' }}><div className="category-nav">{adminTabs.map((tab) => (<button key={tab.id} className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)}><span className="nav-icon">{tab.icon}</span><span className="nav-label">{tab.label}</span></button>))}<button className="category-nav-item" onClick={() => logout()}><span className="nav-icon"><LogOut size={18} /></span><span className="nav-label">Logout</span></button></div></div>
     </div>
   );
 };
