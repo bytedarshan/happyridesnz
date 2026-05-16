@@ -137,8 +137,12 @@ const Admin = () => {
     return (
       <div className="admin-login-page page-padding" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
         <motion.div className="admin-glass-panel" style={{ padding: '3rem', width: '100%', maxWidth: '450px', textAlign: 'center' }} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
-          <div style={{ marginBottom: '2rem' }}><div style={{ display: 'inline-flex', padding: '1rem', background: 'rgba(56, 189, 248, 0.1)', borderRadius: '1.5rem', marginBottom: '1rem' }}><ShieldCheck size={40} color="var(--primary-color)" /></div><h2 className="responsive-hero-title">Secure Admin</h2></div>
-          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div style={{ marginBottom: '2rem' }}>
+            <div style={{ display: 'inline-flex', padding: '1rem', background: 'rgba(56, 189, 248, 0.1)', borderRadius: '1.5rem', marginBottom: '1rem' }}><ShieldCheck size={40} color="var(--primary-color)" /></div>
+            <h2 className="responsive-hero-title">Secure Admin</h2>
+            <p style={{ fontSize: '0.7rem', opacity: 0.5 }}>v2.1 - Login Required</p>
+          </div>
+          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <div className="input-group">
               <label className="input-label" style={{ textAlign: 'left' }}>Admin Email</label>
               <input type="email" className="input-field" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
@@ -147,18 +151,23 @@ const Admin = () => {
               <label className="input-label" style={{ textAlign: 'left' }}>Secure Password</label>
               <input type="password" className="input-field" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
-            {authError && <p style={{ color: '#EF4444' }}>{authError}</p>}
+            {authError && <p style={{ color: '#EF4444', fontSize: '0.9rem' }}>{authError}</p>}
             <button 
-              className="btn-primary-glass w-full" 
               type="submit" 
               disabled={isSubmitting} 
               style={{ 
-                padding: '1.2rem', 
-                background: 'var(--primary-color)', 
-                opacity: isSubmitting ? 0.7 : 1,
-                cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                fontSize: '1rem',
-                border: '1px solid rgba(255,255,255,0.4)'
+                padding: '1rem', 
+                background: '#3B82F6', 
+                color: 'white',
+                border: 'none',
+                borderRadius: '0.75rem',
+                width: '100%',
+                fontWeight: 'bold',
+                fontSize: '1.1rem',
+                cursor: 'pointer',
+                display: 'block',
+                marginTop: '1rem',
+                boxShadow: '0 4px 15px rgba(59, 130, 246, 0.4)'
               }}
             >
               {isSubmitting ? 'Verifying...' : 'Access Dashboard'}
