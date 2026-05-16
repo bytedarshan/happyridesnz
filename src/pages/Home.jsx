@@ -124,7 +124,7 @@ const Home = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <img src="./auckland_city.png" alt="About Us" className="glass-image" />
+            <img src="/auckland_city.png" alt="About Us" className="glass-image" />
           </motion.div>
         </div>
       </section>
@@ -168,7 +168,7 @@ const Home = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <img src="./rotorua_geothermal.png" alt="Packages" className="glass-image" />
+            <img src="/rotorua_geothermal.png" alt="Packages" className="glass-image" />
           </motion.div>
           <motion.div 
             className="brief-text"
