@@ -1412,7 +1412,7 @@ textarea.input-field {
 
 /* Intelligent Floating Navigation - Exact Reference Match */
 .category-nav-wrapper {
-  position: sticky;
+  position: fixed;
   bottom: 2rem;
   left: 0;
   right: 0;
@@ -1420,8 +1420,6 @@ textarea.input-field {
   pointer-events: none;
   display: flex;
   justify-content: center; /* Perfect horizontal centering */
-  margin-top: -4rem; /* Negative margin to float over content without adding height */
-  padding-bottom: 1rem;
 }
 
 .category-nav {

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 
 const CategoryNav = ({ links }) => {
   const [activeId, setActiveId] = useState('');
+  const [bottomOffset, setBottomOffset] = useState(32); // 2rem default
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
@@ -27,17 +28,29 @@ const CategoryNav = ({ links }) => {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Active Section logic
       const scrollPosition = window.scrollY + 200;
-
       for (const link of links) {
         const section = document.getElementById(link.id);
         if (section) {
           const top = section.offsetTop;
           const height = section.offsetHeight;
-
           if (scrollPosition >= top && scrollPosition < top + height) {
             setActiveId(link.id);
           }
+        }
+      }
+
+      // Footer Boundary logic
+      const footer = document.querySelector('footer');
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const footerVisibleHeight = viewportHeight - footerRect.top;
+        if (footerVisibleHeight > 0) {
+          setBottomOffset(footerVisibleHeight + 20);
+        } else {
+          setBottomOffset(32);
         }
       }
     };
@@ -59,6 +72,7 @@ const CategoryNav = ({ links }) => {
   return (
     <motion.div 
       className="category-nav-wrapper"
+      style={{ bottom: `${bottomOffset}px`, position: 'fixed' }}
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.5 }}
