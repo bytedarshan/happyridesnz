@@ -91,7 +91,16 @@ export const rotoruaActivities = [
   { id: "ra-tp", title: "Te Puia", image: "tour6.jpeg", duration: "1.5 - 2 Hours", price: "$100", description: "Māori Arts and Crafts Institute." },
   { id: "ra-mmv", title: "Mitai Maori Village", image: "tour7.jpeg", duration: "3 Hours", price: "$130", description: "Evening cultural experience and traditional buffet." },
   { id: "ra-ms", title: "Marae Stay", image: "nz_landscape.png", duration: "Overnight", price: "$150+", description: "Immersive overnight stay at traditional Māori grounds." },
-  { id: "ra-rtw", title: "Redwoods Treewalk", image: "tour1.jpeg", duration: "40 Mins", price: "$40", description: "Ecological suspension bridges through the redwoods." }
+  { id: "ra-rtw", title: "Redwoods Treewalk", image: "tour1.jpeg", duration: "40 Mins", price: "$40", description: "Ecological suspension bridges through the redwoods." },
+  { id: "ra-zp", title: "Ziplining (Canopy Tours)", image: "tour2.jpeg", duration: "3 - 3.5 Hours", price: "$160", description: "Award-winning eco-adventure through ancient native forest." },
+  { id: "ra-zb", title: "ZORB Rotorua", image: "tour3.jpeg", duration: "1 Hour", price: "$50", description: "The world's first and iconic downhill ball rolling experience." },
+  { id: "ra-sr", title: "Skyline Rotorua", image: "tour4.jpeg", duration: "1 - 3 Hours", price: "$60", description: "Gondola rides, downhill Luge tracks, and panoramic dining." },
+  { id: "ra-od", title: "Off-Road Driving", image: "tour5.jpeg", duration: "1 - 2 Hours", price: "$100", description: "4WD bush safaris and mud-plugging adventures." },
+  { id: "ra-ag", title: "Agrodome", image: "tour6.jpeg", duration: "1.5 Hours", price: "$45", description: "Famous farm show and organic farm tour experience." },
+  { id: "ra-pv", title: "Paradise Valley Springs", image: "tour7.jpeg", duration: "1 - 2 Hours", price: "$40", description: "Wildlife park featuring trout, birds, and African lions." },
+  { id: "ra-sf", title: "Scenic Flights & Floatplanes", image: "nz_landscape.png", duration: "30 - 60 Mins", price: "$250", description: "Aerial views of Rotorua’s volcanic landscapes and lakes." },
+  { id: "ra-mt", title: "Mount Tarawera Tours", image: "rotorua_geothermal.png", duration: "4 Hours", price: "$180", description: "Guided 4WD journey to the crater of the 1886 eruption." },
+  { id: "ra-gk", title: "Rotorua Glowworm Kayak Tour", image: "image81.jpeg", duration: "3 Hours", price: "$120", description: "Magical evening paddle to a hidden glowworm canyon." }
 ];
 
 export const paihiaTours = [
