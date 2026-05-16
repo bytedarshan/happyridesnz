@@ -379,7 +379,9 @@ const Admin = () => {
             <div key={v.id || i} className="admin-glass-panel" style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)' }}>
               <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <div style={{ position: 'relative' }}>
-                  <img src={getImagePath(v.img)} alt="" style={{ width: '80px', height: '60px', borderRadius: '1rem', objectFit: 'contain', background: 'rgba(255,255,255,0.05)' }} />
+                  <div style={{ width: '80px', height: '50px', borderRadius: '0.8rem', overflow: 'hidden', background: 'rgba(255,255,255,0.05)' }}>
+                    <img src={getImagePath(v.img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
                   <button onClick={() => setEditingItem({ type: 'fleet_image', index: i })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '24px', height: '24px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={12} /></button>
                 </div>
                 <div style={{ flex: 1 }}>

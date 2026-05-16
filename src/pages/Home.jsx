@@ -80,7 +80,9 @@ const Home = () => {
               style={{ padding: '1.5rem', textAlign: 'center', overflow: 'hidden' }}
               whileHover={{ scale: 1.05 }}
             >
-              <img src={`/${v.img}`} alt={v.type} style={{ width: '100%', height: '150px', objectFit: 'contain', marginBottom: '1.5rem' }} />
+              <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: '1.2rem', overflow: 'hidden', marginBottom: '1.5rem', background: 'rgba(255,255,255,0.05)' }}>
+                <img src={`/${v.img}`} alt={v.type} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
               <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem' }}>{v.type}</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{v.capacity}</p>
             </motion.div>
