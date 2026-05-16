@@ -2,7 +2,7 @@ import { useSiteData } from '../context/SiteContext';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const HeroSection = ({ title }) => {
+const HeroSection = ({ title, subtitle }) => {
   const { siteData } = useSiteData();
   
   if (!siteData) return null;
@@ -18,6 +18,11 @@ const HeroSection = ({ title }) => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h2 className="hero-title">{title || settings.heroTitle}</h2>
+          {subtitle && (
+            <p className="logo-tagline" style={{ fontSize: '1.2rem', marginBottom: '2.5rem', lineHeight: '1.6', opacity: 0.9 }}>
+              {subtitle}
+            </p>
+          )}
 
           <div className="hero-features">
             {[

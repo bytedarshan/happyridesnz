@@ -22,8 +22,67 @@ const Home = () => {
       <NavigationBar />
       
       <div id="hero">
-        <HeroSection title={siteData.settings.heroTitle} />
+        <HeroSection 
+          title="Reliable & Comfortable Airport Transfers & Tours" 
+          subtitle="At Happy Rides, we are committed to providing seamless, professional and reliable transportation service. Whether you are heading to the airport, attending a business engagement or exploring the breathtaking landscapes of New Zealand, we ensure a smooth and stress-free travel experience."
+        />
       </div>
+
+      {/* Booking Frame Section */}
+      <section className="brief-section" style={{ padding: '4rem 8%' }}>
+        <motion.div 
+          className="admin-glass-panel" 
+          style={{ padding: '3rem', textAlign: 'center' }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="section-title" style={{ marginBottom: '1.5rem' }}>Instant Online Booking</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '800px', margin: '0 auto 2.5rem' }}>
+            Ready to ride? Use our integrated booking platform below to secure your transfer or tour in seconds.
+          </p>
+          <div style={{ 
+            width: '100%', 
+            height: '500px', 
+            background: 'rgba(255,255,255,0.02)', 
+            borderRadius: '2.5rem', 
+            border: '2px dashed rgba(255,255,255,0.1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <div style={{ textAlign: 'center', opacity: 0.5 }}>
+              <Clock size={48} style={{ marginBottom: '1rem' }} />
+              <p>Booking Software Frame Placeholder</p>
+              <p style={{ fontSize: '0.8rem' }}>(Iframe link to be provided)</p>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Vehicle Fleet Section */}
+      <section className="brief-section glass-panel" style={{ margin: '4rem 8%', padding: '5rem 3rem' }}>
+        <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '4rem' }}>Our Professional Fleet</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
+          {[
+            { type: 'SEDAN', img: 'image12.png', capacity: '1-3 Passengers' },
+            { type: 'SUV', img: 'image13.png', capacity: '1-4 Passengers' },
+            { type: 'PEOPLE MOVER', img: 'image18.png', capacity: '1-7 Passengers' },
+            { type: 'MINIBUS', img: 'image10.png', capacity: '1-11 Passengers' }
+          ].map((v, i) => (
+            <motion.div 
+              key={i} 
+              className="admin-glass-panel" 
+              style={{ padding: '1.5rem', textAlign: 'center', overflow: 'hidden' }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <img src={`/${v.img}`} alt={v.type} style={{ width: '100%', height: '150px', objectFit: 'contain', marginBottom: '1.5rem' }} />
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem' }}>{v.type}</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{v.capacity}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {/* Brief About Us */}
       <section id="about" className="brief-section glass-panel">
