@@ -4,17 +4,21 @@ import NavigationBar from '../components/NavigationBar';
 import CategoryNav from '../components/CategoryNav';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Shield, Clock, Car, MapPin, Home as HomeIcon, Info, Settings, Package } from 'lucide-react';
+import { Shield, Clock, Car, MapPin, Home as HomeIcon, Info, Settings, Package, Calendar } from 'lucide-react';
 import { useSiteData } from '../context/SiteContext';
 
 const Home = () => {
   const { siteData } = useSiteData();
   
+  if (!siteData) return null;
+
   const homeLinks = [
     { id: 'hero', label: 'Home', icon: <HomeIcon size={18} /> },
-    { id: 'about', label: 'About Us', icon: <Info size={18} /> },
+    { id: 'booking', label: 'Book Now', icon: <Calendar size={18} /> },
+    { id: 'fleet', label: 'Fleet', icon: <Car size={18} /> },
+    { id: 'about', label: 'About', icon: <Info size={18} /> },
     { id: 'services', label: 'Services', icon: <Settings size={18} /> },
-    { id: 'packages-brief', label: 'Popular Packages', icon: <Package size={18} /> }
+    { id: 'packages-brief', label: 'Tours', icon: <Package size={18} /> }
   ];
 
   return (
@@ -29,7 +33,7 @@ const Home = () => {
       </div>
 
       {/* Booking Frame Section */}
-      <section className="brief-section" style={{ padding: '4rem 8%' }}>
+      <section id="booking" className="brief-section" style={{ padding: '4rem 8%' }}>
         <motion.div 
           className="admin-glass-panel" 
           style={{ padding: '3rem', textAlign: 'center' }}
@@ -66,17 +70,12 @@ const Home = () => {
       </section>
 
       {/* Vehicle Fleet Section */}
-      <section className="brief-section glass-panel" style={{ margin: '4rem 8%', padding: '5rem 3rem' }}>
+      <section id="fleet" className="brief-section glass-panel" style={{ margin: '4rem 8%', padding: '5rem 3rem' }}>
         <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '4rem' }}>Our Professional Fleet</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
-          {[
-            { type: 'SEDAN', img: 'image12.png', capacity: '1-3 Passengers' },
-            { type: 'SUV', img: 'image13.png', capacity: '1-4 Passengers' },
-            { type: 'PEOPLE MOVER', img: 'image18.png', capacity: '1-7 Passengers' },
-            { type: 'MINIBUS', img: 'image10.png', capacity: '1-11 Passengers' }
-          ].map((v, i) => (
+          {(siteData.settings.fleet || []).map((v, i) => (
             <motion.div 
-              key={i} 
+              key={v.id || i} 
               className="admin-glass-panel" 
               style={{ padding: '1.5rem', textAlign: 'center', overflow: 'hidden' }}
               whileHover={{ scale: 1.05 }}

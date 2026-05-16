@@ -286,6 +286,39 @@ const Admin = () => {
         </div>
       </div>
 
+      {/* Vehicle Fleet Section */}
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <Car size={24} /> Professional Fleet
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+          {(siteData.settings.fleet || []).map((v, i) => (
+            <div key={v.id || i} className="admin-glass-panel" style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)' }}>
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '1.5rem' }}>
+                <div style={{ position: 'relative' }}>
+                  <img src={getImagePath(v.img)} alt="" style={{ width: '80px', height: '60px', borderRadius: '1rem', objectFit: 'contain', background: 'rgba(255,255,255,0.05)' }} />
+                  <button onClick={() => setEditingItem({ type: 'fleet_image', index: i })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '24px', height: '24px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={12} /></button>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <input type="text" className="input-field" style={{ fontSize: '0.9rem', padding: '0.5rem' }} value={v.type} onChange={(e) => {
+                    const newFleet = [...siteData.settings.fleet];
+                    newFleet[i] = { ...newFleet[i], type: e.target.value };
+                    updateSettings({ fleet: newFleet });
+                  }} placeholder="Vehicle Type" />
+                </div>
+              </div>
+              <div className="input-group">
+                <input type="text" className="input-field" style={{ fontSize: '0.8rem', padding: '0.5rem' }} value={v.capacity} onChange={(e) => {
+                  const newFleet = [...siteData.settings.fleet];
+                  newFleet[i] = { ...newFleet[i], capacity: e.target.value };
+                  updateSettings({ fleet: newFleet });
+                }} placeholder="Capacity Label" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Branding Section */}
       <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
         <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -425,6 +458,32 @@ const Admin = () => {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1.5rem' }}>
                 {availableAssets.map(asset => (
                   <div key={asset} className="admin-glass-panel" style={{ padding: '0.5rem', cursor: 'pointer', border: siteData.settings[editingItem.key] === asset ? '2px solid var(--primary-color)' : 'none' }} onClick={() => { updateSettings({ [editingItem.key]: asset }); setEditingItem(null); }}>
+                    <img src={getImagePath(asset)} alt="" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '0.8rem' }} />
+                    <p style={{ fontSize: '0.65rem', textAlign: 'center', marginTop: '0.5rem' }}>{asset}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      );
+    if (editingItem.type === 'fleet_image') {
+      return (
+        <div className="admin-editor" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="content-container" style={{ width: '95%', maxWidth: '900px' }}>
+            <motion.div className="admin-glass-panel" style={{ padding: '3rem', maxHeight: '80vh', overflowY: 'auto' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}>
+                <h2>Select Vehicle Image</h2>
+                <button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={24} /></button>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1.5rem' }}>
+                {availableAssets.map(asset => (
+                  <div key={asset} className="admin-glass-panel" style={{ padding: '0.5rem', cursor: 'pointer', border: siteData.settings.fleet[editingItem.index].img === asset ? '2px solid var(--primary-color)' : 'none' }} onClick={() => { 
+                    const newFleet = [...siteData.settings.fleet];
+                    newFleet[editingItem.index] = { ...newFleet[editingItem.index], img: asset };
+                    updateSettings({ fleet: newFleet });
+                    setEditingItem(null); 
+                  }}>
                     <img src={getImagePath(asset)} alt="" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '0.8rem' }} />
                     <p style={{ fontSize: '0.65rem', textAlign: 'center', marginTop: '0.5rem' }}>{asset}</p>
                   </div>
