@@ -1,8 +1,6 @@
 import React from 'react';
 import TourCard from './TourCard';
-import AirportTransfers from './AirportTransfers';
 import SliderSection from './SliderSection';
-
 const DestinationGrid = ({ onTourClick, packages }) => {
   if (!packages) return null;
   
@@ -18,7 +16,6 @@ const DestinationGrid = ({ onTourClick, packages }) => {
 
   return (
     <main className="main-content">
-      <AirportTransfers />
 
       <section id="city-tours" className="section-header">
         <h2 className="section-title">Auckland City Tour</h2>
