@@ -101,14 +101,32 @@ const NavigationBar = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - Redesigned for Professional Liquid Look */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="mobile-nav glass-panel"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            className="mobile-nav"
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            style={{ 
+              position: 'absolute',
+              top: 'calc(100% + 1rem)',
+              left: '5%',
+              right: '5%',
+              background: 'rgba(255, 255, 255, 0.01)',
+              backdropFilter: 'blur(8px) saturate(150%)',
+              WebkitBackdropFilter: 'blur(8px) saturate(150%)',
+              border: '1px solid rgba(255, 255, 255, 0.4)',
+              borderRadius: '2rem',
+              padding: '1.5rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.5rem',
+              zIndex: 1002,
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)'
+            }}
           >
             {navLinks.map((link) => (
               <Link
@@ -116,6 +134,17 @@ const NavigationBar = () => {
                 to={link.path}
                 className={`mobile-nav-link ${isActive(link.path) ? 'active' : ''}`}
                 onClick={() => setIsOpen(false)}
+                style={{
+                  color: 'white',
+                  textDecoration: 'none',
+                  fontSize: '1.1rem',
+                  fontWeight: '600',
+                  padding: '1rem',
+                  borderRadius: '1rem',
+                  textAlign: 'center',
+                  background: isActive(link.path) ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+                }}
               >
                 {link.name}
               </Link>
