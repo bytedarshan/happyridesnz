@@ -6,8 +6,16 @@ const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if device is mobile/touch
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(pointer: coarse)").matches);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const updateMousePosition = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -43,6 +51,8 @@ const CustomCursor = () => {
       window.removeEventListener('mouseup', handleMouseUp);
     };
   }, []);
+
+  if (isMobile) return null;
 
   const variants = {
     default: {
