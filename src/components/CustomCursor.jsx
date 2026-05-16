@@ -9,9 +9,10 @@ const CustomCursor = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if device is mobile/touch
     const checkMobile = () => {
-      setIsMobile(window.matchMedia("(pointer: coarse)").matches);
+      const isTouch = window.matchMedia("(pointer: coarse)").matches;
+      const isNarrow = window.innerWidth <= 1100;
+      setIsMobile(isTouch || isNarrow);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);

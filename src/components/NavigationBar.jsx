@@ -8,7 +8,15 @@ import logo from './logo.png';
 const NavigationBar = () => {
   const { siteData } = useSiteData();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isMobileView, setIsMobileView] = React.useState(false);
   const location = useLocation();
+
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobileView(window.innerWidth <= 1100);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -41,40 +49,46 @@ const NavigationBar = () => {
         </Link>
       </div>
 
-      {/* Desktop Navigation */}
-      <div className="nav-menu">
-        {navLinks.map((link) => (
-          <motion.div
-            key={link.name}
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.95, rotate: -1 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25, mass: 1 }}
-          >
-            <Link
-              to={link.path}
-              className={`nav-link ${isActive(link.path) ? 'active' : ''}`}
+      {/* Desktop Navigation - Strictly Hidden on Mobile via React State */}
+      {!isMobileView && (
+        <div className="nav-menu">
+          {navLinks.map((link) => (
+            <motion.div
+              key={link.name}
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95, rotate: -1 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25, mass: 1 }}
             >
-              {link.name}
-            </Link>
-          </motion.div>
-        ))}
-      </div>
+              <Link
+                to={link.path}
+                className={`nav-link ${isActive(link.path) ? 'active' : ''}`}
+              >
+                {link.name}
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       <div className="nav-actions">
-        <div className="lang-selector">
-          <Globe size={18} />
-          <span>EN</span>
-        </div>
-        <Link to="/contact">
-          <motion.button
-            className="btn-primary-glass"
-            whileHover={{ scale: 1.05, y: -1 }}
-            whileTap={{ scale: 0.95, rotate: 1 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25, mass: 1 }}
-          >
-            Manage Booking
-          </motion.button>
-        </Link>
+        {!isMobileView && (
+          <div className="lang-selector">
+            <Globe size={18} />
+            <span>EN</span>
+          </div>
+        )}
+        {!isMobileView && (
+          <Link to="/contact">
+            <motion.button
+              className="btn-primary-glass"
+              whileHover={{ scale: 1.05, y: -1 }}
+              whileTap={{ scale: 0.95, rotate: 1 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25, mass: 1 }}
+            >
+              Manage Booking
+            </motion.button>
+          </Link>
+        )}
         
         {/* Mobile Toggle */}
         <button className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
