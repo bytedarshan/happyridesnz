@@ -36,7 +36,7 @@ const NavigationBar = () => {
       initial={{ y: -60, opacity: 0 }} /* Less drastic initial y */
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      style={{ background: 'rgba(255, 255, 255, 0.05)' }}
+      style={{ background: 'rgba(255, 255, 255, 0.01)' }}
     >
       <div className="logo-container">
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}>
