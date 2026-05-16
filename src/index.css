@@ -951,9 +951,9 @@ body {
 }
 
 .footer-section h4 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: #60A5FA;
 }
 
@@ -962,8 +962,9 @@ body {
 }
 
 .footer-links li {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   color: var(--text-muted);
+  font-size: 0.85rem;
   cursor: pointer;
   transition: color 0.2s;
 }

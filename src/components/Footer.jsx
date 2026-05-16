@@ -48,36 +48,36 @@ const Footer = () => {
         </div>
 
         <div className="footer-section" style={{ textAlign: 'center' }}>
-          <h4 style={{ color: '#60A5FA', fontSize: '1.5rem', marginBottom: '2rem' }}>Quick Links</h4>
-          <ul className="footer-links" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
-            <li><a href="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '1.2rem' }}>Home</a></li>
-            <li><a href="/about" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '1.2rem' }}>About Us</a></li>
-            <li><a href="/services" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '1.2rem' }}>Services</a></li>
-            <li><a href="/packages" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '1.2rem' }}>Popular Packages</a></li>
+          <h4 style={{ color: '#60A5FA', fontSize: '1.1rem', marginBottom: '1rem' }}>Quick Links</h4>
+          <ul className="footer-links" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', alignItems: 'center' }}>
+            <li><a href="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Home</a></li>
+            <li><a href="/about" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>About Us</a></li>
+            <li><a href="/services" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Services</a></li>
+            <li><a href="/packages" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Popular Packages</a></li>
           </ul>
         </div>
 
-        <div className="footer-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '2rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', color: 'white', fontSize: '1.4rem' }}>
-            <Mail size={28} style={{ opacity: 0.8 }} />
+        <div className="footer-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1.2rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'white', fontSize: '1rem' }}>
+            <Mail size={20} style={{ opacity: 0.8 }} />
             <span>{settings.contactEmail}</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', color: 'white', fontSize: '1.4rem' }}>
-            <Phone size={28} style={{ opacity: 0.8 }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'white', fontSize: '1rem' }}>
+            <Phone size={20} style={{ opacity: 0.8 }} />
             <span>{settings.contactPhone}</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', color: 'white', fontSize: '1.4rem' }}>
-            <MapPin size={28} style={{ opacity: 0.8 }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'white', fontSize: '1rem' }}>
+            <MapPin size={20} style={{ opacity: 0.8 }} />
             <span>{settings.contactAddress}</span>
           </div>
         </div>
       </div>
 
-      <div className="footer-bottom" style={{ flexDirection: 'column', gap: '1.5rem', padding: '1.5rem 0', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <div className="footer-bottom" style={{ flexDirection: 'column', gap: '1rem', padding: '1rem 0', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-          <p style={{ fontSize: '1.1rem', color: 'white' }}>&copy; {new Date().getFullYear()} {settings.siteTitle}. All Rights Reserved.</p>
+          <p style={{ fontSize: '0.9rem', color: 'white' }}>&copy; {new Date().getFullYear()} {settings.siteTitle}. All Rights Reserved.</p>
           
-          <div style={{ display: 'flex', gap: '2rem' }}>
+          <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.85rem' }}>
             <a href="/privacy-policy" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</a>
             <a href="/terms-of-service" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</a>
           </div>
@@ -85,8 +85,8 @@ const Footer = () => {
           <button 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             style={{ 
-              width: '50px', 
-              height: '50px', 
+              width: '40px', 
+              height: '40px', 
               borderRadius: '50%', 
               border: '2px solid #EF4444', 
               background: 'transparent', 
@@ -97,7 +97,7 @@ const Footer = () => {
               cursor: 'pointer'
             }}
           >
-            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="3" fill="none"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="3" fill="none"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
           </button>
         </div>
 
