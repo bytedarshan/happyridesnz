@@ -32,7 +32,7 @@ const NavigationBar = () => {
       <div className="logo-container">
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}>
           <div className="logo-icon-bg">
-            <img src={logo} alt="Happy Rides Logo" className="navbar-logo" />
+            <img src={`/${siteData.settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
           </div>
           <div className="logo-text-wrapper">
             <h1 className="logo-title">{siteData.settings.siteTitle}</h1>

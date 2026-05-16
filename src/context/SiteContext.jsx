@@ -92,7 +92,14 @@ export const SiteProvider = ({ children }) => {
       
       // New Settings from Plan
       heroSubtitle: "At Happy Rides, we are committed to providing seamless, professional and reliable transportation service. Whether you are heading to the airport, attending a business engagement or exploring the breathtaking landscapes of New Zealand, we ensure a smooth and stress-free travel experience.",
-      bookingLink: "" 
+      bookingLink: "",
+
+      // Global Images
+      logoImage: "logo.png",
+      heroBgImage: "hero_bg.jpeg",
+      heroVisualImage: "auckland.jpg",
+      aboutBriefImage: "auckland_city.png",
+      packagesBriefImage: "rotorua_geothermal.png"
     }
   };
 

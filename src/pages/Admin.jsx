@@ -60,10 +60,10 @@ const Admin = () => {
   ];
 
   const getImagePath = (path) => {
-    if (!path) return './tour1.jpeg';
-    if (path.startsWith('./') || path.startsWith('http')) return path;
-    if (path.startsWith('/')) return `.${path}`;
-    return `./${path}`;
+    if (!path) return '/tour1.jpeg';
+    if (path.startsWith('http')) return path;
+    if (path.startsWith('/')) return path;
+    return `/${path}`;
   };
 
   const handleLogin = async (e) => {
@@ -242,6 +242,50 @@ const Admin = () => {
     <div className="admin-section" style={{ paddingBottom: '5rem' }}>
       <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Configuration</h2>
       
+      {/* Site Visuals Section */}
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <ImageIcon size={24} /> Site Visuals & Branding
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem' }}>
+          <div className="input-group" style={{ textAlign: 'center' }}>
+            <label className="input-label">Site Logo</label>
+            <div style={{ position: 'relative', width: '100px', margin: '0 auto' }}>
+              <img src={getImagePath(siteData.settings.logoImage)} alt="Logo" style={{ width: '80px', height: '80px', objectFit: 'contain', background: 'rgba(255,255,255,0.05)', borderRadius: '1rem', padding: '0.5rem' }} />
+              <button onClick={() => setEditingItem({ type: 'global_image', key: 'logoImage' })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '28px', height: '28px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={14} /></button>
+            </div>
+          </div>
+          <div className="input-group" style={{ textAlign: 'center' }}>
+            <label className="input-label">Global Background</label>
+            <div style={{ position: 'relative', width: '150px', margin: '0 auto' }}>
+              <img src={getImagePath(siteData.settings.heroBgImage)} alt="BG" style={{ width: '140px', height: '80px', objectFit: 'cover', borderRadius: '1rem' }} />
+              <button onClick={() => setEditingItem({ type: 'global_image', key: 'heroBgImage' })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '28px', height: '28px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={14} /></button>
+            </div>
+          </div>
+          <div className="input-group" style={{ textAlign: 'center' }}>
+            <label className="input-label">Hero Visual Card</label>
+            <div style={{ position: 'relative', width: '150px', margin: '0 auto' }}>
+              <img src={getImagePath(siteData.settings.heroVisualImage)} alt="Hero" style={{ width: '140px', height: '80px', objectFit: 'cover', borderRadius: '1rem' }} />
+              <button onClick={() => setEditingItem({ type: 'global_image', key: 'heroVisualImage' })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '28px', height: '28px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={14} /></button>
+            </div>
+          </div>
+          <div className="input-group" style={{ textAlign: 'center' }}>
+            <label className="input-label">About Us Brief Image</label>
+            <div style={{ position: 'relative', width: '150px', margin: '0 auto' }}>
+              <img src={getImagePath(siteData.settings.aboutBriefImage)} alt="About" style={{ width: '140px', height: '80px', objectFit: 'cover', borderRadius: '1rem' }} />
+              <button onClick={() => setEditingItem({ type: 'global_image', key: 'aboutBriefImage' })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '28px', height: '28px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={14} /></button>
+            </div>
+          </div>
+          <div className="input-group" style={{ textAlign: 'center' }}>
+            <label className="input-label">Packages Brief Image</label>
+            <div style={{ position: 'relative', width: '150px', margin: '0 auto' }}>
+              <img src={getImagePath(siteData.settings.packagesBriefImage)} alt="Pkg" style={{ width: '140px', height: '80px', objectFit: 'cover', borderRadius: '1rem' }} />
+              <button onClick={() => setEditingItem({ type: 'global_image', key: 'packagesBriefImage' })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '28px', height: '28px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={14} /></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Branding Section */}
       <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
         <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -369,6 +413,29 @@ const Admin = () => {
       );
     }
 
+    if (editingItem.type === 'global_image') {
+      return (
+        <div className="admin-editor" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="content-container" style={{ width: '95%', maxWidth: '900px' }}>
+            <motion.div className="admin-glass-panel" style={{ padding: '3rem', maxHeight: '80vh', overflowY: 'auto' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}>
+                <h2>Select Image for {editingItem.key.replace(/([A-Z])/g, ' $1').trim()}</h2>
+                <button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={24} /></button>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1.5rem' }}>
+                {availableAssets.map(asset => (
+                  <div key={asset} className="admin-glass-panel" style={{ padding: '0.5rem', cursor: 'pointer', border: siteData.settings[editingItem.key] === asset ? '2px solid var(--primary-color)' : 'none' }} onClick={() => { updateSettings({ [editingItem.key]: asset }); setEditingItem(null); }}>
+                    <img src={getImagePath(asset)} alt="" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '0.8rem' }} />
+                    <p style={{ fontSize: '0.65rem', textAlign: 'center', marginTop: '0.5rem' }}>{asset}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      );
+    }
+
     const isPackage = editingItem.type === 'package';
     const isService = editingItem.type === 'service';
 
@@ -380,7 +447,7 @@ const Admin = () => {
               <h2>{editingItem.mode === 'add' ? 'Add' : 'Edit'} {isPackage ? 'Package' : isService ? 'Service' : 'Review'}</h2>
               <button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={24} /></button>
             </div>
-            <div style={{ display: 'grid', gap: '2rem' }}>
+            <div style={{ grid: 'grid', gap: '2rem' }}>
               {isPackage && (
                 <div style={{ display: 'grid', gap: '2rem' }}>
                   <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
@@ -410,7 +477,7 @@ const Admin = () => {
                 </div>
               )}
               
-              <button className="btn-primary-glass admin-btn w-full" onClick={() => { 
+              <button className="btn-primary-glass admin-btn w-full" style={{ marginTop: '2rem' }} onClick={() => { 
                 if (isPackage) { 
                   if (editingItem.mode === 'add') addPackage(editingItem.category, editingItem); 
                   else updatePackage(editingItem.category, editingItem.id, editingItem); 
