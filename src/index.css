@@ -1402,16 +1402,16 @@ textarea.input-field {
   pointer-events: auto;
   border-radius: 100px;
   padding: 0.35rem;
-  background: rgba(15, 23, 42, 0.9); /* More solid background for mobile readability */
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  max-width: 90vw; /* Keep it away from screen edges */
+  background: rgba(255, 255, 255, 0.05); /* Restored transparency */
+  backdrop-filter: blur(25px) saturate(200%);
+  -webkit-backdrop-filter: blur(25px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  max-width: 90vw;
   overflow-x: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-x; /* Explicitly allow horizontal touch scroll */
+  touch-action: pan-x;
 }
 
 .category-nav-item {
@@ -1450,8 +1450,8 @@ textarea.input-field {
   .category-nav {
     padding: 0.4rem 0.6rem !important;
     gap: 0.5rem !important;
-    border-radius: 2rem; /* Less pill-like, more stable */
-    background: rgba(15, 23, 42, 0.95) !important;
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, 0.08) !important;
   }
   
   .category-nav-item {

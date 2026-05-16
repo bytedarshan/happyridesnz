@@ -36,6 +36,7 @@ const NavigationBar = () => {
       initial={{ y: -60, opacity: 0 }} /* Less drastic initial y */
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
+      style={{ background: 'rgba(255, 255, 255, 0.05)' }}
     >
       <div className="logo-container">
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}>
@@ -90,8 +91,12 @@ const NavigationBar = () => {
           </Link>
         )}
         
-        {/* Mobile Toggle */}
-        <button className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
+        {/* Mobile Toggle - Force visible on mobile via inline style to bypass CSS bugs */}
+        <button 
+          className="mobile-toggle" 
+          onClick={() => setIsOpen(!isOpen)}
+          style={{ display: isMobileView ? 'block' : 'none' }}
+        >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
