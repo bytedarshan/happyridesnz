@@ -48,6 +48,14 @@ const CategoryNav = ({ links }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [links]);
 
+  const handleLinkClick = (link) => {
+    if (link.isExternal) {
+      window.location.href = link.id;
+    } else {
+      scrollToSection(link.id);
+    }
+  };
+
   return (
     <motion.div 
       className="category-nav-wrapper"
@@ -60,7 +68,7 @@ const CategoryNav = ({ links }) => {
           <motion.button 
             key={link.id}
             className={`category-nav-item ${activeId === link.id ? 'active' : ''}`}
-            onClick={() => scrollToSection(link.id)}
+            onClick={() => handleLinkClick(link)}
             whileHover={{ scale: 1.12, y: -6 }}
             whileTap={{ scale: 0.9, rotate: Math.random() > 0.5 ? 2 : -2 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25, mass: 1 }} /* Controlled premium bounce */

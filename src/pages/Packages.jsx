@@ -13,13 +13,13 @@ const Packages = () => {
   const { siteData } = useSiteData();
 
   const packageLinks = [
+    { id: '/', label: 'Home', icon: <Compass size={18} />, isExternal: true },
+    { id: '/#booking', label: 'Book Now', icon: <Zap size={18} />, isExternal: true },
+    { id: '/#fleet', label: 'Fleet', icon: <Car size={18} />, isExternal: true },
     { id: 'city-tours', label: 'Auckland City', icon: <MapPin size={18} /> },
-    { id: 'activities', label: 'Auckland Activities', icon: <Zap size={18} /> },
     { id: 'intercity-tours', label: 'Intercity Tours', icon: <Car size={18} /> },
     { id: 'rotorua', label: 'Rotorua', icon: <Trees size={18} /> },
-    { id: 'rotorua-activities', label: 'Rotorua Activities', icon: <Compass size={18} /> },
-    { id: 'paihia', label: 'Paihia & Islands', icon: <Anchor size={18} /> },
-    { id: 'paihia-activities', label: 'Paihia Activities', icon: <Plane size={18} /> }
+    { id: 'paihia', label: 'Paihia & Islands', icon: <Anchor size={18} /> }
   ];
 
   return (
