@@ -938,16 +938,16 @@ body {
 
 /* Footer Styles */
 .footer {
-  padding: 4rem 5% 2rem;
-  margin-top: 4rem;
+  padding: 2.5rem 5% 1.5rem;
+  margin-top: 2rem;
   color: white;
 }
 
 .footer-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 3rem;
-  margin-bottom: 3rem;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .footer-section h4 {
@@ -1412,7 +1412,7 @@ textarea.input-field {
 
 /* Intelligent Floating Navigation - Exact Reference Match */
 .category-nav-wrapper {
-  position: fixed;
+  position: sticky;
   bottom: 2rem;
   left: 0;
   right: 0;
@@ -1420,6 +1420,8 @@ textarea.input-field {
   pointer-events: none;
   display: flex;
   justify-content: center; /* Perfect horizontal centering */
+  margin-top: -4rem; /* Negative margin to float over content without adding height */
+  padding-bottom: 1rem;
 }
 
 .category-nav {

@@ -9,7 +9,7 @@ const Footer = () => {
   const { settings } = siteData;
 
   return (
-    <footer className="footer footer-static" style={{ borderRadius: '2rem 2rem 0 0', marginTop: '4rem' }}>
+    <footer className="footer footer-static" style={{ borderRadius: '2rem 2rem 0 0', marginTop: '2rem' }}>
       <div className="footer-content">
         <div className="footer-section footer-info">
           <div className="logo-container" style={{ marginBottom: '1.5rem' }}>
@@ -73,7 +73,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="footer-bottom" style={{ flexDirection: 'column', gap: '2.5rem', padding: '3rem 0', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <div className="footer-bottom" style={{ flexDirection: 'column', gap: '1.5rem', padding: '1.5rem 0', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
           <p style={{ fontSize: '1.1rem', color: 'white' }}>&copy; {new Date().getFullYear()} {settings.siteTitle}. All Rights Reserved.</p>
           
