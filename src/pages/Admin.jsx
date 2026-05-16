@@ -343,6 +343,30 @@ const Admin = () => {
         </div>
       </div>
 
+      {/* City Tour Visuals Section */}
+      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
+        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <MapPin size={24} /> City Tour Visuals
+        </h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '2.5rem' }}>
+          {[
+            { label: 'Auckland', key: 'cityAucklandImage' },
+            { label: 'Waitomo', key: 'cityWaitomoImage' },
+            { label: 'Hobbiton', key: 'cityHobbitonImage' },
+            { label: 'Rotorua', key: 'cityRotoruaImage' },
+            { label: 'Paihia', key: 'cityPaihiaImage' }
+          ].map(city => (
+            <div key={city.key} className="input-group" style={{ textAlign: 'center' }}>
+              <label className="input-label">{city.label}</label>
+              <div style={{ position: 'relative', width: '140px', margin: '0 auto' }}>
+                <img src={getImagePath(siteData.settings[city.key])} alt={city.label} style={{ width: '130px', height: '80px', objectFit: 'cover', borderRadius: '1rem' }} />
+                <button onClick={() => setEditingItem({ type: 'global_image', key: city.key })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '28px', height: '28px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={14} /></button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Vehicle Fleet Section */}
       <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
         <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>

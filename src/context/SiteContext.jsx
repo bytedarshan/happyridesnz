@@ -100,6 +100,13 @@ export const SiteProvider = ({ children }) => {
       heroVisualImage: "auckland.jpg",
       aboutBriefImage: "auckland_city.png",
       packagesBriefImage: "rotorua_geothermal.png",
+      
+      // City Tour Visuals
+      cityAucklandImage: "auckland_city.png",
+      cityWaitomoImage: "image81.jpeg",
+      cityHobbitonImage: "tour1.jpeg",
+      cityRotoruaImage: "rotorua_geothermal.png",
+      cityPaihiaImage: "tour2.jpeg",
 
       // Fleet Section
       fleet: [

@@ -14,11 +14,11 @@ import {
 
 const CityTours = () => {
   const cities = [
-    { name: 'Auckland', desc: 'The "City of Sails," Auckland is a vibrant metropolitan area built on a volcanic field. Explore its stunning harbors, iconic Sky Tower, and lush parklands.', tours: aucklandCityTours, activities: aucklandActivities, image: 'auckland_city.png' },
-    { name: 'Waitomo', desc: 'Journey to the glowing depths of the Waitomo caves. Experience thousands of tiny glowworms lighting up the limestone caverns like a starry night sky.', tours: intercityTours.filter(t => t.title.includes('Waitomo')), image: 'image81.jpeg' },
-    { name: 'Hobbiton', desc: 'Step into the magical Shire. Experience the actual film location from The Lord of the Rings and The Hobbit, complete with Hobbit Holes and the Green Dragon Inn.', tours: intercityTours.filter(t => t.title.includes('Hobbiton')), image: 'tour1.jpeg' },
-    { name: 'Rotorua', desc: 'The heart of New Zealand\'s geothermal activity and Māori culture. Witness bubbling mud pools, shooting geysers, and serene lakes.', tours: rotoruaTours, activities: rotoruaActivities, image: 'rotorua_geothermal.png' },
-    { name: 'Paihia (Bay of Islands)', desc: 'The gateway to the Bay of Islands, known for its historic Treaty Grounds, turquoise waters, and abundant marine life.', tours: paihiaTours, activities: paihiaActivities, image: 'tour2.jpeg' },
+    { name: 'Auckland', desc: 'The "City of Sails," Auckland is a vibrant metropolitan area built on a volcanic field. Explore its stunning harbors, iconic Sky Tower, and lush parklands.', tours: aucklandCityTours, activities: aucklandActivities, image: siteData.settings.cityAucklandImage || 'auckland_city.png' },
+    { name: 'Waitomo', desc: 'Journey to the glowing depths of the Waitomo caves. Experience thousands of tiny glowworms lighting up the limestone caverns like a starry night sky.', tours: intercityTours.filter(t => t.title.includes('Waitomo')), image: siteData.settings.cityWaitomoImage || 'image81.jpeg' },
+    { name: 'Hobbiton', desc: 'Step into the magical Shire. Experience the actual film location from The Lord of the Rings and The Hobbit, complete with Hobbit Holes and the Green Dragon Inn.', tours: intercityTours.filter(t => t.title.includes('Hobbiton')), image: siteData.settings.cityHobbitonImage || 'tour1.jpeg' },
+    { name: 'Rotorua', desc: 'The heart of New Zealand\'s geothermal activity and Māori culture. Witness bubbling mud pools, shooting geysers, and serene lakes.', tours: rotoruaTours, activities: rotoruaActivities, image: siteData.settings.cityRotoruaImage || 'rotorua_geothermal.png' },
+    { name: 'Paihia (Bay of Islands)', desc: 'The gateway to the Bay of Islands, known for its historic Treaty Grounds, turquoise waters, and abundant marine life.', tours: paihiaTours, activities: paihiaActivities, image: siteData.settings.cityPaihiaImage || 'tour2.jpeg' },
   ];
 
   const renderCitySection = (city, index) => (
