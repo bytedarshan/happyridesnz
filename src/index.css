@@ -1350,6 +1350,9 @@ textarea.input-field {
   border-radius: 2rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 95vw;
+  margin: 0 auto;
 }
 
 .btn-outline {
@@ -1927,3 +1930,4 @@ html, body {
     -webkit-transform: translateZ(0);
   }
 }
+$content
