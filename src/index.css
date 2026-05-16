@@ -1912,7 +1912,7 @@ html, body {
   }
   
   .mobile-nav {
-    display: none !important; /* Managed by React State now */
+    display: none; /* Managed by React State now, allowed to be overridden by inline flex */
   }
 }
 
