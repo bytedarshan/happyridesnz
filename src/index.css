@@ -54,8 +54,8 @@ body {
 /* Premium Liquid Glass - Balanced Motion */
 .glass-panel {
   background: rgba(255, 255, 255, 0.05); /* 95% Transparency */
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 2.5rem;
   box-shadow:
@@ -79,8 +79,8 @@ body {
 
 .footer-static {
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   position: relative;
@@ -1421,6 +1421,7 @@ textarea.input-field {
   pointer-events: none;
   display: flex;
   justify-content: center; /* Perfect horizontal centering */
+  will-change: bottom; /* Optimization for JS positioning */
 }
 
 .category-nav {

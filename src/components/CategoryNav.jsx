@@ -27,31 +27,38 @@ const CategoryNav = ({ links }) => {
   };
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      // Active Section logic
-      const scrollPosition = window.scrollY + 200;
-      for (const link of links) {
-        const section = document.getElementById(link.id);
-        if (section) {
-          const top = section.offsetTop;
-          const height = section.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveId(link.id);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Active Section logic
+          const scrollPosition = window.scrollY + 200;
+          for (const link of links) {
+            const section = document.getElementById(link.id);
+            if (section) {
+              const top = section.offsetTop;
+              const height = section.offsetHeight;
+              if (scrollPosition >= top && scrollPosition < top + height) {
+                setActiveId(link.id);
+              }
+            }
           }
-        }
-      }
 
-      // Footer Boundary logic
-      const footer = document.querySelector('footer');
-      if (footer) {
-        const footerRect = footer.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const footerVisibleHeight = viewportHeight - footerRect.top;
-        if (footerVisibleHeight > 0) {
-          setBottomOffset(footerVisibleHeight + 20);
-        } else {
-          setBottomOffset(32);
-        }
+          // Footer Boundary logic
+          const footer = document.querySelector('footer');
+          if (footer) {
+            const footerRect = footer.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const footerVisibleHeight = viewportHeight - footerRect.top;
+            if (footerVisibleHeight > 0) {
+              setBottomOffset(footerVisibleHeight + 20);
+            } else {
+              setBottomOffset(32);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -75,7 +82,11 @@ const CategoryNav = ({ links }) => {
       style={{ bottom: `${bottomOffset}px`, position: 'fixed' }}
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.5 }}
+      transition={{ 
+        y: { type: 'spring', stiffness: 260, damping: 20, delay: 0.5 },
+        opacity: { duration: 0.5, delay: 0.5 },
+        bottom: { duration: 0 } // No delay for position changes
+      }}
     >
       <div className="category-nav">
         {links.map((link) => (

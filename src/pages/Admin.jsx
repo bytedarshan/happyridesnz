@@ -53,17 +53,24 @@ const Admin = () => {
   ];
 
   React.useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const footer = document.querySelector('footer');
-      if (footer) {
-        const footerRect = footer.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const footerVisibleHeight = viewportHeight - footerRect.top;
-        if (footerVisibleHeight > 0) {
-          setBottomOffset(footerVisibleHeight + 20);
-        } else {
-          setBottomOffset(32);
-        }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const footer = document.querySelector('footer');
+          if (footer) {
+            const footerRect = footer.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const footerVisibleHeight = viewportHeight - footerRect.top;
+            if (footerVisibleHeight > 0) {
+              setBottomOffset(footerVisibleHeight + 20);
+            } else {
+              setBottomOffset(32);
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
     window.addEventListener('scroll', handleScroll);
@@ -619,7 +626,30 @@ const Admin = () => {
         </AnimatePresence>
       </div>
       <AnimatePresence>{editingItem && renderEditor()}</AnimatePresence>
-      <div className="category-nav-wrapper" style={{ bottom: `${bottomOffset}px`, position: 'fixed' }}><div className="category-nav">{adminTabs.map((tab) => (<button key={tab.id} className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)}><span className="nav-icon">{tab.icon}</span><span className="nav-label">{tab.label}</span></button>))}<button className="category-nav-item" onClick={() => logout()}><span className="nav-icon"><LogOut size={18} /></span><span className="nav-label">Logout</span></button></div></div>
+      <motion.div 
+        className="category-nav-wrapper" 
+        style={{ bottom: `${bottomOffset}px`, position: 'fixed' }}
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ 
+          y: { type: 'spring', stiffness: 260, damping: 20, delay: 0.3 },
+          opacity: { duration: 0.3 },
+          bottom: { duration: 0 }
+        }}
+      >
+        <div className="category-nav">
+          {adminTabs.map((tab) => (
+            <button key={tab.id} className={`category-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => setActiveTab(tab.id)}>
+              <span className="nav-icon">{tab.icon}</span>
+              <span className="nav-label">{tab.label}</span>
+            </button>
+          ))}
+          <button className="category-nav-item" onClick={() => logout()}>
+            <span className="nav-icon"><LogOut size={18} /></span>
+            <span className="nav-label">Logout</span>
+          </button>
+        </div>
+      </motion.div>
     </div>
   );
 };
