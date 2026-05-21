@@ -2,10 +2,12 @@ import React from 'react';
 import NavigationBar from '../components/NavigationBar';
 import { motion } from 'framer-motion';
 import { useSiteData } from '../context/SiteContext';
+import { useNavigate } from 'react-router-dom';
 import { Plane, Building, Users, MapPin, Clock, Shield, Car } from 'lucide-react';
 
 const Services = () => {
   const { siteData } = useSiteData();
+  const navigate = useNavigate();
   
   const icons = [<Plane size={40} />, <Building size={40} />, <Users size={40} />, <Map size={40} />, <Clock size={40} />, <Shield size={40} />];
   
@@ -46,7 +48,7 @@ const Services = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              onClick={() => s.path && (window.location.href = s.path)}
+              onClick={() => s.path && navigate(s.path)}
               whileHover={s.path ? { scale: 1.05, borderColor: 'var(--primary-color)' } : {}}
             >
               <div className="service-icon" style={{ color: 'var(--primary-color)', marginBottom: '1.5rem' }}>{s.icon}</div>

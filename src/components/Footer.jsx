@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useSiteData } from '../context/SiteContext';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
@@ -54,10 +55,10 @@ const Footer = () => {
         <div className="footer-section" style={{ textAlign: 'center' }}>
           <h4 style={{ color: '#60A5FA', fontSize: '1.1rem', marginBottom: '1rem' }}>Quick Links</h4>
           <ul className="footer-links" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', alignItems: 'center' }}>
-            <li><a href="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Home</a></li>
-            <li><a href="/about" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>About Us</a></li>
-            <li><a href="/services" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Services</a></li>
-            <li><a href="/packages" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Popular Packages</a></li>
+            <li><Link to="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Home</Link></li>
+            <li><Link to="/about" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>About Us</Link></li>
+            <li><Link to="/services" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Services</Link></li>
+            <li><Link to="/packages" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Popular Packages</Link></li>
           </ul>
         </div>
 
@@ -81,8 +82,8 @@ const Footer = () => {
       <div className="footer-bottom" style={{ flexDirection: 'column', gap: '1.5rem', padding: '1.5rem 0', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', width: '100%' }}>
           <div style={{ display: 'flex', gap: '2rem', fontSize: '0.85rem', marginBottom: '0.5rem' }}>
-            <a href="/privacy-policy" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</a>
-            <a href="/terms-of-service" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</a>
+            <Link to="/privacy-policy" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</Link>
+            <Link to="/terms-of-service" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</Link>
           </div>
           
           <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)' }}>&copy; {new Date().getFullYear()} {settings.siteTitle}. All Rights Reserved.</p>
