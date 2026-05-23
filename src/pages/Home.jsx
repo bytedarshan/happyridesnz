@@ -17,8 +17,7 @@ const Home = () => {
     { id: 'booking', label: 'Book Now', icon: <Calendar size={18} /> },
     { id: 'fleet', label: 'Fleet', icon: <Car size={18} /> },
     { id: 'about', label: 'About', icon: <Info size={18} /> },
-    { id: 'services', label: 'Services', icon: <Settings size={18} /> },
-    { id: 'packages-brief', label: 'Tours', icon: <Package size={18} /> }
+    { id: 'services', label: 'Services', icon: <Settings size={18} /> }
   ];
 
   return (
@@ -160,7 +159,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Brief Packages */}
+      {/* Brief Packages 
       <section id="packages-brief" className="brief-section glass-panel" style={{ background: 'rgba(255, 255, 255, 0.02)', marginBottom: '100px' }}>
         <div className="brief-content">
           <motion.div 
@@ -190,7 +189,7 @@ const Home = () => {
             </Link>
           </motion.div>
         </div>
-      </section>
+      </section>*/}
 
       <CategoryNav links={homeLinks} />
     </div>
