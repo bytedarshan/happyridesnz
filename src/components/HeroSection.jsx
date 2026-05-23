@@ -51,10 +51,10 @@ const HeroSection = ({ title, subtitle }) => {
           transition={{ duration: 1, delay: 0.4 }}
         >
           <img src={`/${settings.heroVisualImage || 'auckland.jpg'}`} alt="New Zealand Landscape" className="visual-image" />
-          <div className="visual-overlay glass-panel">
+          {/*<div className="visual-overlay glass-panel">
             <h3 className="visual-title">Auckland City Highlights</h3>
             <p className="visual-price">Starting from $85</p>
-          </div>
+          </div>*/}
         </motion.div>
       </div>
     </section>
