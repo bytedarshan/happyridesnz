@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Clock, DollarSign, MapPin, CheckCircle, ArrowLeft } from 'lucide-react';
+import { useSiteData } from '../context/SiteContext';
 
 const TourDetail = ({ tour, onBack }) => {
+  const { siteData } = useSiteData();
+  
   if (!tour) return null;
 
   const paragraphs = tour.description.split('\n\n');
@@ -67,7 +70,10 @@ const TourDetail = ({ tour, onBack }) => {
                 className="btn-primary-glass w-full"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => console.log('Book:', tour.title)}
+                onClick={() => {
+                  const link = siteData?.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking";
+                  window.open(link, "_blank");
+                }}
               >
                 Book Now
               </motion.button>

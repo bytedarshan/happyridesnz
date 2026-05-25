@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 import { Clock } from 'lucide-react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { useSiteData } from '../context/SiteContext';
 
 const TourCard = ({ tour, onClick }) => {
+  const { siteData } = useSiteData();
   const cardRef = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -82,7 +84,11 @@ const TourCard = ({ tour, onClick }) => {
             className="btn-primary-glass"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => console.log('Booking link to be added later')}
+            onClick={(e) => {
+              e.stopPropagation();
+              const link = siteData?.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking";
+              window.open(link, "_blank");
+            }}
           >
             Book Now
           </motion.button>
