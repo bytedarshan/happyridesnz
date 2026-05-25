@@ -1,7 +1,6 @@
 import React from 'react';
 import HeroSection from '../components/HeroSection';
 import NavigationBar from '../components/NavigationBar';
-import CategoryNav from '../components/CategoryNav';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Shield, Clock, Car, MapPin, Home as HomeIcon, Info, Settings, Package, Calendar } from 'lucide-react';
@@ -11,14 +10,6 @@ const Home = () => {
   const { siteData } = useSiteData();
   
   if (!siteData) return null;
-
-  const homeLinks = [
-    { id: 'hero', label: 'Home', icon: <HomeIcon size={18} /> },
-    { id: 'booking', label: 'Book Now', icon: <Calendar size={18} /> },
-    { id: 'fleet', label: 'Fleet', icon: <Car size={18} /> },
-    { id: 'about', label: 'About', icon: <Info size={18} /> },
-    { id: 'services', label: 'Services', icon: <Settings size={18} /> }
-  ];
 
   return (
     <div className="home-page">
@@ -191,7 +182,6 @@ const Home = () => {
         </div>
       </section>*/}
 
-      <CategoryNav links={homeLinks} />
     </div>
   );
 };

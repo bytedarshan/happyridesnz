@@ -1,21 +1,12 @@
 import React from 'react';
 import NavigationBar from '../components/NavigationBar';
-import Footer from '../components/Footer';
-import CategoryNav from '../components/CategoryNav';
 import { motion } from 'framer-motion';
 import { Star, Quote, User } from 'lucide-react';
-
 import { useSiteData } from '../context/SiteContext';
 
 const Testimonials = () => {
   const { siteData } = useSiteData();
   const testimonials = siteData.testimonials;
-
-  const testimonialLinks = [
-    { id: 'top', label: 'Back to Top' },
-    { id: 'grid', label: 'All Reviews' },
-    { id: 'cta', label: 'Book Now' }
-  ];
 
   return (
     <div className="page-wrapper">
@@ -81,8 +72,6 @@ const Testimonials = () => {
           </div>
         </div>
       </main>
-
-      <CategoryNav links={testimonialLinks} />
     </div>
   );
 };
