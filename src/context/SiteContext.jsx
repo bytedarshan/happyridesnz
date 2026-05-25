@@ -92,7 +92,7 @@ export const SiteProvider = ({ children }) => {
       
       // New Settings from Plan
       heroSubtitle: "At Happy Rides, we are committed to providing seamless, professional and reliable transportation service. Whether you are heading to the airport, attending a business engagement or exploring the breathtaking landscapes of New Zealand, we ensure a smooth and stress-free travel experience.",
-      bookingLink: "",
+      bookingLink: "https://happyrides.trial.easytaxioffice.com/booking",
 
       // Global Images
       logoImage: "logo.png",
@@ -152,6 +152,7 @@ export const SiteProvider = ({ children }) => {
         const mergedSettings = {
           ...initialData.settings,
           ...(data.settings || {}),
+          bookingLink: data.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking",
           fleet: data.settings?.fleet || initialData.settings.fleet
         };
         setSiteData({ ...data, settings: mergedSettings });
