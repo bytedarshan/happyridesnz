@@ -106,10 +106,13 @@ const AirportTransfer = () => {
           </p>
           <div style={{ 
             width: '100%', 
-            height: '600px', 
-            background: 'rgba(255,255,255,0.02)', 
-            borderRadius: '1.5rem', 
-            border: siteData.settings.bookingLink ? 'none' : '2px dashed rgba(255,255,255,0.1)',
+            maxWidth: '960px',
+            height: '550px', 
+            margin: '0 auto',
+            background: '#ffffff', 
+            borderRadius: '2rem', 
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
+            border: '1px solid rgba(255, 255, 255, 0.9)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
