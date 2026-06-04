@@ -73,6 +73,7 @@ export const SiteProvider = ({ children }) => {
       
       // About Us Page
       aboutTitle: "About Happy Rides",
+      aboutText: "Enjoy the journey. Love the ride with our premium passenger services across NZ.",
       aboutStoryTitle: "Our Story",
       aboutStoryText: "Happy Rides was founded with a simple mission: to make travel in New Zealand as enjoyable as the destinations themselves. We understand that punctuality and peace of mind are non-negotiable for our clients.\n\nWhether you're a first-time visitor or a regular traveler, our professional drivers and pristine modern fleet are at your service 24/7. We pride ourselves on our fixed-fare policy—no hidden costs, no surge pricing, just honest service.",
       
@@ -95,25 +96,25 @@ export const SiteProvider = ({ children }) => {
       bookingLink: "https://happyrides.trial.easytaxioffice.com/booking",
 
       // Global Images
-      logoImage: "logo.png",
-      heroBgImage: "hero_bg.jpeg",
-      heroVisualImage: "auckland.jpg",
-      aboutBriefImage: "auckland_city.png",
-      packagesBriefImage: "rotorua_geothermal.png",
+      logoImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792499/happyrides/logo.png",
+      heroBgImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792346/happyrides/hero_bg.jpg",
+      heroVisualImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792323/happyrides/auckland.jpg",
+      aboutBriefImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792333/happyrides/auckland_city.jpg",
+      packagesBriefImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792508/happyrides/rotorua_geothermal.jpg",
       
       // City Tour Visuals
-      cityAucklandImage: "auckland_city.png",
-      cityWaitomoImage: "image81.jpeg",
-      cityHobbitonImage: "tour1.jpeg",
-      cityRotoruaImage: "rotorua_geothermal.png",
-      cityPaihiaImage: "tour2.jpeg",
+      cityAucklandImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792333/happyrides/auckland_city.jpg",
+      cityWaitomoImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792472/happyrides/image81.jpg",
+      cityHobbitonImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792525/happyrides/tour1.jpg",
+      cityRotoruaImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792508/happyrides/rotorua_geothermal.jpg",
+      cityPaihiaImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792532/happyrides/tour2.jpg",
 
       // Fleet Section
       fleet: [
-        { id: 'f1', type: 'SEDAN', img: 'image12.png', capacity: '1-3 Passengers' },
-        { id: 'f2', type: 'SUV', img: 'image13.png', capacity: '1-4 Passengers' },
-        { id: 'f3', type: 'PEOPLE MOVER', img: 'image18.png', capacity: '1-7 Passengers' },
-        { id: 'f4', type: 'MINIBUS', img: 'image10.png', capacity: '1-11 Passengers' }
+        { id: 'f1', type: 'SEDAN', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792357/happyrides/image12.png', capacity: '1-3 Passengers' },
+        { id: 'f2', type: 'SUV', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792359/happyrides/image13.png', capacity: '1-4 Passengers' },
+        { id: 'f3', type: 'PEOPLE MOVER', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792360/happyrides/image18.png', capacity: '1-7 Passengers' },
+        { id: 'f4', type: 'MINIBUS', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792355/happyrides/image10.png', capacity: '1-11 Passengers' }
       ]
     }
   };

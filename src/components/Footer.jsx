@@ -14,7 +14,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section footer-info">
           <div className="logo-container" style={{ marginBottom: '1.5rem' }}>
-            <img src={`/${settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
+            <img src={settings.logoImage && settings.logoImage.startsWith('http') ? settings.logoImage : `/${settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
             <div className="logo-text-wrapper">
               <h1 className="logo-title">{settings.siteTitle}</h1>
               <span className="logo-tagline">{settings.siteTagline}</span>
@@ -58,7 +58,8 @@ const Footer = () => {
             <li><Link to="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Home</Link></li>
             <li><Link to="/about" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>About Us</Link></li>
             <li><Link to="/services" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Services</Link></li>
-            <li><Link to="/packages" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Popular Packages</Link></li>
+            <li><Link to="/tours" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Tours</Link></li>
+            <li><Link to="/activities" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Activities</Link></li>
           </ul>
         </div>
 

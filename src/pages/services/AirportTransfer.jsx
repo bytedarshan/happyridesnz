@@ -3,6 +3,8 @@ import NavigationBar from '../../components/NavigationBar';
 import { motion } from 'framer-motion';
 import { Plane, MapPin, Clock } from 'lucide-react';
 import { useSiteData } from '../../context/SiteContext';
+import BookingIframe from '../../components/BookingIframe';
+
 
 const AirportTransfer = () => {
   const { siteData } = useSiteData();
@@ -104,31 +106,7 @@ const AirportTransfer = () => {
           <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '700px', margin: '0 auto 2.5rem' }}>
             Use our secure booking software below to schedule your ride instantly. Select your date, time, and vehicle type to get started.
           </p>
-          <div style={{ 
-            width: '100%', 
-            maxWidth: '960px',
-            height: '550px', 
-            margin: '0 auto',
-            background: '#ffffff', 
-            borderRadius: '2rem', 
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
-            border: '1px solid rgba(255, 255, 255, 0.9)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
-            {siteData.settings.bookingLink ? (
-              <iframe src={siteData.settings.bookingLink} width="100%" height="100%" frameBorder="0" title="Booking Software"></iframe>
-            ) : (
-              <div style={{ textAlign: 'center', opacity: 0.5 }}>
-                <Clock size={48} style={{ marginBottom: '1rem' }} />
-                <p>Booking Software Frame Placeholder</p>
-                <p style={{ fontSize: '0.8rem' }}>(Iframe link to be provided in Admin)</p>
-              </div>
-            )}
-          </div>
+          <BookingIframe bookingLink={siteData.settings.bookingLink} />
         </motion.div>
       </div>
     </div>

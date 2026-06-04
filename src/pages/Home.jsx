@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Shield, Clock, Car, MapPin, Home as HomeIcon, Info, Settings, Package, Calendar } from 'lucide-react';
 import { useSiteData } from '../context/SiteContext';
+import BookingIframe from '../components/BookingIframe';
+
 
 const Home = () => {
   const { siteData } = useSiteData();
@@ -35,30 +37,7 @@ const Home = () => {
           <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '800px', margin: '0 auto 2.5rem' }}>
             Ready to ride? Use our integrated booking platform below to secure your transfer or tour in seconds.
           </p>
-          <div style={{ 
-            width: '100%', 
-            maxWidth: '960px',
-            height: '550px', 
-            margin: '0 auto',
-            background: '#ffffff', 
-            borderRadius: '2rem', 
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
-            border: '1px solid rgba(255, 255, 255, 0.9)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            overflow: 'hidden'
-          }}>
-            {siteData.settings.bookingLink ? (
-              <iframe src={siteData.settings.bookingLink} width="100%" height="100%" frameBorder="0" title="Booking Software"></iframe>
-            ) : (
-              <div style={{ textAlign: 'center', opacity: 0.5 }}>
-                <Clock size={48} style={{ marginBottom: '1rem' }} />
-                <p>Booking Software Frame Placeholder</p>
-                <p style={{ fontSize: '0.8rem' }}>(Iframe link to be provided in Admin)</p>
-              </div>
-            )}
-          </div>
+          <BookingIframe bookingLink={siteData.settings.bookingLink} />
         </motion.div>
       </section>
 
@@ -74,7 +53,7 @@ const Home = () => {
               whileHover={{ scale: 1.05 }}
             >
               <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: '1.2rem', overflow: 'hidden', marginBottom: '1.5rem', background: 'rgba(255,255,255,0.05)' }}>
-                <img src={`/${v.img}`} alt={v.type} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={v.img && v.img.startsWith('http') ? v.img : `/${v.img}`} alt={v.type} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem' }}>{v.type}</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{v.capacity}</p>
@@ -118,7 +97,7 @@ const Home = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <img src={`/${siteData.settings.aboutBriefImage || 'auckland_city.png'}`} alt="About Us" className="glass-image" />
+            <img src={siteData.settings.aboutBriefImage && siteData.settings.aboutBriefImage.startsWith('http') ? siteData.settings.aboutBriefImage : `/${siteData.settings.aboutBriefImage || 'auckland_city.png'}`} alt="About Us" className="glass-image" />
           </motion.div>
         </div>
       </section>
@@ -162,7 +141,7 @@ const Home = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <img src={`/${siteData.settings.packagesBriefImage || 'rotorua_geothermal.png'}`} alt="Packages" className="glass-image" />
+            <img src={siteData.settings.packagesBriefImage && siteData.settings.packagesBriefImage.startsWith('http') ? siteData.settings.packagesBriefImage : `/${siteData.settings.packagesBriefImage || 'rotorua_geothermal.png'}`} alt="Packages" className="glass-image" />
           </motion.div>
           <motion.div 
             className="brief-text"

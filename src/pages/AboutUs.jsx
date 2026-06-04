@@ -17,18 +17,20 @@ const AboutUs = () => {
           animate={{ opacity: 1, y: 0 }}
         >
           <h1 className="responsive-hero-title">{siteData.settings.aboutTitle}</h1>
-          <p className="logo-tagline" style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
-            {siteData.settings.aboutText}
-          </p>
+          {siteData.settings.aboutText && (
+            <p className="logo-tagline" style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
+              {siteData.settings.aboutText}
+            </p>
+          )}
         </motion.div>
-
+ 
         <div className="about-details responsive-grid">
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <img src="./auckland_city.png" alt="Our Story" className="glass-image" />
+            <img src={siteData.settings.aboutBriefImage && siteData.settings.aboutBriefImage.startsWith('http') ? siteData.settings.aboutBriefImage : `/${siteData.settings.aboutBriefImage || 'auckland_city.png'}`} alt="Our Story" className="glass-image" />
           </motion.div>
           <motion.div 
             initial={{ opacity: 0, x: 50 }}

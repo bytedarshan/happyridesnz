@@ -6,7 +6,9 @@ import Services from './pages/Services';
 import AirportTransfer from './pages/services/AirportTransfer';
 import IntercityTransfer from './pages/services/IntercityTransfer';
 import CityTours from './pages/services/CityTours';
-import Packages from './pages/Packages';
+import Tours from './pages/Tours';
+import Activities from './pages/Activities';
+
 import Contact from './pages/Contact';
 import Testimonials from './pages/Testimonials';
 import CustomCursor from './components/CustomCursor';
@@ -30,7 +32,7 @@ const AppContent = () => {
 
         {/* Global dark background image for the glass effect */}
         <img 
-          src={`/${siteData.settings.heroBgImage || 'hero_bg.jpeg'}`} 
+          src={siteData.settings.heroBgImage && siteData.settings.heroBgImage.startsWith('http') ? siteData.settings.heroBgImage : `/${siteData.settings.heroBgImage || 'hero_bg.jpeg'}`} 
           className="global-bg" 
           alt="background" 
         />
@@ -42,7 +44,8 @@ const AppContent = () => {
           <Route path="/services/airport-transfer" element={<AirportTransfer />} />
           <Route path="/services/intercity-transfer" element={<IntercityTransfer />} />
           <Route path="/services/city-tours" element={<CityTours />} />
-          <Route path="/packages" element={<Packages />} />
+          <Route path="/tours" element={<Tours />} />
+          <Route path="/activities" element={<Activities />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<Admin />} />

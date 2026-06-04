@@ -22,7 +22,8 @@ const NavigationBar = () => {
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
     { name: 'Services', path: '/services' },
-    { name: 'Packages', path: '/packages' },
+    { name: 'Tours', path: '/tours' },
+    { name: 'Activities', path: '/activities' },
     { name: 'Contact Us', path: '/contact' },
   ];
 
@@ -41,7 +42,7 @@ const NavigationBar = () => {
       <div className="logo-container">
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}>
           <div className="logo-icon-bg">
-            <img src={`/${siteData.settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
+            <img src={siteData.settings.logoImage && siteData.settings.logoImage.startsWith('http') ? siteData.settings.logoImage : `/${siteData.settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
           </div>
           <div className="logo-text-wrapper">
             <h1 className="logo-title">{siteData.settings.siteTitle}</h1>

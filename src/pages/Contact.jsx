@@ -1,13 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavigationBar from '../components/NavigationBar';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 import { useSiteData } from '../context/SiteContext';
 
 const Contact = () => {
   const { siteData } = useSiteData();
   const { contactEmail, contactPhone, contactAddress } = siteData.settings;
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [status, setStatus] = useState({
+    submitting: false,
+    success: false,
+    error: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus({ submitting: true, success: false, error: '' });
+
+    // Vite Environment Variables config, falling back to local credentials
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_sf4iz6k";
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_dpv6xco";
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "RLzbxoznPYKlJ0OWM";
+
+    if (SERVICE_ID === "YOUR_SERVICE_ID" || TEMPLATE_ID === "YOUR_TEMPLATE_ID" || PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
+      setStatus({
+        submitting: false,
+        success: false,
+        error: "EmailJS is not configured. Please fill in VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY in your .env file or inside Contact.jsx directly."
+      });
+      return;
+    }
+
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: formData.message,
+      to_name: "Happy Rides NZ Admin"
+    };
+
+    try {
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
+      setStatus({ submitting: false, success: true, error: '' });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (err) {
+      console.error("EmailJS sending error:", err);
+      setStatus({ 
+        submitting: false, 
+        success: false, 
+        error: err.text || "Message sending failed. Please check your network connection or try again."
+      });
+    }
+  };
 
   return (
     <div className="page-wrapper">
@@ -62,23 +121,86 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <div className="responsive-grid" style={{ gap: '1.5rem', marginBottom: '1.5rem', alignItems: 'flex-start' }}>
-              <div className="input-group">
-                <label className="input-label">Full Name</label>
-                <input type="text" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} placeholder="John Doe" />
+            <form onSubmit={handleSubmit}>
+              <div className="responsive-grid" style={{ gap: '1.5rem', marginBottom: '1.5rem', alignItems: 'flex-start' }}>
+                <div className="input-group">
+                  <label className="input-label">Full Name</label>
+                  <input 
+                    type="text" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="input-field glass-panel" 
+                    style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} 
+                    placeholder="John Doe" 
+                    required
+                  />
+                </div>
+                <div className="input-group">
+                  <label className="input-label">Email Address</label>
+                  <input 
+                    type="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="input-field glass-panel" 
+                    style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} 
+                    placeholder="john@example.com" 
+                    required
+                  />
+                </div>
               </div>
-              <div className="input-group">
-                <label className="input-label">Email Address</label>
-                <input type="email" className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} placeholder="john@example.com" />
+              <div className="input-group" style={{ marginBottom: '2rem' }}>
+                <label className="input-label">Message</label>
+                <textarea 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="input-field glass-panel" 
+                  style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '150px', resize: 'none' }} 
+                  placeholder="How can we help you?"
+                  required
+                ></textarea>
               </div>
-            </div>
-            <div className="input-group" style={{ marginBottom: '2rem' }}>
-              <label className="input-label">Message</label>
-              <textarea className="input-field glass-panel" style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '150px', resize: 'none' }} placeholder="How can we help you?"></textarea>
-            </div>
-            <button className="btn-primary-glass" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', padding: '1.2rem' }}>
-              <Send size={18} /> Send Message
-            </button>
+
+              {/* Submission Status Outputs */}
+              {status.success && (
+                <div style={{ color: '#10B981', fontSize: '0.95rem', fontWeight: 600, marginBottom: '1.5rem' }}>
+                  ✓ Your message has been sent successfully! We will get back to you shortly.
+                </div>
+              )}
+              {status.error && (
+                <div style={{ color: '#EF4444', fontSize: '0.9rem', fontWeight: 500, marginBottom: '1.5rem', lineHeight: '1.5' }}>
+                  ⚠ {status.error}
+                </div>
+              )}
+
+              <button 
+                type="submit" 
+                disabled={status.submitting}
+                className="btn-primary-glass" 
+                style={{ 
+                  width: '100%', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  gap: '1rem', 
+                  padding: '1.2rem',
+                  cursor: status.submitting ? 'not-allowed' : 'pointer'
+                }}
+              >
+                {status.submitting ? (
+                  <>
+                    <div className="premium-loader" style={{ width: '16px', height: '16px', border: '2px solid rgba(255,255,255,0.2)', borderTop: '2px solid white', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send size={18} /> Send Message
+                  </>
+                )}
+              </button>
+            </form>
           </motion.div>
         </div>
       </div>
