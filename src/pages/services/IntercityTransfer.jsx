@@ -1,10 +1,8 @@
 import React from 'react';
 import NavigationBar from '../../components/NavigationBar';
 import { motion } from 'framer-motion';
-import { Car, MapPin, Navigation, Clock } from 'lucide-react';
+import { Navigation } from 'lucide-react';
 import { useSiteData } from '../../context/SiteContext';
-import BookingIframe from '../../components/BookingIframe';
-
 
 const IntercityTransfer = () => {
   const { siteData } = useSiteData();
@@ -15,6 +13,11 @@ const IntercityTransfer = () => {
     { destination: 'Auckland to Taupo', sedan: '$550', suv: '$700', peopleMover: '$850', minibus: '$1100' },
     { destination: 'Auckland to Tauranga', sedan: '$350', suv: '$450', peopleMover: '$550', minibus: '$700' },
   ];
+
+  const handleBookNow = () => {
+    const link = siteData?.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking";
+    window.open(link, "_blank");
+  };
 
   return (
     <div className="page-wrapper">
@@ -66,19 +69,27 @@ const IntercityTransfer = () => {
           </div>
         </div>
 
-        {/* Booking Frame Section */}
+        {/* Booking CTA Section */}
         <motion.div 
           className="admin-glass-panel" 
-          style={{ padding: '3rem', textAlign: 'center' }}
+          style={{ padding: '4rem 2rem', textAlign: 'center', marginTop: '2rem' }}
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
         >
           <h2 className="section-title" style={{ marginBottom: '1.5rem' }}>Schedule Your Long-Distance Ride</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '700px', margin: '0 auto 2.5rem' }}>
-            Book your intercity travel with ease. Enter your pickup and drop-off locations in our booking software below.
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '700px', margin: '0 auto 2.5rem', fontSize: '1.1rem' }}>
+            Book your intercity travel with ease. Click below to use our secure online booking system.
           </p>
-          <BookingIframe bookingLink={siteData.settings.bookingLink} />
+          <motion.button 
+            onClick={handleBookNow}
+            className="btn-primary-glass"
+            style={{ padding: '1rem 3rem', fontSize: '1.1rem', fontWeight: 'bold' }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Open Booking System
+          </motion.button>
         </motion.div>
       </div>
     </div>

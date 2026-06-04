@@ -1,10 +1,8 @@
 import React from 'react';
 import NavigationBar from '../../components/NavigationBar';
 import { motion } from 'framer-motion';
-import { Plane, MapPin, Clock } from 'lucide-react';
+import { Plane, MapPin } from 'lucide-react';
 import { useSiteData } from '../../context/SiteContext';
-import BookingIframe from '../../components/BookingIframe';
-
 
 const AirportTransfer = () => {
   const { siteData } = useSiteData();
@@ -25,11 +23,9 @@ const AirportTransfer = () => {
     { source: 'North Shore (Lower)' },
   ];
 
-  const scrollToBooking = () => {
-    const element = document.getElementById('booking-section');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleBookNow = () => {
+    const link = siteData?.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking";
+    window.open(link, "_blank");
   };
 
   const renderTable = (data, title, isAirportToCity) => (
@@ -57,7 +53,7 @@ const AirportTransfer = () => {
                 </td>
                 <td style={{ textAlign: 'right', padding: '1.2rem', background: 'rgba(255,255,255,0.03)', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem', paddingRight: '2rem' }}>
                   <motion.button 
-                    onClick={scrollToBooking}
+                    onClick={handleBookNow}
                     className="btn-primary-glass"
                     style={{ padding: '0.6rem 1.5rem', fontSize: '0.85rem', textDecoration: 'none', display: 'inline-block' }}
                     whileHover={{ scale: 1.05 }}
@@ -93,20 +89,27 @@ const AirportTransfer = () => {
         {renderTable(airportToAuckland, "Airport to Auckland CBD", true)}
         {renderTable(aucklandToAirport, "Auckland City to Airport", false)}
 
-        {/* Booking Frame Section */}
+        {/* Booking CTA Section */}
         <motion.div 
-          id="booking-section"
           className="admin-glass-panel" 
-          style={{ padding: '3rem', textAlign: 'center' }}
+          style={{ padding: '4rem 2rem', textAlign: 'center', marginTop: '2rem' }}
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
         >
           <h2 className="section-title" style={{ marginBottom: '1.5rem' }}>Book Your Transfer Online</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '700px', margin: '0 auto 2.5rem' }}>
-            Use our secure booking software below to schedule your ride instantly. Select your date, time, and vehicle type to get started.
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '700px', margin: '0 auto 2.5rem', fontSize: '1.1rem' }}>
+            Ready to schedule your premium airport transfer? Click below to use our secure online booking system.
           </p>
-          <BookingIframe bookingLink={siteData.settings.bookingLink} />
+          <motion.button 
+            onClick={handleBookNow}
+            className="btn-primary-glass"
+            style={{ padding: '1rem 3rem', fontSize: '1.1rem', fontWeight: 'bold' }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Open Booking System
+          </motion.button>
         </motion.div>
       </div>
     </div>
