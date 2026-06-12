@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import Admin from './pages/Admin';
 import PrivacyPolicy from './pages/legal/PrivacyPolicy';
 import TermsOfService from './pages/legal/TermsOfService';
+import ScrollToTop from './components/ScrollToTop';
 import { SiteProvider, useSiteData } from './context/SiteContext';
 import './index.css';
 
@@ -27,6 +28,7 @@ const AppContent = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="app-wrapper">
         <CustomCursor />
 

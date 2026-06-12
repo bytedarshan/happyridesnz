@@ -111,11 +111,11 @@ const Footer = () => {
         </div>
         
         <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', opacity: 0.9 }}>
-          {/* Mock Payment Icons based on Screenshot 4 */}
-          <div style={{ background: 'white', padding: '0.4rem 1rem', borderRadius: '0.5rem', display: 'flex', alignItems: 'center' }}><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" height="20" /></div>
-          <div style={{ background: 'white', padding: '0.4rem 1rem', borderRadius: '0.5rem', display: 'flex', alignItems: 'center' }}><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" height="15" /></div>
+          {/* Payment Icons: VISA, Mastercard, Amex, PayPal */}
+          <div style={{ background: 'white', padding: '0.4rem 1rem', borderRadius: '0.5rem', display: 'flex', alignItems: 'center' }}><img src="/visa_logo.png" alt="Visa" height="25" /></div>
           <div style={{ background: 'white', padding: '0.4rem 1rem', borderRadius: '0.5rem', display: 'flex', alignItems: 'center' }}><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" height="25" /></div>
-          <div style={{ background: 'white', padding: '0.4rem 1rem', borderRadius: '0.5rem', display: 'flex', alignItems: 'center' }}><img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Apple_Pay_logo.svg" alt="Apple Pay" height="20" /></div>
+          <div style={{ background: 'white', padding: '0.4rem 1rem', borderRadius: '0.5rem', display: 'flex', alignItems: 'center' }}><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg" alt="Amex" height="20" /></div>
+          <div style={{ background: 'white', padding: '0.4rem 1rem', borderRadius: '0.5rem', display: 'flex', alignItems: 'center' }}><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" height="20" /></div>
         </div>
       </div>
     </footer>
