@@ -122,22 +122,31 @@ export const SiteProvider = ({ children }) => {
   // Auth & Admin Verification
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        const adminsSnap = await getDocs(query(collection(db, 'admins'), limit(1)));
-        if (adminsSnap.empty) {
-          await setDoc(doc(db, 'admins', currentUser.email), { email: currentUser.email, role: 'super_admin', createdAt: new Date().toISOString() });
-          setUser(currentUser);
-        } else {
-          const adminDoc = await getDoc(doc(db, 'admins', currentUser.email));
-          if (adminDoc.exists()) {
+      try {
+        if (currentUser) {
+          const adminsSnap = await getDocs(query(collection(db, 'admins'), limit(1)));
+          if (adminsSnap.empty) {
+            try {
+              await setDoc(doc(db, 'admins', currentUser.email), { email: currentUser.email, role: 'super_admin', createdAt: new Date().toISOString() });
+            } catch (writeErr) {
+              console.warn("Failed to write super_admin to admins collection:", writeErr);
+            }
             setUser(currentUser);
           } else {
-            await signOut(auth);
-            setUser(null);
-            alert("This account is not authorized as an admin.");
+            const adminDoc = await getDoc(doc(db, 'admins', currentUser.email));
+            if (adminDoc.exists()) {
+              setUser(currentUser);
+            } else {
+              await signOut(auth);
+              setUser(null);
+              alert("This account is not authorized as an admin.");
+            }
           }
+        } else {
+          setUser(null);
         }
-      } else {
+      } catch (err) {
+        console.error("Auth & Admin verification callback failed:", err);
         setUser(null);
       }
     });
@@ -148,21 +157,37 @@ export const SiteProvider = ({ children }) => {
   useEffect(() => {
     const siteDocRef = doc(db, 'content', 'siteData');
     const unsubscribe = onSnapshot(siteDocRef, async (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        const mergedSettings = {
-          ...initialData.settings,
-          ...(data.settings || {}),
-          bookingLink: data.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking",
-          fleet: data.settings?.fleet || initialData.settings.fleet
-        };
-        setSiteData({ ...data, settings: mergedSettings });
-        setLoading(false);
-      } else {
-        await setDoc(siteDocRef, initialData);
+      try {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const mergedSettings = {
+            ...initialData.settings,
+            ...(data.settings || {}),
+            bookingLink: data.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking",
+            fleet: data.settings?.fleet || initialData.settings.fleet
+          };
+          setSiteData({ ...data, settings: mergedSettings });
+          setLoading(false);
+        } else {
+          try {
+            await setDoc(siteDocRef, initialData);
+          } catch (writeErr) {
+            console.warn("Failed to write initial data to Firestore (probably permission rules):", writeErr);
+          }
+          setSiteData(initialData);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error("Error processing site data snapshot:", err);
         setSiteData(initialData);
         setLoading(false);
       }
+    }, (error) => {
+      console.error("Firestore siteData snapshot listener failed:", error);
+      // Critical fallback: if firestore fails to load/read (e.g. permission denied or offline),
+      // we must still allow the website to load using initial data.
+      setSiteData(initialData);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -171,8 +196,15 @@ export const SiteProvider = ({ children }) => {
   useEffect(() => {
     const adminsRef = collection(db, 'admins');
     const unsubscribe = onSnapshot(adminsRef, (snapshot) => {
-      const adminList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setAdmins(adminList);
+      try {
+        const adminList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setAdmins(adminList);
+      } catch (err) {
+        console.error("Error processing admins snapshot:", err);
+      }
+    }, (error) => {
+      console.warn("Firestore admins snapshot listener failed:", error);
+      // Suppress or log error - no action needed since admin verification handles individual user auth anyway.
     });
     return () => unsubscribe();
   }, []);

@@ -9,7 +9,7 @@ const Services = () => {
   const { siteData } = useSiteData();
   const navigate = useNavigate();
   
-  const icons = [<Plane size={40} />, <Building size={40} />, <Users size={40} />, <Map size={40} />, <Clock size={40} />, <Shield size={40} />];
+  const icons = [<Plane size={40} />, <Building size={40} />, <Users size={40} />, <MapPin size={40} />, <Clock size={40} />, <Shield size={40} />];
   
   const allServices = siteData.services.map((s, i) => ({
     ...s,
