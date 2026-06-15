@@ -7,7 +7,7 @@
   background-color: #3B82F6; /* Primary blue */
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 999999;
   box-shadow: 0 0 10px #3B82F6;
 }
 
@@ -22,7 +22,7 @@
   backdrop-filter: blur(2px);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9998;
+  z-index: 999998;
 }
 
 /* Hide default cursor on desktop to let the custom cursor shine */

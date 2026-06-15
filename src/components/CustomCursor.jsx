@@ -104,7 +104,7 @@ const CustomCursor = () => {
               borderRadius: '50%',
               border: '2px solid rgba(255, 255, 255, 0.8)',
               pointerEvents: 'none',
-              zIndex: 9999
+              zIndex: 999999
             }}
           />
         )}
