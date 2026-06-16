@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Clock, DollarSign, MapPin, CheckCircle, ArrowLeft } from 'lucide-react';
+import { X, Clock, MapPin, CheckCircle, ArrowLeft } from 'lucide-react';
 import { useSiteData } from '../context/SiteContext';
 
 const TourDetail = ({ tour, onBack }) => {
@@ -35,7 +35,6 @@ const TourDetail = ({ tour, onBack }) => {
             <h2 className="detail-title">{tour.title}</h2>
             <div className="detail-meta">
               <span className="meta-item"><Clock size={20} /> {tour.duration}</span>
-              <span className="meta-item"><DollarSign size={20} /> {tour.price}</span>
             </div>
           </div>
         </div>
@@ -62,10 +61,7 @@ const TourDetail = ({ tour, onBack }) => {
             <div className="booking-card glass-panel">
               <h4>Ready to Explore?</h4>
               <p>Book this experience today and enjoy the best of New Zealand.</p>
-              <div className="price-tag">
-                <span className="label">Price per person</span>
-                <span className="value">{tour.price}</span>
-              </div>
+
               <motion.button 
                 className="btn-primary-glass w-full"
                 whileHover={{ scale: 1.02 }}

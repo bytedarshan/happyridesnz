@@ -75,9 +75,9 @@ If you'd prefer to book a custom tour, feel free to contact us directly at **${s
   
   // 3. Pricing / Cost / How much
   if (msg.includes('price') || msg.includes('cost') || msg.includes('fare') || msg.includes('rate') || msg.includes('how much') || msg.includes('quote')) {
-    return `We offer fixed-pricing passenger transfers with no hidden costs or surge pricing! 
+    return `We offer high-quality, reliable passenger transfers with no hidden booking fees or surge pricing! 
     
-For custom quotes or long-distance intercity rides, you can view our rates on our [Services page](/services) or use our [Booking System](${settings.bookingLink || 'https://happyrides.trial.easytaxioffice.com/booking'}) to get an instant price estimate.`;
+For custom quotes or package details, please use our online [Booking System](${settings.bookingLink || 'https://happyrides.trial.easytaxioffice.com/booking'}) to get a customized estimate, or contact our team directly!`;
   }
 
   // 4. Fleet / Vehicles
@@ -122,7 +122,7 @@ For custom quotes or long-distance intercity rides, you can view our rates on ou
     if (matchedTours.length > 0) {
       let response = `We offer some amazing tours matching your query:\n\n`;
       matchedTours.slice(0, 3).forEach(t => {
-        response += `- **${t.title}** (${t.duration || 'Day Trip'}): ${t.price ? '**' + t.price + '**.' : ''} ${t.description ? t.description.split('.')[0] + '.' : ''}\n`;
+        response += `- **${t.title}** (${t.duration || 'Day Trip'}): ${t.description ? t.description.split('.')[0] + '.' : ''}\n`;
       });
       response += `\nWould you like to view our full tours? You can check them on our [Tours page](/tours) or book them directly via our booking link!`;
       return response;

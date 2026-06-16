@@ -55,7 +55,6 @@ const TourCard = ({ tour, onClick }) => {
     >
       <div className="tour-img-container">
         <img src={tour.image} alt={tour.title} className="tour-img" />
-        <div className="tour-price-badge">{tour.price}</div>
       </div>
       
       <div className="tour-content">

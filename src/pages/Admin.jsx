@@ -314,7 +314,7 @@ const Admin = () => {
                 <img src={getImagePath(pkg.image)} alt="" style={{ width: '60px', height: '60px', borderRadius: '1rem', objectFit: 'cover', flexShrink: 0 }} />
                 <div>
                   <h4>{pkg.title}</h4>
-                  <p>{pkg.price} • {pkg.duration}</p>
+                  <p>{pkg.duration}</p>
                 </div>
               </div>
               <div className="admin-list-item-actions">
@@ -361,7 +361,7 @@ const Admin = () => {
                 <img src={getImagePath(pkg.image)} alt="" style={{ width: '60px', height: '60px', borderRadius: '1rem', objectFit: 'cover', flexShrink: 0 }} />
                 <div>
                   <h4>{pkg.title}</h4>
-                  <p>{pkg.price} • {pkg.duration}</p>
+                  <p>{pkg.duration}</p>
                 </div>
               </div>
               <div className="admin-list-item-actions">
@@ -953,10 +953,7 @@ const Admin = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="admin-editor-grid-2">
-                    <div className="input-group"><label className="input-label">Price Label</label><input type="text" className="input-field" value={editingItem.price || ''} onChange={(e) => setEditingItem({...editingItem, price: e.target.value})} /></div>
-                    <div className="input-group"><label className="input-label">Duration</label><input type="text" className="input-field" value={editingItem.duration || ''} onChange={(e) => setEditingItem({...editingItem, duration: e.target.value})} /></div>
-                  </div>
+                  <div className="input-group"><label className="input-label">Duration</label><input type="text" className="input-field" value={editingItem.duration || ''} onChange={(e) => setEditingItem({...editingItem, duration: e.target.value})} /></div>
                   <div className="input-group"><label className="input-label">Description</label><textarea className="input-field" style={{ height: '150px' }} value={editingItem.description || ''} onChange={(e) => setEditingItem({...editingItem, description: e.target.value})} /></div>
                 </div>
               )}

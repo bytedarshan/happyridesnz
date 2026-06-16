@@ -24,6 +24,7 @@ const NavigationBar = () => {
     { name: 'Services', path: '/services' },
     { name: 'Tours', path: '/tours' },
     { name: 'Activities', path: '/activities' },
+    { name: 'Testimonials', path: '/testimonials' },
     { name: 'Contact Us', path: '/contact' },
   ];
 

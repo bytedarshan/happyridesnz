@@ -23,8 +23,8 @@ const TermsOfService = () => {
             <h3 style={{ color: 'white', marginTop: '2.5rem', marginBottom: '1rem' }}>2. Booking & Cancellation</h3>
             <p>Bookings are subject to availability. Cancellations made within 24 hours of the scheduled service may incur a cancellation fee.</p>
 
-            <h3 style={{ color: 'white', marginTop: '2.5rem', marginBottom: '1rem' }}>3. Pricing & Payment</h3>
-            <p>Prices are as displayed on our website or quoted at the time of booking. All payments must be made in full before or at the time of service unless otherwise agreed.</p>
+            <h3 style={{ color: 'white', marginTop: '2.5rem', marginBottom: '1rem' }}>3. Bookings & Payment</h3>
+            <p>Payments are processed according to the official quotes provided at the time of booking. All payments must be made in full before or at the time of service unless otherwise agreed.</p>
 
             <h3 style={{ color: 'white', marginTop: '2.5rem', marginBottom: '1rem' }}>4. Passenger Conduct</h3>
             <p>We reserve the right to refuse service to any person who is disruptive, intoxicated, or poses a safety risk to our drivers or other passengers.</p>

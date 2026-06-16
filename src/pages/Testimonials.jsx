@@ -3,10 +3,15 @@ import NavigationBar from '../components/NavigationBar';
 import { motion } from 'framer-motion';
 import { Star, Quote, User } from 'lucide-react';
 import { useSiteData } from '../context/SiteContext';
+import { useNavigate } from 'react-router-dom';
 
 const Testimonials = () => {
   const { siteData } = useSiteData();
   const testimonials = siteData.testimonials;
+  const navigate = useNavigate();
+
+  // If odd number of cards, center the last one
+  const isOdd = testimonials.length % 2 !== 0;
 
   return (
     <div className="page-wrapper">
@@ -33,42 +38,62 @@ const Testimonials = () => {
             </motion.p>
           </div>
 
-          <div id="grid" className="testimonials-grid">
-            {testimonials.map((testimonial, idx) => (
-              <motion.div 
-                key={testimonial.id}
-                className="testimonial-card glass-panel"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-              >
-                <div className="testimonial-header">
-                  <div className="user-avatar">
-                    <User size={24} />
+          {/* Grid: 2 columns on desktop. If odd count, last card is centered */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(2, 1fr)',
+            gap: '2rem',
+            maxWidth: '1100px',
+            margin: '0 auto'
+          }}>
+            {testimonials.map((testimonial, idx) => {
+              const isLastOdd = isOdd && idx === testimonials.length - 1;
+              return (
+                <motion.div
+                  key={testimonial.id}
+                  className="testimonial-card glass-panel"
+                  style={isLastOdd ? {
+                    gridColumn: '1 / -1',
+                    maxWidth: '50%',
+                    margin: '0 auto',
+                    width: '100%'
+                  } : {}}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <div className="testimonial-header">
+                    <div className="user-avatar">
+                      <User size={24} />
+                    </div>
+                    <div className="user-info">
+                      <h4>{testimonial.name}</h4>
+                      <span>{testimonial.location}</span>
+                    </div>
+                    <Quote className="quote-icon" size={24} />
                   </div>
-                  <div className="user-info">
-                    <h4>{testimonial.name}</h4>
-                    <span>{testimonial.location}</span>
+                  
+                  <div className="star-rating">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} size={16} fill="#FACC15" color="#FACC15" />
+                    ))}
                   </div>
-                  <Quote className="quote-icon" size={24} />
-                </div>
-                
-                <div className="star-rating">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} size={16} fill="#FACC15" color="#FACC15" />
-                  ))}
-                </div>
 
-                <p className="testimonial-text">"{testimonial.text}"</p>
-              </motion.div>
-            ))}
+                  <p className="testimonial-text">"{testimonial.text}"</p>
+                </motion.div>
+              );
+            })}
           </div>
 
           <div id="cta" className="testimonials-cta glass-panel" style={{ marginTop: '6rem', textAlign: 'center', padding: '4rem' }}>
             <h2 className="section-title">Ready for Your Journey?</h2>
-            <p style={{ color: 'rgba(255, 255, 255, 0.7)', marginBottom: '2rem' }}>Experience the same premium service that our guests are talking about.</p>
-            <button className="btn-primary-glass">Book Your Tour Now</button>
+            <p style={{ color: 'rgba(255, 255, 255, 0.7)', marginBottom: '2rem' }}>
+              Experience the same premium service that our guests are talking about.
+            </p>
+            <button className="btn-primary-glass" onClick={() => navigate('/contact')}>
+              Book Your Tour Now
+            </button>
           </div>
         </div>
       </main>

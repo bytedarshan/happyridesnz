@@ -48,7 +48,7 @@ const CityTours = () => {
 
         <div className="city-tables">
           <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <MapPin size={24} /> Tour & Activity Pricing
+            <MapPin size={24} /> Tour & Activity Overview
           </h3>
           <div style={{ overflowX: 'auto' }}>
             <table className="transfers-table" style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 0.5rem' }}>
@@ -56,7 +56,7 @@ const CityTours = () => {
                 <tr>
                   <th style={{ textAlign: 'left', padding: '1rem', color: '#60A5FA' }}>Experience</th>
                   <th style={{ textAlign: 'center', padding: '1rem', color: '#60A5FA' }}>Duration</th>
-                  <th style={{ textAlign: 'right', padding: '1rem', color: '#60A5FA' }}>Price</th>
+                  <th style={{ textAlign: 'right', padding: '1rem', color: '#60A5FA' }}>Booking</th>
                 </tr>
               </thead>
               <tbody>
@@ -66,8 +66,11 @@ const CityTours = () => {
                       {item.title}
                     </td>
                     <td style={{ textAlign: 'center', padding: '1rem', background: 'rgba(255,255,255,0.03)' }}>{item.duration}</td>
-                    <td style={{ textAlign: 'right', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem', color: '#10B981', fontWeight: 700 }}>
-                      {item.price}
+                    <td style={{ textAlign: 'right', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem', color: '#60A5FA', fontWeight: 600 }}>
+                      <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => {
+                        const link = siteData?.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking";
+                        window.open(link, "_blank");
+                      }}>Book Now</span>
                     </td>
                   </tr>
                 ))}

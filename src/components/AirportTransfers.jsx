@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Plane, Car, Users, DollarSign, ArrowRightLeft } from 'lucide-react';
+import { Plane, Car, Users, ArrowRightLeft } from 'lucide-react';
+import { useSiteData } from '../context/SiteContext';
 
 const transferData = [
   { vehicle: 'Standard', passengers: 2, priceToCBD: 65, priceToAirport: 60 },
@@ -15,6 +16,9 @@ const transferData = [
 ];
 
 const AirportTransfers = () => {
+  const { siteData } = useSiteData();
+  const bookingLink = siteData?.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking";
+
   return (
     <section id="airport-transfers" className="transfers-section">
       <div className="section-header">
@@ -35,8 +39,8 @@ const AirportTransfers = () => {
               <tr>
                 <th>Vehicle Type</th>
                 <th><Users size={16} /> Seats</th>
-                <th>To Auckland CBD</th>
-                <th>To Airport</th>
+                <th>Service Area</th>
+                <th>Rates</th>
               </tr>
             </thead>
             <tbody>
@@ -52,8 +56,12 @@ const AirportTransfers = () => {
                     <Car size={16} className="table-icon" /> {row.vehicle}
                   </td>
                   <td>{row.passengers}</td>
-                  <td className="price-cell">NZD {row.priceToCBD}</td>
-                  <td className="price-cell">NZD {row.priceToAirport}</td>
+                  <td>Auckland Airport ⇆ CBD & Beyond</td>
+                  <td className="price-cell">
+                    <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => {
+                      window.open(bookingLink, "_blank");
+                    }}>Get Quote</span>
+                  </td>
                 </motion.tr>
               ))}
             </tbody>
@@ -61,11 +69,14 @@ const AirportTransfers = () => {
         </div>
         
         <div className="transfers-footer">
-          <p>* Prices are subject to change and may vary based on timing, demand, and specific requirements.</p>
+          <p>* Rates are customized and calculated instantly via our booking system.</p>
           <motion.button 
             className="btn-primary-glass"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              window.open(bookingLink, "_blank");
+            }}
           >
             Book Transfer Now
           </motion.button>

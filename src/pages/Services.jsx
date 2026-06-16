@@ -34,17 +34,17 @@ const Services = () => {
 
         <div className="services-grid responsive-grid">
           {[
-            { title: 'Airport Transfers', icon: <Plane size={40} />, desc: 'Luxury door-to-door transfers with fixed pricing and 24/7 reliability.', isBooking: true },
+            { title: 'Airport Transfers', icon: <Plane size={40} />, desc: 'Luxury door-to-door transfers with reliable bookings and 24/7 service.', isBooking: true },
             { title: 'Intercity Transfers', icon: <Car size={40} />, desc: 'Safe and reliable long-distance travel across the North Island.', isBooking: true },
             { title: 'City Tours', icon: <MapPin size={40} />, desc: 'Immerse yourself in the most iconic destinations across New Zealand.', path: '/services/city-tours' },
-            { title: 'Corporate Travel', icon: <Building size={40} />, desc: 'Discreet and professional transport for business professionals.' },
-            { title: 'Group Transfers', icon: <Users size={40} />, desc: 'Spacious vehicles perfect for families or large groups.' },
-            { title: 'Safety First', icon: <Shield size={40} />, desc: 'Our vehicles undergo regular safety inspections and vetting.' }
+            { title: 'Corporate Travel', icon: <Building size={40} />, desc: 'Discreet and professional transport for business professionals. Priority bookings and dedicated accounts available.', contactCta: 'Make an Enquiry' },
+            { title: 'Group Transfers', icon: <Users size={40} />, desc: 'Spacious vehicles perfect for families or large groups. Ideal for events, weddings, and group tours.', contactCta: 'Request a Quote' },
+            { title: 'Safety First', icon: <Shield size={40} />, desc: 'Our vehicles undergo regular safety inspections, and our drivers are fully vetted and professionally trained.', toursLink: true },
           ].map((s, i) => (
             <motion.div 
               key={i}
               className="service-card glass-panel"
-              style={{ padding: '3rem 2rem', textAlign: 'center', cursor: (s.path || s.isBooking) ? 'pointer' : 'default' }}
+              style={{ padding: '3rem 2rem', textAlign: 'center', cursor: (s.path || s.isBooking || s.contactCta || s.toursLink) ? 'pointer' : 'default' }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
@@ -54,13 +54,17 @@ const Services = () => {
                   window.open(link, "_blank");
                 } else if (s.path) {
                   navigate(s.path);
+                } else if (s.contactCta) {
+                  navigate('/contact');
+                } else if (s.toursLink) {
+                  navigate('/tours');
                 }
               }}
-              whileHover={(s.path || s.isBooking) ? { scale: 1.05, borderColor: 'var(--primary-color)' } : {}}
+              whileHover={{ scale: 1.05, borderColor: 'var(--primary-color)' }}
             >
               <div className="service-icon" style={{ color: 'var(--primary-color)', marginBottom: '1.5rem' }}>{s.icon}</div>
               <h2 className="section-title" style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{s.title}</h2>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: (s.path || s.isBooking) ? '1.5rem' : '0' }}>{s.desc}</p>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '1.5rem' }}>{s.desc}</p>
               {s.isBooking && (
                 <div style={{ color: 'var(--primary-color)', fontWeight: 700, fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
                   Book Online <Calendar size={16} />
@@ -69,6 +73,16 @@ const Services = () => {
               {s.path && (
                 <div style={{ color: 'var(--primary-color)', fontWeight: 700, fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
                   Explore Details <Clock size={16} />
+                </div>
+              )}
+              {s.contactCta && (
+                <div style={{ color: 'var(--primary-color)', fontWeight: 700, fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                  {s.contactCta} <Users size={16} />
+                </div>
+              )}
+              {s.toursLink && (
+                <div style={{ color: 'var(--primary-color)', fontWeight: 700, fontSize: '0.9rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                  View Our Fleet <Shield size={16} />
                 </div>
               )}
             </motion.div>
