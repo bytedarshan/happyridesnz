@@ -13,7 +13,7 @@ import Contact from './pages/Contact';
 import Testimonials from './pages/Testimonials';
 import CustomCursor from './components/CustomCursor';
 import Footer from './components/Footer';
-import ChatbotWidget from './components/ChatbotWidget';
+// import ChatbotWidget from './components/ChatbotWidget';
 import Admin from './pages/Admin';
 import PrivacyPolicy from './pages/legal/PrivacyPolicy';
 import TermsOfService from './pages/legal/TermsOfService';
@@ -57,7 +57,7 @@ const AppContent = () => {
         </Routes>
 
         <Footer />
-        <ChatbotWidget />
+        {/* <ChatbotWidget /> */}
       </div>
     </Router>
   );

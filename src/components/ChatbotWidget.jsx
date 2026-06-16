@@ -1,3 +1,4 @@
+/*
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare, Send, X, ArrowUpRight } from 'lucide-react';
 import { useSiteData } from '../context/SiteContext';
@@ -380,3 +381,4 @@ const ChatbotWidget = () => {
 };
 
 export default ChatbotWidget;
+*/

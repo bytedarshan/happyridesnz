@@ -33,16 +33,16 @@ const Contact = () => {
     e.preventDefault();
     setStatus({ submitting: true, success: false, error: '' });
 
-    // Vite Environment Variables config, falling back to local credentials
-    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_sf4iz6k";
-    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_dpv6xco";
-    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "RLzbxoznPYKlJ0OWM";
+    // Vite Environment Variables config
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    if (SERVICE_ID === "YOUR_SERVICE_ID" || TEMPLATE_ID === "YOUR_TEMPLATE_ID" || PUBLIC_KEY === "YOUR_PUBLIC_KEY") {
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
       setStatus({
         submitting: false,
         success: false,
-        error: "EmailJS is not configured. Please fill in VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY in your .env file or inside Contact.jsx directly."
+        error: "Email service is temporarily unavailable. Please contact us directly at info@happyrides.co.nz"
       });
       return;
     }
@@ -133,6 +133,7 @@ const Contact = () => {
                     className="input-field glass-panel" 
                     style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} 
                     placeholder="John Doe" 
+                    maxLength={100}
                     required
                   />
                 </div>
@@ -146,6 +147,7 @@ const Contact = () => {
                     className="input-field glass-panel" 
                     style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} 
                     placeholder="john@example.com" 
+                    maxLength={254}
                     required
                   />
                 </div>
@@ -159,6 +161,7 @@ const Contact = () => {
                   className="input-field glass-panel" 
                   style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '150px', resize: 'none' }} 
                   placeholder="How can we help you?"
+                  maxLength={2000}
                   required
                 ></textarea>
               </div>

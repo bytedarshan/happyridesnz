@@ -1,38 +1,25 @@
 /**
- * Cloudinary Secure Signed Upload Utility
- * Performs client-side signed uploads using browser-native Web Crypto API (SHA-1).
+ * Cloudinary Unsigned Upload Utility
+ * Uses an unsigned upload preset — NO secret key required in frontend.
+ * The preset is configured in Cloudinary Dashboard:
+ *   Settings → Upload → Upload Presets → Add unsigned preset
+ *   Set folder to "happyrides" and allowed formats to image/*
  */
-
-export const generateSHA1 = async (string) => {
-  const msgBuffer = new TextEncoder().encode(string);
-  const hashBuffer = await window.crypto.subtle.digest('SHA-1', msgBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  return hashHex;
-};
 
 export const uploadToCloudinary = async (file) => {
   const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-  const apiKey = import.meta.env.VITE_CLOUDINARY_API_KEY;
-  const apiSecret = import.meta.env.VITE_CLOUDINARY_API_SECRET;
+  const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
-  if (!cloudName || !apiKey || !apiSecret) {
-    throw new Error('Cloudinary environment variables are not configured in Vercel or .env file!');
+  if (!cloudName || !uploadPreset) {
+    throw new Error(
+      'Cloudinary is not configured. Please set VITE_CLOUDINARY_CLOUD_NAME and VITE_CLOUDINARY_UPLOAD_PRESET in your .env file or Vercel environment variables.'
+    );
   }
-
-  const timestamp = Math.round(new Date().getTime() / 1000);
-  const folder = 'happyrides';
-
-  // Parameters to sign must be sorted alphabetically
-  const signatureString = `folder=${folder}&timestamp=${timestamp}${apiSecret}`;
-  const signature = await generateSHA1(signatureString);
 
   const formData = new FormData();
   formData.append('file', file);
-  formData.append('folder', folder);
-  formData.append('timestamp', timestamp);
-  formData.append('api_key', apiKey);
-  formData.append('signature', signature);
+  formData.append('upload_preset', uploadPreset);
+  formData.append('folder', 'happyrides');
 
   const response = await fetch(
     `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,

@@ -1106,6 +1106,24 @@ body {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pop-tag.active {
+  color: white;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.category-tabs, .category-nav-tabs {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.category-tabs::-webkit-scrollbar, .category-nav-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -1342,6 +1360,29 @@ textarea.input-field {
   padding: 2rem 0;
 }
 
+/* Admin section header: title + action button row */
+.admin-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 480px) {
+  .admin-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .admin-section-header .responsive-hero-title {
+    font-size: 1.5rem !important;
+  }
+}
+
 .admin-glass-panel {
   background: rgba(15, 23, 42, 0.4);
   backdrop-filter: blur(40px) saturate(180%);
@@ -1353,6 +1394,114 @@ textarea.input-field {
   width: 100%;
   max-width: 95vw;
   margin: 0 auto;
+}
+
+/* Responsive Admin Lists */
+.admin-list-item {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.admin-list-item-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.admin-list-item-left h4 {
+  font-size: 1.1rem;
+  word-break: break-word;
+}
+
+.admin-list-item-left p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  word-break: break-word;
+}
+
+.admin-list-item-actions {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .admin-list-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.2rem;
+    padding: 1.25rem !important;
+  }
+  .admin-list-item-left {
+    gap: 1rem;
+  }
+  .admin-list-item-actions {
+    justify-content: flex-end;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 0.8rem;
+  }
+}
+
+/* Responsive Admin Editor Dialogs */
+.admin-editor-panel {
+  padding: 3rem;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.admin-editor-row {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.admin-editor-img-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.admin-editor-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.admin-editor-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .admin-editor-panel {
+    padding: 1.5rem !important;
+    max-height: 90vh !important;
+    border-radius: 1.5rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-editor-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .admin-editor-fields {
+    width: 100%;
+  }
+  .admin-editor-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .btn-outline {
@@ -1446,27 +1595,55 @@ textarea.input-field {
 
 @media (max-width: 768px) {
   .category-nav-wrapper {
-    bottom: 1.5rem !important; /* Slightly more space from bottom */
+    bottom: 1rem !important;
   }
   
   .category-nav {
-    padding: 0.4rem 0.6rem !important;
-    gap: 0.5rem !important;
+    padding: 0.3rem 0.5rem !important;
+    gap: 0.25rem !important;
     border-radius: 2rem;
-    background: rgba(255, 255, 255, 0.08) !important;
+    background: rgba(15, 23, 42, 0.85) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+    max-width: 96vw !important;
   }
   
   .category-nav-item {
-    padding: 0.6rem 1rem !important;
-    font-size: 0.8rem !important;
+    padding: 0.5rem 0.7rem !important;
+    font-size: 0.7rem !important;
     white-space: nowrap;
     flex-shrink: 0;
-    gap: 0.5rem !important;
+    gap: 0.35rem !important;
     border-radius: 1.5rem !important;
+    flex-direction: column;
+    gap: 0.2rem !important;
+  }
+
+  .category-nav-item .nav-label {
+    font-size: 0.6rem !important;
+    line-height: 1;
   }
   
   .category-nav-item .nav-icon {
-    transform: scale(0.85);
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 480px) {
+  .category-nav {
+    max-width: 98vw !important;
+    padding: 0.25rem 0.4rem !important;
+  }
+
+  .category-nav-item {
+    padding: 0.45rem 0.6rem !important;
+    font-size: 0.62rem !important;
+  }
+
+  .category-nav-item .nav-label {
+    font-size: 0.55rem !important;
   }
 }
 
@@ -1672,13 +1849,25 @@ textarea.input-field {
     font-size: 1.1rem;
   }
 
-  .btn-primary-glass {
-    display: none; /* Hide 'Manage Booking' in nav on very small screens to fit toggle */
+  /* Only hide nav btn-primary-glass (booking button), not admin buttons */
+  .navbar .btn-primary-glass:not(.admin-btn) {
+    display: none;
   }
-  
+
   /* Show it only if needed, but for now toggle and logo are priority */
   .mobile-toggle {
     margin-left: auto;
+  }
+
+  /* Admin section header wraps on small screens */
+  .admin-section-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+  }
+
+  .admin-section-header .admin-btn {
+    align-self: flex-start;
   }
 
   .tour-card {
@@ -1868,26 +2057,23 @@ textarea.input-field {
     padding: 1rem !important;
   }
 
-  /* Ensure floating bar is usable on small screens */
-  .category-nav {
-    max-width: 98vw !important;
-    padding: 0.2rem !important;
-  }
-
-  .category-nav-item {
-    padding: 0.4rem 0.6rem !important;
-    font-size: 0.7rem !important;
-  }
-
   /* Fix for overlapping buttons */
   .tour-footer {
     flex-direction: column !important;
     gap: 0.5rem !important;
   }
 
-  .btn-primary-glass, .btn-outline {
+  /* Only force full width on non-admin context */
+  .btn-primary-glass:not(.admin-btn), .btn-outline:not(.admin-btn) {
     width: 100% !important;
     min-width: 100% !important;
+  }
+
+  /* Admin buttons remain compact icon/label style */
+  .admin-btn {
+    width: auto !important;
+    min-width: unset !important;
+    flex-shrink: 0 !important;
   }
 }
 

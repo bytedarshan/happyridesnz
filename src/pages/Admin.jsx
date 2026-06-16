@@ -239,18 +239,18 @@ const Admin = () => {
 
   const renderTeam = () => (
     <div className="admin-section">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+      <div className="admin-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <h2 className="responsive-hero-title">Admin Team</h2>
         <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'team_add' })} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><UserPlus size={18} /> New Admin</button>
       </div>
       <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {admins.map(admin => (
-          <div key={admin.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ShieldCheck size={20} color={admin.role === 'super_admin' ? '#F59E0B' : 'var(--primary-color)'} /></div>
+          <div key={admin.id} className="admin-glass-panel admin-list-item">
+            <div className="admin-list-item-left" style={{ gap: '1rem' }}>
+              <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><ShieldCheck size={20} color={admin.role === 'super_admin' ? '#F59E0B' : 'var(--primary-color)'} /></div>
               <div><h4 style={{ fontSize: '1.1rem' }}>{admin.email}</h4><p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>{admin.role.replace('_', ' ').toUpperCase()} • Created {new Date(admin.createdAt).toLocaleDateString()}</p></div>
             </div>
-            <div style={{ display: 'flex', gap: '0.8rem' }}>
+            <div className="admin-list-item-actions" style={{ gap: '0.8rem' }}>
               <button className="btn-outline admin-btn" title="Reset Password" onClick={() => resetAdminPassword(admin.email)}><RefreshCw size={16} /></button>
               {admin.email !== user.email && (<button className="btn-outline admin-btn" style={{ color: '#EF4444' }} title="Remove Admin" onClick={() => window.confirm(`Remove ${admin.email}?`) && removeAdmin(admin.email)}><Trash2 size={16} /></button>)}
             </div>
@@ -262,18 +262,20 @@ const Admin = () => {
 
   const renderServices = () => (
     <div className="admin-section">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+      <div className="admin-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <h2 className="responsive-hero-title">Core Services</h2>
         <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'service', mode: 'add' })} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Plus size={18} /> Add Service</button>
       </div>
       <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {siteData.services.map(s => (
-          <div key={s.id || s.title} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ flex: 1, paddingRight: '2rem' }}>
-              <h4 style={{ fontSize: '1.2rem', marginBottom: '0.2rem' }}>{s.title}</h4>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{s.desc}</p>
+          <div key={s.id || s.title} className="admin-glass-panel admin-list-item">
+            <div className="admin-list-item-left" style={{ flex: 1, paddingRight: '2rem' }}>
+              <div>
+                <h4 style={{ fontSize: '1.2rem', marginBottom: '0.2rem' }}>{s.title}</h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{s.desc}</p>
+              </div>
             </div>
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <div className="admin-list-item-actions">
               <button className="btn-outline admin-btn" onClick={() => setEditingItem({ ...s, type: 'service', mode: 'edit' })}><Edit3 size={18} /></button>
               <button className="btn-outline admin-btn" style={{ color: '#EF4444' }} onClick={() => removeService(s.id || s.title)}><Trash2 size={18} /></button>
             </div>
@@ -287,7 +289,7 @@ const Admin = () => {
     const tourCategories = ['aucklandCityTours', 'intercityTours', 'rotoruaTours', 'paihiaTours'];
     return (
       <div className="admin-section">
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}>
+        <div className="admin-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
           <h2 className="responsive-hero-title">Manage Tours</h2>
           <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'package', mode: 'add', category: selectedTourCategory })}>
             <Plus size={18} /> New Tour
@@ -307,15 +309,15 @@ const Admin = () => {
         </div>
         <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           {siteData.packages[selectedTourCategory]?.map(pkg => (
-            <div key={pkg.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                <img src={getImagePath(pkg.image)} alt="" style={{ width: '60px', height: '60px', borderRadius: '1rem', objectFit: 'cover' }} />
+            <div key={pkg.id} className="admin-glass-panel admin-list-item">
+              <div className="admin-list-item-left">
+                <img src={getImagePath(pkg.image)} alt="" style={{ width: '60px', height: '60px', borderRadius: '1rem', objectFit: 'cover', flexShrink: 0 }} />
                 <div>
                   <h4>{pkg.title}</h4>
                   <p>{pkg.price} • {pkg.duration}</p>
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '1rem' }}>
+              <div className="admin-list-item-actions">
                 <button className="btn-outline admin-btn" onClick={() => setEditingItem({ ...pkg, type: 'package', mode: 'edit', category: selectedTourCategory })}>
                   <Edit3 size={18} />
                 </button>
@@ -334,7 +336,7 @@ const Admin = () => {
     const activityCategories = ['aucklandActivities', 'rotoruaActivities', 'paihiaActivities'];
     return (
       <div className="admin-section">
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}>
+        <div className="admin-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
           <h2 className="responsive-hero-title">Manage Activities</h2>
           <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'package', mode: 'add', category: selectedActivityCategory })}>
             <Plus size={18} /> New Activity
@@ -354,15 +356,15 @@ const Admin = () => {
         </div>
         <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           {siteData.packages[selectedActivityCategory]?.map(pkg => (
-            <div key={pkg.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-                <img src={getImagePath(pkg.image)} alt="" style={{ width: '60px', height: '60px', borderRadius: '1rem', objectFit: 'cover' }} />
+            <div key={pkg.id} className="admin-glass-panel admin-list-item">
+              <div className="admin-list-item-left">
+                <img src={getImagePath(pkg.image)} alt="" style={{ width: '60px', height: '60px', borderRadius: '1rem', objectFit: 'cover', flexShrink: 0 }} />
                 <div>
                   <h4>{pkg.title}</h4>
                   <p>{pkg.price} • {pkg.duration}</p>
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '1rem' }}>
+              <div className="admin-list-item-actions">
                 <button className="btn-outline admin-btn" onClick={() => setEditingItem({ ...pkg, type: 'package', mode: 'edit', category: selectedActivityCategory })}>
                   <Edit3 size={18} />
                 </button>
@@ -379,12 +381,20 @@ const Admin = () => {
 
   const renderTestimonials = () => (
     <div className="admin-section">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}><h2 className="responsive-hero-title">Testimonials</h2><button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'testimonial', mode: 'add' })}><Plus size={18} /> Add Review</button></div>
+      <div className="admin-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}><h2 className="responsive-hero-title">Testimonials</h2><button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'testimonial', mode: 'add' })}><Plus size={18} /> Add Review</button></div>
       <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {siteData.testimonials.map(test => (
-          <div key={test.id} className="admin-glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ flex: 1, paddingRight: '2rem' }}><h4 style={{ fontSize: '1.2rem', marginBottom: '0.2rem' }}>{test.name}</h4><p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{test.location} • {test.rating} Stars</p><p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '0.5rem', fontStyle: 'italic' }}>"{test.text.substring(0, 80)}..."</p></div>
-            <button className="btn-outline admin-btn" style={{ color: '#EF4444', flexShrink: 0, width: '45px', height: '45px', padding: 0 }} onClick={() => removeTestimonial(test.id)}><Trash2 size={18} /></button>
+          <div key={test.id} className="admin-glass-panel admin-list-item">
+            <div className="admin-list-item-left" style={{ flex: 1, paddingRight: '2rem' }}>
+              <div>
+                <h4 style={{ fontSize: '1.2rem', marginBottom: '0.2rem' }}>{test.name}</h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{test.location} • {test.rating} Stars</p>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '0.5rem', fontStyle: 'italic' }}>"{test.text.substring(0, 80)}..."</p>
+              </div>
+            </div>
+            <div className="admin-list-item-actions">
+              <button className="btn-outline admin-btn" style={{ color: '#EF4444', flexShrink: 0, width: '45px', height: '45px', padding: 0 }} onClick={() => removeTestimonial(test.id)}><Trash2 size={18} /></button>
+            </div>
           </div>
         ))}
       </div>
@@ -411,7 +421,7 @@ const Admin = () => {
 
   const renderGallery = () => (
     <div className="admin-section">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+      <div className="admin-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h2 className="responsive-hero-title">Cloudinary Media Gallery</h2>
         <div>
           <input 
@@ -743,7 +753,7 @@ const Admin = () => {
       return (
         <div className="admin-editor" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className="content-container" style={{ width: '95%', maxWidth: '800px' }}>
-            <motion.div className="admin-glass-panel" style={{ padding: '2.5rem' }} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+            <motion.div className="admin-glass-panel admin-editor-panel" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2.5rem' }}><h2>New Admin</h2><button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={20} /></button></div>
               <form onSubmit={handleCreateAdmin} style={{ display: 'grid', gap: '2rem' }}>
                 <div className="input-group"><label className="input-label">Email Address</label><input type="email" className="input-field" value={newAdminEmail} onChange={(e) => setNewAdminEmail(e.target.value)} required /></div>
@@ -760,7 +770,7 @@ const Admin = () => {
       return (
         <div className="admin-editor" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className="content-container" style={{ width: '95%', maxWidth: '900px' }}>
-            <motion.div className="admin-glass-panel" style={{ padding: '3rem', maxHeight: '80vh', overflowY: 'auto' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
+            <motion.div className="admin-glass-panel admin-editor-panel" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}>
                 <h2>Select Image for {editingItem.key.replace(/([A-Z])/g, ' $1').trim()}</h2>
                 <button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={24} /></button>
@@ -823,7 +833,7 @@ const Admin = () => {
       return (
         <div className="admin-editor" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className="content-container" style={{ width: '95%', maxWidth: '900px' }}>
-            <motion.div className="admin-glass-panel" style={{ padding: '3rem', maxHeight: '80vh', overflowY: 'auto' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
+            <motion.div className="admin-glass-panel admin-editor-panel" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}>
                 <h2>Select Vehicle Image</h2>
                 <button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={24} /></button>
@@ -895,20 +905,20 @@ const Admin = () => {
     return (
       <div className="admin-editor" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 2000, background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(30px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div className="content-container" style={{ width: '95%', maxWidth: '800px' }}>
-          <motion.div className="admin-glass-panel" style={{ padding: '3rem' }} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
+          <motion.div className="admin-glass-panel admin-editor-panel" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3rem' }}>
               <h2>{editingItem.mode === 'add' ? 'Add' : 'Edit'} {isPackage ? 'Package' : isService ? 'Service' : 'Review'}</h2>
               <button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={24} /></button>
             </div>
-            <div style={{ grid: 'grid', gap: '2rem' }}>
+            <div>
               {isPackage && (
                 <div style={{ display: 'grid', gap: '2rem' }}>
-                  <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                    <div style={{ position: 'relative' }}>
+                  <div className="admin-editor-row">
+                    <div className="admin-editor-img-wrapper">
                       <img src={getImagePath(editingItem.image)} alt="" style={{ width: '120px', height: '120px', borderRadius: '1.5rem', objectFit: 'cover', border: '2px solid var(--primary-color)' }} />
                       <button onClick={() => setIsGalleryOpen(true)} style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '36px', height: '36px', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }} title="Choose from Gallery"><ImageIcon size={18} /></button>
                     </div>
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                    <div className="admin-editor-fields">
                       <div className="input-group"><label className="input-label">Tour Title</label><input type="text" className="input-field" value={editingItem.title || ''} onChange={(e) => setEditingItem({...editingItem, title: e.target.value})} /></div>
                       
                       {/* Cloudinary File Upload Integration */}
@@ -943,7 +953,7 @@ const Admin = () => {
                       </div>
                     </div>
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                  <div className="admin-editor-grid-2">
                     <div className="input-group"><label className="input-label">Price Label</label><input type="text" className="input-field" value={editingItem.price || ''} onChange={(e) => setEditingItem({...editingItem, price: e.target.value})} /></div>
                     <div className="input-group"><label className="input-label">Duration</label><input type="text" className="input-field" value={editingItem.duration || ''} onChange={(e) => setEditingItem({...editingItem, duration: e.target.value})} /></div>
                   </div>
