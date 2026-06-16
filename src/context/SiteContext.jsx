@@ -124,22 +124,39 @@ export const SiteProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       try {
         if (currentUser) {
-          const adminsSnap = await getDocs(query(collection(db, 'admins'), limit(1)));
-          if (adminsSnap.empty) {
-            try {
-              await setDoc(doc(db, 'admins', currentUser.email), { email: currentUser.email, role: 'super_admin', createdAt: new Date().toISOString() });
-            } catch (writeErr) {
-              console.warn("Failed to write super_admin to admins collection:", writeErr);
-            }
-            setUser(currentUser);
-          } else {
+          // 1. Direct check: see if the admin document exists for this email directly
+          let adminDocExists = false;
+          try {
             const adminDoc = await getDoc(doc(db, 'admins', currentUser.email));
             if (adminDoc.exists()) {
+              adminDocExists = true;
               setUser(currentUser);
-            } else {
+            }
+          } catch (docErr) {
+            console.warn("Failed to fetch individual admin document directly:", docErr.message);
+          }
+
+          // 2. Bootstrapping fallback: check if database is empty if user is not verified
+          if (!adminDocExists) {
+            try {
+              const adminsSnap = await getDocs(query(collection(db, 'admins'), limit(1)));
+              if (adminsSnap.empty) {
+                try {
+                  await setDoc(doc(db, 'admins', currentUser.email), { email: currentUser.email, role: 'super_admin', createdAt: new Date().toISOString() });
+                } catch (writeErr) {
+                  console.warn("Failed to write super_admin to admins collection:", writeErr);
+                }
+                setUser(currentUser);
+              } else {
+                await signOut(auth);
+                setUser(null);
+                alert("This account is not authorized as an admin.");
+              }
+            } catch (collectionErr) {
+              console.error("Firestore admin collection check failed:", collectionErr.message);
               await signOut(auth);
               setUser(null);
-              alert("This account is not authorized as an admin.");
+              alert("Database Access Denied: Please check Firestore Security Rules in your Firebase Console.");
             }
           }
         } else {
