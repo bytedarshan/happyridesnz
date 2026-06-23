@@ -93,7 +93,7 @@ export const SiteProvider = ({ children }) => {
       bookingLink: "https://happyrides.trial.easytaxioffice.com/booking",
 
       // Global Images
-      logoImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792499/happyrides/logo.png",
+      logoImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1782225884/happyrides/logo_new.jpg",
       heroBgImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792346/happyrides/hero_bg.jpg",
       heroVisualImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792323/happyrides/auckland.jpg",
       aboutBriefImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792333/happyrides/auckland_city.jpg",
@@ -111,7 +111,7 @@ export const SiteProvider = ({ children }) => {
         { id: 'f1', type: 'SEDAN', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792357/happyrides/image12.png', capacity: '1-3 Passengers' },
         { id: 'f2', type: 'SUV', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792359/happyrides/image13.png', capacity: '1-4 Passengers' },
         { id: 'f3', type: 'PEOPLE MOVER', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792360/happyrides/image18.png', capacity: '1-7 Passengers' },
-        { id: 'f5', type: 'EXECUTIVE', img: 'executive_car.png', capacity: '1-3 Passengers' },
+        { id: 'f5', type: 'EXECUTIVE', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1782225883/happyrides/executive_car.jpg', capacity: '1-3 Passengers' },
         { id: 'f4', type: 'MINIBUS', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792355/happyrides/image10.png', capacity: '1-11 Passengers' }
       ]
     }
@@ -199,7 +199,7 @@ export const SiteProvider = ({ children }) => {
           if (mergedSettings.fleet) {
             let currentFleet = [...mergedSettings.fleet];
             if (!currentFleet.some(f => f.type.toUpperCase() === 'EXECUTIVE')) {
-              currentFleet.push({ id: 'f5', type: 'EXECUTIVE', img: 'executive_car.png', capacity: '1-3 Passengers' });
+              currentFleet.push({ id: 'f5', type: 'EXECUTIVE', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1782225883/happyrides/executive_car.jpg', capacity: '1-3 Passengers' });
             }
             const typeOrder = ['SEDAN', 'SUV', 'PEOPLE MOVER', 'EXECUTIVE', 'MINIBUS'];
             currentFleet.sort((a, b) => {
@@ -210,7 +210,7 @@ export const SiteProvider = ({ children }) => {
             
             // Map fleet images to Cloudinary if they are local
             currentFleet = currentFleet.map(vehicle => {
-              if (vehicle.img && !vehicle.img.startsWith('http') && !vehicle.img.includes('cloudinary') && vehicle.img !== 'executive_car.png') {
+              if (vehicle.img && !vehicle.img.startsWith('http') && !vehicle.img.includes('cloudinary') && vehicle.img !== 'https://res.cloudinary.com/dni1i56yo/image/upload/v1782225883/happyrides/executive_car.jpg') {
                 const defaultVehicle = initialData.settings.fleet.find(f => f.id === vehicle.id);
                 if (defaultVehicle && defaultVehicle.img && defaultVehicle.img.startsWith('http')) {
                   settingsChanged = true;

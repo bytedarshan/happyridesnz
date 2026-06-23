@@ -42,13 +42,21 @@ const NavigationBar = () => {
     >
       <div className="logo-container">
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}>
-          <div className="logo-icon-bg">
-            <img src={siteData.settings.logoImage && siteData.settings.logoImage.startsWith('http') ? siteData.settings.logoImage : `/${siteData.settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
-          </div>
-          <div className="logo-text-wrapper">
-            <h1 className="logo-title">{siteData.settings.siteTitle}</h1>
-            <span className="logo-tagline">{siteData.settings.siteTagline}</span>
-          </div>
+          {siteData.settings.logoImage && siteData.settings.logoImage.includes('logo_new') ? (
+            <div className="logo-new-badge">
+              <img src={siteData.settings.logoImage} alt="Happy Rides Logo" className="navbar-logo-new" />
+            </div>
+          ) : (
+            <>
+              <div className="logo-icon-bg">
+                <img src={siteData.settings.logoImage && siteData.settings.logoImage.startsWith('http') ? siteData.settings.logoImage : `/${siteData.settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
+              </div>
+              <div className="logo-text-wrapper">
+                <h1 className="logo-title">{siteData.settings.siteTitle}</h1>
+                <span className="logo-tagline">{siteData.settings.siteTagline}</span>
+              </div>
+            </>
+          )}
         </Link>
       </div>
 

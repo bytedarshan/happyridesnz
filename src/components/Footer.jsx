@@ -14,11 +14,19 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section footer-info">
           <div className="logo-container" style={{ marginBottom: '1.5rem' }}>
-            <img src={settings.logoImage && settings.logoImage.startsWith('http') ? settings.logoImage : `/${settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
-            <div className="logo-text-wrapper">
-              <h1 className="logo-title">{settings.siteTitle}</h1>
-              <span className="logo-tagline">{settings.siteTagline}</span>
-            </div>
+            {settings.logoImage && settings.logoImage.includes('logo_new') ? (
+              <div className="logo-new-badge">
+                <img src={settings.logoImage} alt="Happy Rides Logo" className="navbar-logo-new" />
+              </div>
+            ) : (
+              <>
+                <img src={settings.logoImage && settings.logoImage.startsWith('http') ? settings.logoImage : `/${settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
+                <div className="logo-text-wrapper">
+                  <h1 className="logo-title">{settings.siteTitle}</h1>
+                  <span className="logo-tagline">{settings.siteTagline}</span>
+                </div>
+              </>
+            )}
           </div>
           <p>{settings.footerDesc}</p>
           

@@ -2212,3 +2212,38 @@ html, body {
   color: var(--primary-color);
   transform: translateY(-2px);
 }
+
+/* New site logo badge styles */
+.logo-new-badge {
+  background: white;
+  padding: 0.35rem 1rem;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  height: 52px;
+  transition: all 0.3s ease;
+}
+
+.logo-new-badge:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+}
+
+.navbar-logo-new {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Make sure logo stands out on ultra-small screens */
+@media (max-width: 360px) {
+  .logo-new-badge {
+    height: 40px !important;
+    padding: 0.2rem 0.5rem !important;
+  }
+  .navbar-logo-new {
+    height: 28px !important;
+  }
+}
