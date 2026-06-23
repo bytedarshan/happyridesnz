@@ -165,6 +165,9 @@ export const SiteProvider = ({ children }) => {
             bookingLink: data.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking",
             fleet: data.settings?.fleet || initialData.settings.fleet
           };
+          
+          let settingsChanged = false;
+
           if (mergedSettings.heroTitle && (
             mergedSettings.heroTitle.toLowerCase().includes("search, compare") || 
             mergedSettings.heroTitle.includes("Search, Compare")
@@ -176,6 +179,23 @@ export const SiteProvider = ({ children }) => {
               console.warn("Auto-updating heroTitle in Firestore failed:", e);
             }
           }
+
+          // Auto-migrate settings images if they point to local files instead of Cloudinary URLs
+          const imageKeys = [
+            'logoImage', 'heroBgImage', 'heroVisualImage', 'aboutBriefImage', 'packagesBriefImage',
+            'cityAucklandImage', 'cityWaitomoImage', 'cityHobbitonImage', 'cityRotoruaImage', 'cityPaihiaImage'
+          ];
+          imageKeys.forEach(key => {
+            if (mergedSettings[key] && !mergedSettings[key].startsWith('http') && !mergedSettings[key].includes('cloudinary')) {
+              const defaultUrl = initialData.settings[key];
+              if (defaultUrl && defaultUrl.startsWith('http')) {
+                mergedSettings[key] = defaultUrl;
+                settingsChanged = true;
+              }
+            }
+          });
+
+          // Auto-migrate fleet options and fleet images
           if (mergedSettings.fleet) {
             let currentFleet = [...mergedSettings.fleet];
             if (!currentFleet.some(f => f.type.toUpperCase() === 'EXECUTIVE')) {
@@ -187,13 +207,58 @@ export const SiteProvider = ({ children }) => {
               const indexB = typeOrder.indexOf(b.type.toUpperCase());
               return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB);
             });
+            
+            // Map fleet images to Cloudinary if they are local
+            currentFleet = currentFleet.map(vehicle => {
+              if (vehicle.img && !vehicle.img.startsWith('http') && !vehicle.img.includes('cloudinary') && vehicle.img !== 'executive_car.png') {
+                const defaultVehicle = initialData.settings.fleet.find(f => f.id === vehicle.id);
+                if (defaultVehicle && defaultVehicle.img && defaultVehicle.img.startsWith('http')) {
+                  settingsChanged = true;
+                  return { ...vehicle, img: defaultVehicle.img };
+                }
+              }
+              return vehicle;
+            });
+            
             mergedSettings.fleet = currentFleet;
+          }
+
+          if (settingsChanged) {
             try {
-              updateDoc(siteDocRef, { 'settings.fleet': mergedSettings.fleet });
+              updateDoc(siteDocRef, { settings: mergedSettings });
             } catch (e) {
-              console.warn("Auto-updating fleet in Firestore failed:", e);
+              console.warn("Auto-updating settings/fleet in Firestore failed:", e);
             }
           }
+
+          // Auto-migrate packages images if they point to local paths instead of Cloudinary URLs
+          if (data.packages) {
+            const updatedPackages = { ...data.packages };
+            let packagesChanged = false;
+            
+            Object.keys(updatedPackages).forEach(category => {
+              updatedPackages[category] = (updatedPackages[category] || []).map(pkg => {
+                if (pkg.image && !pkg.image.startsWith('http') && !pkg.image.includes('cloudinary')) {
+                  const defaultPkg = initialData.packages[category]?.find(p => p.id === pkg.id);
+                  if (defaultPkg && defaultPkg.image && defaultPkg.image.startsWith('http')) {
+                    packagesChanged = true;
+                    return { ...pkg, image: defaultPkg.image };
+                  }
+                }
+                return pkg;
+              });
+            });
+            
+            if (packagesChanged) {
+              data.packages = updatedPackages;
+              try {
+                updateDoc(siteDocRef, { packages: updatedPackages });
+              } catch (e) {
+                console.warn("Auto-updating packages in Firestore failed:", e);
+              }
+            }
+          }
+
           setSiteData({ ...data, settings: mergedSettings });
           setLoading(false);
         } else {

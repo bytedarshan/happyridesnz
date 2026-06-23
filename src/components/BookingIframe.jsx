@@ -11,7 +11,7 @@ import { Clock } from 'lucide-react';
  */
 const BookingIframe = ({ bookingLink }) => {
   const [iframeHeight, setIframeHeight] = useState(() => {
-    return window.innerWidth < 768 ? 1200 : 900;
+    return window.innerWidth < 768 ? 1320 : 990;
   });
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -30,7 +30,7 @@ const BookingIframe = ({ bookingLink }) => {
           doc.documentElement?.scrollHeight || 0
         );
         if (h > 300) {
-          setIframeHeight(h + 40); // +40px buffer to avoid micro-scrollbar
+          setIframeHeight(Math.round((h + 40) * 1.1)); // Scale by 1.1 (10% increase)
         }
       }
     } catch (e) {
@@ -68,7 +68,7 @@ const BookingIframe = ({ bookingLink }) => {
       }
 
       if (height && typeof height === 'number' && height > 300) {
-        setIframeHeight(height + 40);
+        setIframeHeight(Math.round((height + 40) * 1.1)); // Scale by 1.1 (10% increase)
       }
     };
 
@@ -80,7 +80,7 @@ const BookingIframe = ({ bookingLink }) => {
   useEffect(() => {
     const handleResize = () => {
       setIframeHeight(h => {
-        const defaultH = window.innerWidth < 768 ? 1200 : 900;
+        const defaultH = window.innerWidth < 768 ? 1320 : 990;
         return h < defaultH ? defaultH : h;
       });
     };
@@ -91,7 +91,7 @@ const BookingIframe = ({ bookingLink }) => {
   if (!bookingLink) {
     return (
       <div style={{
-        width: '100%', maxWidth: '960px', height: '350px', margin: '0 auto',
+        width: '100%', maxWidth: '1056px', height: '385px', margin: '0 auto',
         background: '#ffffff', borderRadius: '2rem',
         boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
         border: '1px solid rgba(255, 255, 255, 0.9)',
@@ -110,7 +110,7 @@ const BookingIframe = ({ bookingLink }) => {
   return (
     <div style={{
       width: '100%',
-      maxWidth: '960px',
+      maxWidth: '1056px',
       height: `${iframeHeight}px`,
       margin: '0 auto',
       background: '#ffffff',
