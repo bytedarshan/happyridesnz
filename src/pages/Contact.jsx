@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NavigationBar from '../components/NavigationBar';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageSquare } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 import { useSiteData } from '../context/SiteContext';
@@ -33,10 +33,10 @@ const Contact = () => {
     e.preventDefault();
     setStatus({ submitting: true, success: false, error: '' });
 
-    // Vite Environment Variables config
-    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    // Vite Environment Variables config (with fallback credentials for Vercel deployment)
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_sf4iz6k';
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_dpv6xco';
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'RLzbxoznPYKlJ0OWM';
 
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
       setStatus({
@@ -127,9 +127,9 @@ const Contact = () => {
                 cursor: 'pointer'
               }}
             >
-              <div className="icon-box" style={{ color: 'var(--primary-color)' }}><Phone /></div>
+              <div className="icon-box" style={{ color: 'var(--primary-color)' }}><MessageSquare /></div>
               <div>
-                <h4 style={{ margin: 0 }}>Call Us</h4>
+                <h4 style={{ margin: 0 }}>WhatsApp</h4>
                 <p style={{ margin: 0, color: 'var(--text-muted)' }}>{contactPhone}</p>
               </div>
             </a>

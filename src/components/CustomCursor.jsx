@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
 import './CustomCursor.css';
 
+// Custom cursor is disabled as per user request to restore the default browser cursor.
 const CustomCursor = () => {
+  /*
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
@@ -71,46 +72,9 @@ const CustomCursor = () => {
       opacity: 0.8,
     }
   };
+  */
 
-  return (
-    <>
-      <motion.div
-        className="custom-cursor-dot"
-        animate={{ 
-          x: mousePosition.x - 4, 
-          y: mousePosition.y - 4,
-          scale: isClicked ? 4 : 1
-        }}
-        transition={{ type: 'tween', ease: 'linear', duration: 0 }} /* Purely responsive dot */
-      />
-      <motion.div
-        className="custom-cursor-ring"
-        variants={variants}
-        animate={isHovering ? "hover" : "default"}
-        transition={{ type: 'spring', stiffness: 1000, damping: 40, mass: 0.1 }} /* Snappier ring */
-      />
-      <AnimatePresence>
-        {isClicked && (
-          <motion.div
-            className="click-splash"
-            initial={{ x: mousePosition.x - 16, y: mousePosition.y - 16, scale: 0, opacity: 0.5 }}
-            animate={{ scale: 4, opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            style={{
-              position: 'fixed',
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              border: '2px solid rgba(255, 255, 255, 0.8)',
-              pointerEvents: 'none',
-              zIndex: 999999
-            }}
-          />
-        )}
-      </AnimatePresence>
-    </>
-  );
+  return null;
 };
 
 export default CustomCursor;

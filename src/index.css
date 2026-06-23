@@ -24,11 +24,13 @@
   box-sizing: border-box;
 }
 
+/* 
 @media (pointer: fine) {
   * {
-    cursor: none !important; /* Only hide cursor on desktop/mouse devices */
+    cursor: none !important;
   }
 }
+*/
 
 body {
   font-family: 'Inter', sans-serif;
