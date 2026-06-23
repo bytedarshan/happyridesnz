@@ -46,6 +46,34 @@ body {
   overflow-x: hidden;
 }
 
+/* Page wrapper - outermost container for inner pages */
+.page-wrapper {
+  position: relative;
+  min-height: 100vh;
+  z-index: 1;
+}
+
+/* Home page wrapper */
+.home-page {
+  position: relative;
+  z-index: 1;
+}
+
+/* Loading Screen */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f172a;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  z-index: 9999;
+  letter-spacing: 1px;
+}
+
 .global-bg {
   position: fixed;
   top: 0;
@@ -261,11 +289,11 @@ body {
 /* Hero Section - Balanced Alignment */
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 140px 8% 60px; /* Increased top padding for fixed navbar */
+  padding: 120px 8% 40px; /* Reduced top padding for better vertical balance */
   color: white;
 }
 
@@ -276,7 +304,7 @@ body {
   width: 100%;
   gap: 6rem;
   z-index: 10;
-  margin-bottom: 6rem;
+  margin-bottom: 2rem;
 }
 
 .hero-content {
@@ -447,6 +475,31 @@ body {
   margin: 0 auto;
 }
 
+/* Tours / Activities page wrapper */
+.packages-page {
+  padding-top: 160px;
+  padding-left: 8%;
+  padding-right: 8%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .packages-page {
+    padding-top: 120px;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .packages-page {
+    padding-top: 100px;
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+}
+
 .content-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -545,6 +598,20 @@ body {
   transform: translateY(-10px);
   border-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Services page: auto-fit grid for 5 cards (3 top, 2 bottom) */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .service-card {
@@ -911,6 +978,33 @@ body {
   font-weight: 800;
   font-size: 1.2rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Contact Page Styles */
+.icon-box {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 1rem;
+  background: rgba(59, 130, 246, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.info-item {
+  transition: all 0.3s ease;
+}
+
+.info-item:hover {
+  transform: translateY(-3px);
 }
 
 /* Footer Styles */
@@ -2014,9 +2108,27 @@ textarea.input-field {
   background: rgba(255, 255, 255, 0.03);
 }
 
+/* 2-column grid for testimonials — collapses to 1 on mobile */
+.testimonials-2col-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
 @media (max-width: 768px) {
   .testimonials-grid {
     grid-template-columns: 1fr;
+  }
+  .testimonials-2col-grid {
+    grid-template-columns: 1fr;
+  }
+  /* Remove 50% constraint on last odd card on mobile so it fills the column */
+  .testimonials-2col-grid .testimonial-card:last-child {
+    max-width: 100% !important;
+    grid-column: auto !important;
+    margin: 0 !important;
   }
 }
 
@@ -2161,10 +2273,24 @@ html, body {
 }
 
 /* ── About Page Responsive ────────────────────────────────── */
+.about-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 5rem;
+}
+
+/* Values grid: 3 columns on desktop */
+.about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
 @media (max-width: 900px) {
   /* Stats: 2x2 grid on tablet */
   .about-stats-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr);
   }
   /* Values: stack on tablet */
   .about-values-grid {
@@ -2173,9 +2299,10 @@ html, body {
 }
 
 @media (max-width: 600px) {
-  /* Stats: single column on phone */
+  /* Stats: 2-column on phone (still fits well) */
   .about-stats-grid {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
   /* Testimonials: single column on mobile */

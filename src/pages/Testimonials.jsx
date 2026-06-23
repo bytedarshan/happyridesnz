@@ -39,13 +39,7 @@ const Testimonials = () => {
           </div>
 
           {/* Grid: 2 columns on desktop. If odd count, last card is centered */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '2rem',
-            maxWidth: '1100px',
-            margin: '0 auto'
-          }}>
+          <div className="testimonials-2col-grid">
             {testimonials.map((testimonial, idx) => {
               const isLastOdd = isOdd && idx === testimonials.length - 1;
               return (

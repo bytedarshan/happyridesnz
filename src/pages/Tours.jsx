@@ -52,8 +52,8 @@ const Tours = () => {
     { id: 'auckland', label: 'Auckland City Tour', count: (packages.aucklandCityTours || []).length },
     { id: 'waitomo', label: 'Waitomo', count: (packages.intercityTours || []).filter(t => t.title.toLowerCase().includes('waitomo') || t.description.toLowerCase().includes('waitomo')).length },
     { id: 'hobbiton', label: 'Hobbiton', count: (packages.intercityTours || []).filter(t => t.title.toLowerCase().includes('hobbiton') || t.title.toLowerCase().includes('hobbit') || t.description.toLowerCase().includes('hobbiton')).length },
-    { id: 'paihia', label: 'PAIHIA', count: (packages.paihiaTours || []).length },
-    { id: 'rotorua', label: 'ROTORUA', count: (packages.rotoruaTours || []).length }
+    { id: 'paihia', label: 'Paihia', count: (packages.paihiaTours || []).length },
+    { id: 'rotorua', label: 'Rotorua', count: (packages.rotoruaTours || []).length }
   ];
 
   return (

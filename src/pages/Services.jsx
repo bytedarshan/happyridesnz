@@ -32,7 +32,7 @@ const Services = () => {
           </p>
         </motion.div>
 
-        <div className="services-grid responsive-grid">
+        <div className="services-grid">
           {[
             { title: 'Airport Transfers', icon: <Plane size={40} />, desc: 'Luxury door-to-door transfers with reliable bookings and 24/7 service.', isBooking: true },
             { title: 'Intercity Transfers', icon: <Car size={40} />, desc: 'Safe and reliable long-distance travel across the North Island.', isBooking: true },

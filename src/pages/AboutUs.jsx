@@ -44,12 +44,7 @@ const AboutUs = () => {
 
         {/* Stats Row */}
         <motion.div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '1.5rem',
-            marginBottom: '5rem'
-          }}
+          className="about-stats-grid"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -152,7 +147,7 @@ const AboutUs = () => {
           <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '3rem' }}>
             Our Core Values
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+          <div className="about-values-grid">
             {values.map((v, i) => (
               <motion.div
                 key={i}

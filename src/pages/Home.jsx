@@ -108,7 +108,7 @@ const Home = () => {
               className="admin-glass-panel"
               style={{
                 flex: '1 1 calc(33.333% - 2.5rem)',
-                minWidth: '320px',
+                minWidth: 'min(320px, 100%)',
                 maxWidth: '380px',
                 padding: '3rem 2rem',
                 textAlign: 'center',
