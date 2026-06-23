@@ -1,5 +1,5 @@
 import React from 'react';
-import './CustomCursor.css';
+// import './CustomCursor.css';
 
 // Custom cursor is disabled as per user request to restore the default browser cursor.
 const CustomCursor = () => {

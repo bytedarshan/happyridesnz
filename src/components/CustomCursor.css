@@ -1,10 +1,11 @@
+/*
 .custom-cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
   width: 8px;
   height: 8px;
-  background-color: #3B82F6; /* Primary blue */
+  background-color: #3B82F6;
   border-radius: 50%;
   pointer-events: none;
   z-index: 999999;
@@ -25,7 +26,6 @@
   z-index: 999998;
 }
 
-/* Hide default cursor on desktop to let the custom cursor shine */
 @media (pointer: fine) {
   body {
     cursor: none;
@@ -35,3 +35,4 @@
     cursor: none !important;
   }
 }
+*/
