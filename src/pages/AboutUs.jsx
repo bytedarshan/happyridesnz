@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from '../components/NavigationBar';
 import { motion } from 'framer-motion';
 import { useSiteData } from '../context/SiteContext';
-import { Shield, Clock, Star, MapPin, Users, Award } from 'lucide-react';
+import { Shield, Clock, Star, MapPin, Users, Award, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const AboutUs = () => {
@@ -70,8 +70,8 @@ const AboutUs = () => {
           ))}
         </motion.div>
 
-        {/* Our Story */}
-        <div className="about-details responsive-grid" style={{ marginBottom: '5rem' }}>
+        {/* Our Story / About Our Company */}
+        <div className="about-details responsive-grid" style={{ marginBottom: '5rem', alignItems: 'center' }}>
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -82,7 +82,7 @@ const AboutUs = () => {
               src={siteData.settings.aboutBriefImage && siteData.settings.aboutBriefImage.startsWith('http')
                 ? siteData.settings.aboutBriefImage
                 : `/${siteData.settings.aboutBriefImage || 'auckland_city.png'}`}
-              alt="Our Story"
+              alt="About Our Company"
               className="glass-image"
             />
           </motion.div>
@@ -91,11 +91,54 @@ const AboutUs = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}
           >
-            <h2 className="section-title">{siteData.settings.aboutStoryTitle}</h2>
-            <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1.1rem', whiteSpace: 'pre-line' }}>
-              {siteData.settings.aboutStoryText}
+            <span style={{ color: '#60A5FA', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>
+              ABOUT OUR COMPANY
+            </span>
+            <h2 className="section-title" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'white', lineHeight: '1.3', margin: '0' }}>
+              Reliable & Comfortable Airport Transfers & Tours
+            </h2>
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1.05rem', margin: '0' }}>
+              Happy Rides is dedicated to redefine travel convenience with premium transportation service. With years of industry expertise, we prioritize punctuality, safety, and customer satisfaction. Our team of professional, fully licensed drivers deliver top-tier service, ensuring every ride is comfortable, efficient and tailored to your needs. Whether it's a scheduled airport pickup, intercity transfer or a personalized sightseeing tour. We take pride in delivering an exceptional experience.
             </p>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.2rem 1.5rem', marginTop: '1rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'white', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60A5FA', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Check size={14} />
+                  </div>
+                  <span>Airport Transfers</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'white', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60A5FA', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Check size={14} />
+                  </div>
+                  <span>Intercity Transfers</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'white', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60A5FA', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Check size={14} />
+                  </div>
+                  <span>Executive Travel & Corporate Transfers</span>
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'white', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60A5FA', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Check size={14} />
+                  </div>
+                  <span>Cruise Ship Transfers</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'white', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60A5FA', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Check size={14} />
+                  </div>
+                  <span>City & Day Tours</span>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
 

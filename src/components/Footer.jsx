@@ -52,16 +52,6 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="footer-section" style={{ textAlign: 'center' }}>
-          <h4 style={{ color: '#60A5FA', fontSize: '1.1rem', marginBottom: '1rem' }}>Quick Links</h4>
-          <ul className="footer-links" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', alignItems: 'center' }}>
-            <li><Link to="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Home</Link></li>
-            <li><Link to="/about" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>About Us</Link></li>
-            <li><Link to="/services" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Services</Link></li>
-            <li><Link to="/tours" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Tours</Link></li>
-            <li><Link to="/activities" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem' }}>Activities</Link></li>
-          </ul>
-        </div>
 
         <div className="footer-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1rem' }}>
           <h4 style={{ color: '#60A5FA', fontSize: '1rem', marginBottom: '0.5rem' }}>Contact Us</h4>

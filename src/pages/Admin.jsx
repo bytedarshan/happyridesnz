@@ -69,7 +69,8 @@ const Admin = () => {
     { id: 'f1', type: 'SEDAN', img: 'image12.png', capacity: '1-3 Passengers' },
     { id: 'f2', type: 'SUV', img: 'image13.png', capacity: '1-4 Passengers' },
     { id: 'f3', type: 'PEOPLE MOVER', img: 'image18.png', capacity: '1-7 Passengers' },
-    { id: 'f4', type: 'MINIBUS', img: 'image10.png', capacity: '1-11 Passengers' }
+    { id: 'f4', type: 'MINIBUS', img: 'image10.png', capacity: '1-11 Passengers' },
+    { id: 'f5', type: 'EXECUTIVE', img: 'executive_car.png', capacity: '1-3 Passengers' }
   ];
 
   React.useEffect(() => {

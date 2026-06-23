@@ -36,10 +36,9 @@ const Services = () => {
           {[
             { title: 'Airport Transfers', icon: <Plane size={40} />, desc: 'Luxury door-to-door transfers with reliable bookings and 24/7 service.', isBooking: true },
             { title: 'Intercity Transfers', icon: <Car size={40} />, desc: 'Safe and reliable long-distance travel across the North Island.', isBooking: true },
-            { title: 'City Tours', icon: <MapPin size={40} />, desc: 'Immerse yourself in the most iconic destinations across New Zealand.', path: '/services/city-tours' },
+            { title: 'City Tours', icon: <MapPin size={40} />, desc: 'Immerse yourself in the most iconic destinations across New Zealand.', path: '/tours' },
             { title: 'Corporate Travel', icon: <Building size={40} />, desc: 'Discreet and professional transport for business professionals. Priority bookings and dedicated accounts available.', contactCta: 'Make an Enquiry' },
             { title: 'Group Transfers', icon: <Users size={40} />, desc: 'Spacious vehicles perfect for families or large groups. Ideal for events, weddings, and group tours.', contactCta: 'Request a Quote' },
-            { title: 'Safety First', icon: <Shield size={40} />, desc: 'Our vehicles undergo regular safety inspections, and our drivers are fully vetted and professionally trained.', toursLink: true },
           ].map((s, i) => (
             <motion.div 
               key={i}

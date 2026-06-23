@@ -13,6 +13,29 @@ const Home = () => {
   
   if (!siteData) return null;
 
+  const whyChooseDetails = [
+    {
+      title: "Fixed & Transparent Pricing",
+      desc: "Competitive rates with no unexpected costs or hidden fees"
+    },
+    {
+      title: "Extensive Coverage Across the North Island",
+      desc: "Reliable transportation to and from all major destinations"
+    },
+    {
+      title: "Punctual & Professional Service",
+      desc: "Commitment to timely pickups and drop-offs, ensuring a stress-free experience"
+    },
+    {
+      title: "Exceptional Customer Care",
+      desc: "Courteous and experienced drivers dedicated to customer satisfaction"
+    },
+    {
+      title: "Licensed & Certified",
+      desc: "Fully licensed drivers with Passenger Endorsement certification for peace of mind"
+    }
+  ];
+
   return (
     <div className="home-page">
       <NavigationBar />
@@ -55,81 +78,72 @@ const Home = () => {
               <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: '1.2rem', overflow: 'hidden', marginBottom: '1.5rem', background: 'rgba(255,255,255,0.05)' }}>
                 <img src={v.img && v.img.startsWith('http') ? v.img : `/${v.img}`} alt={v.type} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem' }}>{v.type}</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{v.capacity}</p>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0rem' }}>{v.type}</h3>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Brief About Us */}
-      <section id="about" className="brief-section glass-panel">
-        <div className="brief-content">
-          <motion.div 
-            className="brief-text"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="section-title">{siteData.settings.homeWhyTitle}</h2>
-            <p>{siteData.settings.homeWhyText}</p>
-            <div className="brief-features">
-              <div className="brief-feature-item">
-                <Shield className="feature-icon" />
-                <span>{siteData.settings.heroFeature1}</span>
-              </div>
-              <div className="brief-feature-item">
-                <Clock className="feature-icon" />
-                <span>{siteData.settings.heroFeature2}</span>
-              </div>
-              <div className="brief-feature-item">
-                <Car className="feature-icon" />
-                <span>{siteData.settings.heroFeature3}</span>
-              </div>
-            </div>
-            <Link to="/about" className="btn-primary-glass" style={{ display: 'inline-block', marginTop: '2rem', textDecoration: 'none' }}>
-              Learn More About Us
-            </Link>
-          </motion.div>
-          <motion.div 
-            className="brief-image"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <img src={siteData.settings.aboutBriefImage && siteData.settings.aboutBriefImage.startsWith('http') ? siteData.settings.aboutBriefImage : `/${siteData.settings.aboutBriefImage || 'auckland_city.png'}`} alt="About Us" className="glass-image" />
-          </motion.div>
+      {/* Why Choose Us Section */}
+      <section id="why-choose-us" style={{ padding: '6rem 8%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <h2 className="section-title" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white' }}>
+            Why Choose Us
+          </h2>
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '0.8rem 0' }}>
+            <svg width="60" height="8" viewBox="0 0 60 8" fill="none">
+              <path d="M4 6C15 6 18 2 30 2C42 2 45 6 56 6" stroke="#F59E0B" strokeWidth="4" strokeLinecap="round" />
+            </svg>
+          </div>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginTop: '1rem' }}>
+            We are innovative and passionate about the work we do.
+          </p>
         </div>
-      </section>
 
-      {/* Brief Services */}
-      <section id="services" className="brief-section">
-        <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '3rem' }}>{siteData.settings.homeServicesTitle}</h2>
-        <div className="services-brief-grid">
-          {[
-            { title: 'Airport Transfers', icon: <Clock />, desc: 'Seamless door-to-door transfers from Auckland Airport to the CBD and beyond.' },
-            { title: 'City Highlights', icon: <MapPin />, desc: 'Explore the vibrant spirit of Auckland through our curated city tours.' },
-            { title: 'Intercity Tours', icon: <Car />, desc: 'Extending our services far beyond the city limits to Waitomo, Hobbiton, and more.' }
-          ].map((service, idx) => (
-            <motion.div 
+        <div className="why-choose-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '2.5rem', width: '100%', maxWidth: '1200px' }}>
+          {whyChooseDetails.map((item, idx) => (
+            <motion.div
               key={idx}
-              className="service-brief-card glass-panel"
+              className="admin-glass-panel"
+              style={{
+                flex: '1 1 calc(33.333% - 2.5rem)',
+                minWidth: '320px',
+                maxWidth: '380px',
+                padding: '3rem 2rem',
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                gap: '1.2rem',
+                borderRadius: '2rem',
+                background: 'rgba(255, 255, 255, 0.01)',
+                backdropFilter: 'blur(10px) saturate(120%)',
+                border: '1px solid rgba(255, 255, 255, 0.25)',
+                boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)',
+                transition: 'all 0.3s ease'
+              }}
+              whileHover={{ 
+                scale: 1.05, 
+                y: -5,
+                background: 'rgba(255, 255, 255, 0.05)',
+                borderColor: 'rgba(255, 255, 255, 0.45)'
+              }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
             >
-              <div className="service-icon-wrapper">{service.icon}</div>
-              <h3>{service.title}</h3>
-              <p>{service.desc}</p>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'white', lineHeight: '1.3' }}>
+                {item.title}
+              </h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6' }}>
+                {item.desc}
+              </p>
             </motion.div>
           ))}
         </div>
-        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-          <Link to="/services" className="btn-primary-glass" style={{ textDecoration: 'none' }}>
-            Explore All Services
-          </Link>
-        </div>
+
       </section>
 
       {/* Brief Packages 

@@ -8,7 +8,7 @@ import { useSiteData } from '../context/SiteContext';
 
 const Contact = () => {
   const { siteData } = useSiteData();
-  const { contactEmail, contactPhone, contactAddress } = siteData.settings;
+  const { contactEmail, contactPhone, contactAddress, whatsappNumber } = siteData.settings;
 
   const [formData, setFormData] = useState({
     name: '',
@@ -91,20 +91,48 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="info-item glass-panel" style={{ padding: '2rem', marginBottom: '1.5rem', display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+            <a 
+              href={`mailto:${contactEmail}`}
+              className="info-item glass-panel" 
+              style={{ 
+                padding: '2rem', 
+                marginBottom: '1.5rem', 
+                display: 'flex', 
+                gap: '1.5rem', 
+                alignItems: 'center',
+                textDecoration: 'none',
+                color: 'inherit',
+                cursor: 'pointer'
+              }}
+            >
               <div className="icon-box" style={{ color: 'var(--primary-color)' }}><Mail /></div>
               <div>
                 <h4 style={{ margin: 0 }}>Email Us</h4>
                 <p style={{ margin: 0, color: 'var(--text-muted)' }}>{contactEmail}</p>
               </div>
-            </div>
-            <div className="info-item glass-panel" style={{ padding: '2rem', marginBottom: '1.5rem', display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+            </a>
+            <a 
+              href={`https://wa.me/${(whatsappNumber || '64212440244').replace(/\D/g, '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="info-item glass-panel" 
+              style={{ 
+                padding: '2rem', 
+                marginBottom: '1.5rem', 
+                display: 'flex', 
+                gap: '1.5rem', 
+                alignItems: 'center',
+                textDecoration: 'none',
+                color: 'inherit',
+                cursor: 'pointer'
+              }}
+            >
               <div className="icon-box" style={{ color: 'var(--primary-color)' }}><Phone /></div>
               <div>
                 <h4 style={{ margin: 0 }}>Call Us</h4>
                 <p style={{ margin: 0, color: 'var(--text-muted)' }}>{contactPhone}</p>
               </div>
-            </div>
+            </a>
             <div className="info-item glass-panel" style={{ padding: '2rem', display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
               <div className="icon-box" style={{ color: 'var(--primary-color)' }}><MapPin /></div>
               <div>

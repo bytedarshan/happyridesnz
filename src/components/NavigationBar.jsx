@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { useSiteData } from '../context/SiteContext';
@@ -74,24 +74,8 @@ const NavigationBar = () => {
       )}
 
       <div className="nav-actions">
-        {!isMobileView && (
-          <div className="lang-selector">
-            <Globe size={18} />
-            <span>EN</span>
-          </div>
-        )}
-        {!isMobileView && (
-          <Link to="/contact">
-            <motion.button
-              className="btn-primary-glass"
-              whileHover={{ scale: 1.05, y: -1 }}
-              whileTap={{ scale: 0.95, rotate: 1 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 25, mass: 1 }}
-            >
-              Manage Booking
-            </motion.button>
-          </Link>
-        )}
+
+
         
         {/* Mobile Toggle - Force visible on mobile via inline style to bypass CSS bugs */}
         <button 

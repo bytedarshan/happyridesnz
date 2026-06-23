@@ -1,29 +1,29 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
-import { 
-  onAuthStateChanged, 
-  signInWithEmailAndPassword, 
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
   signOut,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail
 } from 'firebase/auth';
-import { 
-  doc, 
-  setDoc, 
-  getDoc, 
+import {
+  doc,
+  setDoc,
+  getDoc,
   onSnapshot,
   updateDoc,
   collection,
   deleteDoc
 } from 'firebase/firestore';
-import { 
-  aucklandCityTours, 
-  aucklandActivities, 
-  intercityTours, 
-  rotoruaTours, 
-  rotoruaActivities, 
-  paihiaTours, 
-  paihiaActivities 
+import {
+  aucklandCityTours,
+  aucklandActivities,
+  intercityTours,
+  rotoruaTours,
+  rotoruaActivities,
+  paihiaTours,
+  paihiaActivities
 } from '../data/mockData';
 
 const SiteContext = createContext();
@@ -54,26 +54,26 @@ export const SiteProvider = ({ children }) => {
       // General
       siteTitle: "Happy Rides",
       siteTagline: "Enjoy the journey. Love the ride",
-      
+
       // Hero Section
-      heroTitle: "Your Premium Getaway to New Zealand - Search, Compare & Save",
+      heroTitle: "Your Premium Getaway to New Zealand - Reliable & Comfortable Airport Transfers",
       heroFeature1: "Professional Drivers",
       heroFeature2: "24/7 Service",
       heroFeature3: "Luxury Fleet",
-      
+
       // Home Page Sections
       homeWhyTitle: "Why Choose Happy Rides?",
       homeWhyText: "Welcome to Happy Rides, your trusted partner for safe, reliable, and comfortable transport in New Zealand. We understand that travel can be stressful, which is why we are dedicated to taking that weight off your shoulders.",
       homeServicesTitle: "Our Premium Services",
       homePackagesTitle: "Popular Travel Packages",
       homePackagesText: "From the geothermal wonders of Rotorua to the magical Shire in Hobbiton, discover our most loved travel experiences. We offer both half-day highlights and multi-day adventures.",
-      
+
       // About Us Page
       aboutTitle: "About Happy Rides",
       aboutText: "Enjoy the journey. Love the ride with our premium passenger services across NZ.",
       aboutStoryTitle: "Our Story",
       aboutStoryText: "Happy Rides was founded with a simple mission: to make travel in New Zealand as enjoyable as the destinations themselves. We understand that punctuality and peace of mind are non-negotiable for our clients.\n\nWhether you're a first-time visitor or a regular traveler, our professional drivers and pristine modern fleet are at your service 24/7. We pride ourselves on our fixed-fare policy—no hidden costs, no surge pricing, just honest service.",
-      
+
       // Contact & Footer
       contactEmail: "info@happyrides.co.nz",
       contactPhone: "+64 21 244 0244",
@@ -87,7 +87,7 @@ export const SiteProvider = ({ children }) => {
       servicesSubline: "Tailored transport solutions to meet every travel need.",
       testimonialsHeadline: "Guest Testimonials",
       testimonialsSubline: "Hear from travelers who explored the beauty of New Zealand with Happy Rides. We take pride in delivering unforgettable experiences.",
-      
+
       // New Settings from Plan
       heroSubtitle: "At Happy Rides, we are committed to providing seamless, professional and reliable transportation service. Whether you are heading to the airport, attending a business engagement or exploring the breathtaking landscapes of New Zealand, we ensure a smooth and stress-free travel experience.",
       bookingLink: "https://happyrides.trial.easytaxioffice.com/booking",
@@ -98,7 +98,7 @@ export const SiteProvider = ({ children }) => {
       heroVisualImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792323/happyrides/auckland.jpg",
       aboutBriefImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792333/happyrides/auckland_city.jpg",
       packagesBriefImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792508/happyrides/rotorua_geothermal.jpg",
-      
+
       // City Tour Visuals
       cityAucklandImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792333/happyrides/auckland_city.jpg",
       cityWaitomoImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1779792472/happyrides/image81.jpg",
@@ -111,6 +111,7 @@ export const SiteProvider = ({ children }) => {
         { id: 'f1', type: 'SEDAN', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792357/happyrides/image12.png', capacity: '1-3 Passengers' },
         { id: 'f2', type: 'SUV', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792359/happyrides/image13.png', capacity: '1-4 Passengers' },
         { id: 'f3', type: 'PEOPLE MOVER', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792360/happyrides/image18.png', capacity: '1-7 Passengers' },
+        { id: 'f5', type: 'EXECUTIVE', img: 'executive_car.png', capacity: '1-3 Passengers' },
         { id: 'f4', type: 'MINIBUS', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792355/happyrides/image10.png', capacity: '1-11 Passengers' }
       ]
     }
@@ -164,6 +165,35 @@ export const SiteProvider = ({ children }) => {
             bookingLink: data.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking",
             fleet: data.settings?.fleet || initialData.settings.fleet
           };
+          if (mergedSettings.heroTitle && (
+            mergedSettings.heroTitle.toLowerCase().includes("search, compare") || 
+            mergedSettings.heroTitle.includes("Search, Compare")
+          )) {
+            mergedSettings.heroTitle = "Your Premium Getaway to New Zealand - Reliable & Comfortable Airport Transfers";
+            try {
+              updateDoc(siteDocRef, { 'settings.heroTitle': "Your Premium Getaway to New Zealand - Reliable & Comfortable Airport Transfers" });
+            } catch (e) {
+              console.warn("Auto-updating heroTitle in Firestore failed:", e);
+            }
+          }
+          if (mergedSettings.fleet) {
+            let currentFleet = [...mergedSettings.fleet];
+            if (!currentFleet.some(f => f.type.toUpperCase() === 'EXECUTIVE')) {
+              currentFleet.push({ id: 'f5', type: 'EXECUTIVE', img: 'executive_car.png', capacity: '1-3 Passengers' });
+            }
+            const typeOrder = ['SEDAN', 'SUV', 'PEOPLE MOVER', 'EXECUTIVE', 'MINIBUS'];
+            currentFleet.sort((a, b) => {
+              const indexA = typeOrder.indexOf(a.type.toUpperCase());
+              const indexB = typeOrder.indexOf(b.type.toUpperCase());
+              return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB);
+            });
+            mergedSettings.fleet = currentFleet;
+            try {
+              updateDoc(siteDocRef, { 'settings.fleet': mergedSettings.fleet });
+            } catch (e) {
+              console.warn("Auto-updating fleet in Firestore failed:", e);
+            }
+          }
           setSiteData({ ...data, settings: mergedSettings });
           setLoading(false);
         } else {
@@ -305,7 +335,7 @@ export const SiteProvider = ({ children }) => {
   };
 
   return (
-    <SiteContext.Provider value={{ 
+    <SiteContext.Provider value={{
       siteData, admins, user, loading,
       login, logout, createAdmin, removeAdmin, resetAdminPassword, resetSiteData, syncNewDefaults,
       updateSettings, addPackage, updatePackage, removePackage, addTestimonial, removeTestimonial,
