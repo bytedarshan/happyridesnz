@@ -9,6 +9,7 @@ import {
   Trash2, 
   Edit3, 
   Save, 
+  Star,
   X,
   Image as ImageIcon,
   LogOut,
@@ -30,7 +31,7 @@ const Admin = () => {
   const { 
     siteData, admins, user, login, logout, createAdmin, removeAdmin, 
     resetAdminPassword, resetSiteData, updateSettings, addPackage, 
-    updatePackage, removePackage, addTestimonial, removeTestimonial,
+    updatePackage, removePackage, addTestimonial, updateTestimonial, removeTestimonial,
     addService, updateService, removeService, syncNewDefaults
   } = useSiteData();
 
@@ -302,7 +303,12 @@ const Admin = () => {
               key={cat} 
               className={`pop-tag ${selectedTourCategory === cat ? 'active' : ''}`} 
               onClick={() => setSelectedTourCategory(cat)} 
-              style={{ background: selectedTourCategory === cat ? 'var(--primary-color)' : 'rgba(255,255,255,0.05)', border: 'none', padding: '0.6rem 1.2rem' }}
+              style={{ 
+                background: selectedTourCategory === cat ? 'var(--primary-color)' : 'rgba(255,255,255,0.05)', 
+                color: selectedTourCategory === cat ? '#ffffff' : 'var(--text-muted)',
+                border: 'none', 
+                padding: '0.6rem 1.2rem' 
+              }}
             >
               {cat === 'intercityTours' ? 'Waitomo & Hobbiton (Intercity)' : cat.replace(/([A-Z])/g, ' $1').trim()}
             </button>
@@ -349,7 +355,12 @@ const Admin = () => {
               key={cat} 
               className={`pop-tag ${selectedActivityCategory === cat ? 'active' : ''}`} 
               onClick={() => setSelectedActivityCategory(cat)} 
-              style={{ background: selectedActivityCategory === cat ? 'var(--primary-color)' : 'rgba(255,255,255,0.05)', border: 'none', padding: '0.6rem 1.2rem' }}
+              style={{ 
+                background: selectedActivityCategory === cat ? 'var(--primary-color)' : 'rgba(255,255,255,0.05)', 
+                color: selectedActivityCategory === cat ? '#ffffff' : 'var(--text-muted)',
+                border: 'none', 
+                padding: '0.6rem 1.2rem' 
+              }}
             >
               {cat.replace(/([A-Z])/g, ' $1').trim()}
             </button>
@@ -382,7 +393,12 @@ const Admin = () => {
 
   const renderTestimonials = () => (
     <div className="admin-section">
-      <div className="admin-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}><h2 className="responsive-hero-title">Testimonials</h2><button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'testimonial', mode: 'add' })}><Plus size={18} /> Add Review</button></div>
+      <div className="admin-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+        <h2 className="responsive-hero-title">Testimonials</h2>
+        <button className="btn-primary-glass admin-btn" onClick={() => setEditingItem({ type: 'testimonial', mode: 'add', rating: 5 })}>
+          <Plus size={18} /> Add Review
+        </button>
+      </div>
       <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         {siteData.testimonials.map(test => (
           <div key={test.id} className="admin-glass-panel admin-list-item">
@@ -393,8 +409,23 @@ const Admin = () => {
                 <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '0.5rem', fontStyle: 'italic' }}>"{test.text.substring(0, 80)}..."</p>
               </div>
             </div>
-            <div className="admin-list-item-actions">
-              <button className="btn-outline admin-btn" style={{ color: '#EF4444', flexShrink: 0, width: '45px', height: '45px', padding: 0 }} onClick={() => removeTestimonial(test.id)}><Trash2 size={18} /></button>
+            <div className="admin-list-item-actions" style={{ display: 'flex', gap: '0.5rem' }}>
+              <button 
+                className="btn-outline admin-btn" 
+                style={{ flexShrink: 0, width: '45px', height: '45px', padding: 0 }} 
+                onClick={() => setEditingItem({ ...test, type: 'testimonial', mode: 'edit' })}
+                title="Edit Review"
+              >
+                <Edit3 size={18} />
+              </button>
+              <button 
+                className="btn-outline admin-btn" 
+                style={{ color: '#EF4444', flexShrink: 0, width: '45px', height: '45px', padding: 0 }} 
+                onClick={() => removeTestimonial(test.id)}
+                title="Delete Review"
+              >
+                <Trash2 size={18} />
+              </button>
             </div>
           </div>
         ))}
@@ -516,13 +547,6 @@ const Admin = () => {
             <div style={{ position: 'relative', width: '150px', margin: '0 auto' }}>
               <img src={getImagePath(siteData.settings.heroBgImage)} alt="BG" style={{ width: '140px', height: '80px', objectFit: 'cover', borderRadius: '1rem' }} />
               <button onClick={() => setEditingItem({ type: 'global_image', key: 'heroBgImage' })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '28px', height: '28px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={14} /></button>
-            </div>
-          </div>
-          <div className="input-group" style={{ textAlign: 'center' }}>
-            <label className="input-label">Hero Visual Card</label>
-            <div style={{ position: 'relative', width: '150px', margin: '0 auto' }}>
-              <img src={getImagePath(siteData.settings.heroVisualImage)} alt="Hero" style={{ width: '140px', height: '80px', objectFit: 'cover', borderRadius: '1rem' }} />
-              <button onClick={() => setEditingItem({ type: 'global_image', key: 'heroVisualImage' })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '28px', height: '28px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={14} /></button>
             </div>
           </div>
           <div className="input-group" style={{ textAlign: 'center' }}>
@@ -781,16 +805,16 @@ const Admin = () => {
         </div>
       </div>
 
-      {/* Contact & Footer Section */}
+      {/* Contact Details Section */}
       <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
         <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Mail size={24} /> Contact & Footer
+          <Mail size={24} /> Contact Details
         </h3>
         <div style={{ display: 'grid', gap: '3rem', marginBottom: '3rem' }}>
           <div className="input-group"><label className="input-label">Contact Page Headline</label><input type="text" className="input-field" value={siteData.settings.contactHeadline || ''} onChange={(e) => updateSettings({ contactHeadline: e.target.value })} /></div>
           <div className="input-group"><label className="input-label">Contact Page Subtitle / Brief</label><textarea className="input-field" style={{ height: '100px' }} value={siteData.settings.contactSubline || ''} onChange={(e) => updateSettings({ contactSubline: e.target.value })} /></div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem' }}>
           <div className="input-group"><label className="input-label">Contact Email</label><input type="email" className="input-field" value={siteData.settings.contactEmail} onChange={(e) => updateSettings({ contactEmail: e.target.value })} /></div>
           <div className="input-group"><label className="input-label">Contact Phone (Display)</label><input type="text" className="input-field" value={siteData.settings.contactPhone} onChange={(e) => updateSettings({ contactPhone: e.target.value })} /></div>
           <div className="input-group">
@@ -799,13 +823,6 @@ const Admin = () => {
             <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.4rem' }}>Format: +64 21... (Spaces and + are now automatically handled)</p>
           </div>
           <div className="input-group"><label className="input-label">Physical Address</label><input type="text" className="input-field" value={siteData.settings.contactAddress} onChange={(e) => updateSettings({ contactAddress: e.target.value })} /></div>
-        </div>
-        <div className="input-group" style={{ marginBottom: '3rem' }}>
-          <label className="input-label">Footer Description Paragraph</label>
-          <textarea className="input-field" style={{ height: '120px' }} value={siteData.settings.footerDesc} onChange={(e) => updateSettings({ footerDesc: e.target.value })} />
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '3rem' }}>
-          <div className="input-group"><label className="input-label">Instagram URL</label><input type="text" className="input-field" value={siteData.settings.instagramUrl} onChange={(e) => updateSettings({ instagramUrl: e.target.value })} /></div>
         </div>
       </div>
 
@@ -1042,8 +1059,48 @@ const Admin = () => {
               )}
               {!isPackage && !isService && (
                 <div style={{ display: 'grid', gap: '2rem' }}>
-                  <div className="input-group"><label className="input-label">Guest Name</label><input type="text" className="input-field" value={editingItem.name || ''} onChange={(e) => setEditingItem({...editingItem, name: e.target.value})} /></div>
-                  <div className="input-group"><label className="input-label">Review Content</label><textarea className="input-field" style={{ height: '150px' }} value={editingItem.text || ''} onChange={(e) => setEditingItem({...editingItem, text: e.target.value})} /></div>
+                  <div className="input-group">
+                    <label className="input-label">Guest Name</label>
+                    <input type="text" className="input-field" value={editingItem.name || ''} onChange={(e) => setEditingItem({...editingItem, name: e.target.value})} required />
+                  </div>
+                  <div className="input-group">
+                    <label className="input-label">Guest Location (e.g. Sydney, Australia)</label>
+                    <input type="text" className="input-field" value={editingItem.location || ''} onChange={(e) => setEditingItem({...editingItem, location: e.target.value})} required />
+                  </div>
+                  <div className="input-group">
+                    <label className="input-label">Rating</label>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+                      {[1, 2, 3, 4, 5].map((num) => (
+                        <button
+                          key={num}
+                          type="button"
+                          onClick={() => setEditingItem({ ...editingItem, rating: num })}
+                          style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            padding: '0.2rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            transition: 'transform 0.1s ease'
+                          }}
+                          className="star-btn"
+                          title={`${num} Stars`}
+                        >
+                          <Star 
+                            size={28} 
+                            fill={(editingItem.rating || 5) >= num ? '#F59E0B' : 'none'} 
+                            color={(editingItem.rating || 5) >= num ? '#F59E0B' : 'var(--text-muted)'} 
+                          />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="input-group">
+                    <label className="input-label">Review Content</label>
+                    <textarea className="input-field" style={{ height: '150px' }} value={editingItem.text || ''} onChange={(e) => setEditingItem({...editingItem, text: e.target.value})} required />
+                  </div>
                 </div>
               )}
               
@@ -1055,8 +1112,21 @@ const Admin = () => {
                   if (editingItem.mode === 'add') addService(editingItem);
                   else updateService(editingItem.id || editingItem.title, editingItem);
                 } else { 
-                  if (editingItem.mode === 'add') addTestimonial(editingItem);
-                  else alert("Editing testimonials is currently read/remove only.");
+                  if (editingItem.mode === 'add') {
+                    addTestimonial({
+                      name: editingItem.name || 'Anonymous',
+                      location: editingItem.location || 'New Zealand',
+                      rating: editingItem.rating || 5,
+                      text: editingItem.text || ''
+                    });
+                  } else {
+                    updateTestimonial(editingItem.id, {
+                      name: editingItem.name || 'Anonymous',
+                      location: editingItem.location || 'New Zealand',
+                      rating: editingItem.rating || 5,
+                      text: editingItem.text || ''
+                    });
+                  }
                 } 
                 setEditingItem(null); 
               }}>

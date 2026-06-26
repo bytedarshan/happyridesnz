@@ -380,6 +380,11 @@ export const SiteProvider = ({ children }) => {
     await syncToFirestore(newData);
   };
 
+  const updateTestimonial = async (id, updatedTestimonial) => {
+    const newData = { ...siteData, testimonials: siteData.testimonials.map(t => t.id === id ? { ...t, ...updatedTestimonial } : t) };
+    await syncToFirestore(newData);
+  };
+
   const removeTestimonial = async (id) => {
     const newData = { ...siteData, testimonials: siteData.testimonials.filter(t => t.id !== id) };
     await syncToFirestore(newData);
@@ -404,7 +409,7 @@ export const SiteProvider = ({ children }) => {
     <SiteContext.Provider value={{
       siteData, admins, user, loading,
       login, logout, createAdmin, removeAdmin, resetAdminPassword, resetSiteData, syncNewDefaults,
-      updateSettings, addPackage, updatePackage, removePackage, addTestimonial, removeTestimonial,
+      updateSettings, addPackage, updatePackage, removePackage, addTestimonial, updateTestimonial, removeTestimonial,
       addService, updateService, removeService
     }}>
       {!loading && children}
