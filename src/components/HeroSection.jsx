@@ -19,7 +19,7 @@ const HeroSection = ({ title, subtitle }) => {
         >
           <h2 className="hero-title">{title || settings.heroTitle}</h2>
           {(subtitle || settings.heroSubtitle) && (
-            <p className="logo-tagline" style={{ fontSize: '1.1rem', marginBottom: '2.5rem', lineHeight: '1.6', opacity: 0.9 }}>
+            <p className="hero-subtitle">
               {subtitle || settings.heroSubtitle}
             </p>
           )}

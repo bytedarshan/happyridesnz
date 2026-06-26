@@ -568,13 +568,89 @@ const Admin = () => {
 
       {/* Vehicle Fleet Section */}
       <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
-        <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Car size={24} /> Professional Fleet
-        </h3>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1.5rem' }}>
+          <h3 style={{ margin: 0, color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <Car size={24} /> Professional Fleet
+          </h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+              <label style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: '600' }}>Vehicles per line on Desktop:</label>
+              <select 
+                value={siteData?.settings?.fleetColumns || 5} 
+                onChange={(e) => updateSettings({ fleetColumns: parseInt(e.target.value) })}
+                style={{ 
+                  padding: '0.5rem 1rem', 
+                  borderRadius: '0.5rem', 
+                  background: 'rgba(255, 255, 255, 0.9)', 
+                  border: '1px solid rgba(0, 0, 0, 0.1)', 
+                  fontSize: '0.9rem', 
+                  fontWeight: '600',
+                  color: '#1e293b',
+                  cursor: 'pointer'
+                }}
+              >
+                {[1, 2, 3, 4, 5, 6].map(num => (
+                  <option key={num} value={num}>{num}</option>
+                ))}
+              </select>
+            </div>
+            <button 
+              className="btn-primary-glass admin-btn" 
+              style={{ padding: '0.6rem 1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', cursor: 'pointer' }}
+              onClick={() => {
+                const newFleet = [
+                  ...fleetData,
+                  { id: 'f_' + Date.now(), type: 'New Vehicle', img: 'tour1.jpeg', capacity: '1-4 Passengers' }
+                ];
+                updateSettings({ fleet: newFleet });
+              }}
+            >
+              <Plus size={16} /> Add Vehicle
+            </button>
+          </div>
+        </div>
+        <div 
+          className="fleet-container" 
+          style={{ 
+            '--fleet-cols': siteData?.settings?.fleetColumns || 5 
+          }}
+        >
           {fleetData.map((v, i) => (
-            <div key={v.id || i} className="admin-glass-panel" style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.5)' }}>
-              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <div 
+              key={v.id || i} 
+              className="admin-glass-panel fleet-card" 
+              style={{ background: 'rgba(255,255,255,0.5)', position: 'relative' }}
+            >
+              <button 
+                onClick={() => {
+                  if (window.confirm(`Are you sure you want to delete the vehicle "${v.type || 'Unnamed'}"?`)) {
+                    const newFleet = fleetData.filter((_, idx) => idx !== i);
+                    updateSettings({ fleet: newFleet });
+                  }
+                }}
+                style={{ 
+                  position: 'absolute', 
+                  top: '1rem', 
+                  right: '1rem', 
+                  background: 'rgba(239, 68, 68, 0.1)', 
+                  border: 'none', 
+                  borderRadius: '50%', 
+                  width: '32px', 
+                  height: '32px', 
+                  color: '#EF4444', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  zIndex: 10
+                }}
+                className="admin-btn"
+                title="Delete Vehicle"
+              >
+                <Trash2 size={16} />
+              </button>
+              
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '1.5rem', paddingRight: '2rem' }}>
                 <div style={{ position: 'relative' }}>
                   <div style={{ width: '80px', height: '50px', borderRadius: '0.8rem', overflow: 'hidden', background: 'rgba(0,0,0,0.05)' }}>
                     <img src={getImagePath(v.img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />

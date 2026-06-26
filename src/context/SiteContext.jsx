@@ -113,7 +113,8 @@ export const SiteProvider = ({ children }) => {
         { id: 'f3', type: 'PEOPLE MOVER', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792360/happyrides/image18.png', capacity: '1-7 Passengers' },
         { id: 'f5', type: 'EXECUTIVE', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1782225883/happyrides/executive_car.jpg', capacity: '1-3 Passengers' },
         { id: 'f4', type: 'MINIBUS', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1779792355/happyrides/image10.png', capacity: '1-11 Passengers' }
-      ]
+      ],
+      fleetColumns: 5
     }
   };
 

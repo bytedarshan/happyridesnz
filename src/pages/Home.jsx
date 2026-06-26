@@ -41,10 +41,7 @@ const Home = () => {
       <NavigationBar />
       
       <div id="hero">
-        <HeroSection 
-          title="Your New Zealand Escape Starts Here." 
-          subtitle="Leave the logistics to us. Enjoy a warm Kiwi welcome and a comfortable, premium ride to your destination."
-        />
+        <HeroSection />
       </div>
 
       {/* Booking Frame Section */}
@@ -67,12 +64,16 @@ const Home = () => {
       {/* Vehicle Fleet Section */}
       <section id="fleet" className="brief-section glass-panel" style={{ margin: '4rem 8%', padding: '5rem 3rem' }}>
         <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '4rem' }}>Our Professional Fleet</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
+        <div 
+          className="fleet-container" 
+          style={{ 
+            '--fleet-cols': siteData.settings.fleetColumns || 5 
+          }}
+        >
           {(siteData.settings.fleet || []).map((v, i) => (
             <motion.div 
               key={v.id || i} 
-              className="admin-glass-panel" 
-              style={{ padding: '1.5rem', textAlign: 'center', overflow: 'hidden' }}
+              className="admin-glass-panel fleet-card" 
               whileHover={{ scale: 1.05 }}
             >
               <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: '1.2rem', overflow: 'hidden', marginBottom: '1.5rem', background: 'rgba(0,0,0,0.03)' }}>
