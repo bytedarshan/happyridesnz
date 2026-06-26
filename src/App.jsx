@@ -24,13 +24,7 @@ import './index.css';
 const AppContent = () => {
   const { siteData, updateSettings } = useSiteData();
 
-  React.useEffect(() => {
-    if (siteData?.settings && siteData.settings.logoImage !== "https://res.cloudinary.com/dni1i56yo/image/upload/v1782225884/happyrides/logo_new.jpg") {
-      updateSettings({ logoImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1782225884/happyrides/logo_new.jpg" })
-        .then(() => console.log("Site logo auto-updated in Firestore to logo_new"))
-        .catch(err => console.error("Auto-updating site logo failed:", err));
-    }
-  }, [siteData, updateSettings]);
+
   
   // Wait for siteData to load to prevent broken paths
   if (!siteData) return <div className="loading-screen">Loading Happy Rides...</div>;

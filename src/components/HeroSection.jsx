@@ -9,7 +9,7 @@ const HeroSection = ({ title, subtitle }) => {
   const { settings } = siteData;
 
   return (
-    <section className="hero-section">
+    <section className="hero-section" style={{ padding: '560px 8% 40px', justifyContent: 'flex-start', minHeight: '80vh' }}>
       <div className="hero-main-layout">
         <motion.div
           className="hero-content"
@@ -19,7 +19,7 @@ const HeroSection = ({ title, subtitle }) => {
         >
           <h2 className="hero-title">{title || settings.heroTitle}</h2>
           {(subtitle || settings.heroSubtitle) && (
-            <p className="logo-tagline" style={{ fontSize: '1.2rem', marginBottom: '2.5rem', lineHeight: '1.6', opacity: 0.9 }}>
+            <p className="logo-tagline" style={{ fontSize: '1.1rem', marginBottom: '2.5rem', lineHeight: '1.6', opacity: 0.9 }}>
               {subtitle || settings.heroSubtitle}
             </p>
           )}

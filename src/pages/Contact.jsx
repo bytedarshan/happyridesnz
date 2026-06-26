@@ -159,7 +159,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     className="input-field glass-panel" 
-                    style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} 
+                    style={{ background: 'rgba(255,255,255,0.8)', padding: '1rem' }} 
                     placeholder="John Doe" 
                     maxLength={100}
                     required
@@ -173,7 +173,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     className="input-field glass-panel" 
-                    style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem' }} 
+                    style={{ background: 'rgba(255,255,255,0.8)', padding: '1rem' }} 
                     placeholder="john@example.com" 
                     maxLength={254}
                     required
@@ -187,7 +187,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   className="input-field glass-panel" 
-                  style={{ background: 'rgba(255,255,255,0.05)', padding: '1rem', height: '150px', resize: 'none' }} 
+                  style={{ background: 'rgba(255,255,255,0.8)', padding: '1rem', height: '150px', resize: 'none' }} 
                   placeholder="How can we help you?"
                   maxLength={2000}
                   required

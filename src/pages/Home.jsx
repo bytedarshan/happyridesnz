@@ -42,8 +42,8 @@ const Home = () => {
       
       <div id="hero">
         <HeroSection 
-          title={siteData.settings.heroTitle} 
-          subtitle={siteData.settings.heroSubtitle}
+          title="Your New Zealand Escape Starts Here." 
+          subtitle="Leave the logistics to us. Enjoy a warm Kiwi welcome and a comfortable, premium ride to your destination."
         />
       </div>
 
@@ -75,7 +75,7 @@ const Home = () => {
               style={{ padding: '1.5rem', textAlign: 'center', overflow: 'hidden' }}
               whileHover={{ scale: 1.05 }}
             >
-              <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: '1.2rem', overflow: 'hidden', marginBottom: '1.5rem', background: 'rgba(255,255,255,0.05)' }}>
+              <div style={{ width: '100%', aspectRatio: '16/9', borderRadius: '1.2rem', overflow: 'hidden', marginBottom: '1.5rem', background: 'rgba(0,0,0,0.03)' }}>
                 <img src={v.img && v.img.startsWith('http') ? v.img : `/${v.img}`} alt={v.type} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0rem' }}>{v.type}</h3>
@@ -88,7 +88,7 @@ const Home = () => {
       {/* Why Choose Us Section */}
       <section id="why-choose-us" style={{ padding: '6rem 8%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="section-title" style={{ fontSize: '2.5rem', fontWeight: 800, color: 'white' }}>
+          <h2 className="section-title" style={{ fontSize: '2.5rem', fontWeight: 800 }}>
             Why Choose Us
           </h2>
           <div style={{ display: 'flex', justifyContent: 'center', margin: '0.8rem 0' }}>
@@ -117,24 +117,24 @@ const Home = () => {
                 justifyContent: 'center',
                 gap: '1.2rem',
                 borderRadius: '2rem',
-                background: 'rgba(255, 255, 255, 0.01)',
-                backdropFilter: 'blur(10px) saturate(120%)',
-                border: '1px solid rgba(255, 255, 255, 0.25)',
-                boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)',
+                background: 'rgba(255, 255, 255, 0.85)',
+                backdropFilter: 'blur(12px) saturate(120%)',
+                border: '1px solid rgba(0, 0, 0, 0.06)',
+                boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
                 transition: 'all 0.3s ease'
               }}
               whileHover={{ 
                 scale: 1.05, 
                 y: -5,
-                background: 'rgba(255, 255, 255, 0.05)',
-                borderColor: 'rgba(255, 255, 255, 0.45)'
+                background: 'rgba(255, 255, 255, 0.95)',
+                borderColor: 'rgba(0, 0, 0, 0.12)'
               }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
             >
-              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'white', lineHeight: '1.3' }}>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0f172a', lineHeight: '1.3' }}>
                 {item.title}
               </h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6' }}>

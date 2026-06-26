@@ -79,10 +79,11 @@ const Activities = () => {
               flexWrap: 'wrap', 
               marginBottom: '4rem',
               padding: '0.5rem',
-              background: 'rgba(255, 255, 255, 0.02)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              background: 'rgba(255, 255, 255, 0.85)',
+              backdropFilter: 'blur(12px) saturate(120%)',
+              border: '1px solid rgba(0, 0, 0, 0.06)',
               borderRadius: '2rem',
+              boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
               maxWidth: '900px',
               margin: '0 auto 4rem'
             }}>
@@ -92,18 +93,18 @@ const Activities = () => {
                   className={`pop-tag ${activeTab === tab.id ? 'active' : ''}`}
                   onClick={() => setActiveTab(tab.id)}
                   style={{
-                    background: activeTab === tab.id ? 'var(--primary-color, #10b981)' : 'transparent',
+                    background: activeTab === tab.id ? 'var(--primary-color)' : 'transparent',
                     border: 'none',
                     padding: '0.8rem 1.8rem',
                     borderRadius: '1.5rem',
-                    color: 'white',
+                    color: activeTab === tab.id ? 'white' : 'var(--text-dark)',
                     fontWeight: 'bold',
                     fontSize: '1rem',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.5rem',
-                    boxShadow: activeTab === tab.id ? '0 10px 20px rgba(16, 185, 129, 0.3)' : 'none',
+                    boxShadow: activeTab === tab.id ? '0 10px 20px rgba(59, 130, 246, 0.2)' : 'none',
                     transition: 'all 0.3s ease'
                   }}
                   whileHover={{ scale: 1.05 }}
@@ -113,7 +114,7 @@ const Activities = () => {
                   <span>{tab.label}</span>
                   <span style={{ 
                     fontSize: '0.8rem', 
-                    background: 'rgba(255,255,255,0.15)', 
+                    background: activeTab === tab.id ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.06)', 
                     padding: '0.1rem 0.5rem', 
                     borderRadius: '1rem',
                     marginLeft: '0.3rem'

@@ -37,10 +37,10 @@ const AirportTransfer = () => {
         <table className="transfers-table" style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 0.5rem' }}>
           <thead>
             <tr>
-              <th style={{ textAlign: 'left', padding: '1rem', color: '#60A5FA' }}>
+              <th style={{ textAlign: 'left', padding: '1rem' }}>
                 {isAirportToCity ? 'To Destination' : 'From Source'}
               </th>
-              <th style={{ textAlign: 'right', padding: '1rem', color: '#60A5FA', paddingRight: '2rem' }}>
+              <th style={{ textAlign: 'right', padding: '1rem', paddingRight: '2rem' }}>
                 Booking Action
               </th>
             </tr>
@@ -48,10 +48,10 @@ const AirportTransfer = () => {
           <tbody>
             {data.map((row, i) => (
               <tr key={i}>
-                <td style={{ padding: '1.2rem', background: 'rgba(255,255,255,0.03)', borderTopLeftRadius: '0.75rem', borderBottomLeftRadius: '0.75rem', fontWeight: 700 }}>
+                <td style={{ padding: '1.2rem', borderTopLeftRadius: '0.75rem', borderBottomLeftRadius: '0.75rem', fontWeight: 700 }}>
                   {isAirportToCity ? row.destination : row.source}
                 </td>
-                <td style={{ textAlign: 'right', padding: '1.2rem', background: 'rgba(255,255,255,0.03)', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem', paddingRight: '2rem' }}>
+                <td style={{ textAlign: 'right', padding: '1.2rem', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem', paddingRight: '2rem' }}>
                   <motion.button 
                     onClick={handleBookNow}
                     className="btn-primary-glass"

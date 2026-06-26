@@ -56,7 +56,7 @@ export const SiteProvider = ({ children }) => {
       siteTagline: "Enjoy the journey. Love the ride",
 
       // Hero Section
-      heroTitle: "Your Premium Getaway to New Zealand - Reliable & Comfortable Airport Transfers",
+      heroTitle: "Your New Zealand Escape Starts Here.",
       heroFeature1: "Professional Drivers",
       heroFeature2: "24/7 Service",
       heroFeature3: "Luxury Fleet",
@@ -89,7 +89,7 @@ export const SiteProvider = ({ children }) => {
       testimonialsSubline: "Hear from travelers who explored the beauty of New Zealand with Happy Rides. We take pride in delivering unforgettable experiences.",
 
       // New Settings from Plan
-      heroSubtitle: "At Happy Rides, we are committed to providing seamless, professional and reliable transportation service. Whether you are heading to the airport, attending a business engagement or exploring the breathtaking landscapes of New Zealand, we ensure a smooth and stress-free travel experience.",
+      heroSubtitle: "Leave the logistics to us. Enjoy a warm Kiwi welcome and a comfortable, premium ride to your destination.",
       bookingLink: "https://happyrides.trial.easytaxioffice.com/booking",
 
       // Global Images

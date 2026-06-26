@@ -59,7 +59,7 @@ const AboutUs = () => {
               transition={{ type: 'spring', stiffness: 300 }}
             >
               <div style={{ color: 'var(--primary-color)', marginBottom: '0.75rem' }}>{stat.icon}</div>
-              <div style={{ fontSize: '2rem', fontWeight: 900, color: 'white', marginBottom: '0.3rem' }}>{stat.value}</div>
+              <div style={{ fontSize: '2rem', fontWeight: 900, color: '#0f172a', marginBottom: '0.3rem' }}>{stat.value}</div>
               <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{stat.label}</div>
             </motion.div>
           ))}
@@ -88,10 +88,10 @@ const AboutUs = () => {
             transition={{ delay: 0.3 }}
             style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}
           >
-            <span style={{ color: '#60A5FA', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>
+            <span style={{ color: 'var(--primary-hover)', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase' }}>
               ABOUT OUR COMPANY
             </span>
-            <h2 className="section-title" style={{ fontSize: '2.2rem', fontWeight: 800, color: 'white', lineHeight: '1.3', margin: '0' }}>
+            <h2 className="section-title" style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0f172a', lineHeight: '1.3', margin: '0' }}>
               Reliable & Comfortable Airport Transfers & Tours
             </h2>
             <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', fontSize: '1.05rem', margin: '0' }}>
@@ -100,34 +100,34 @@ const AboutUs = () => {
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.2rem 1.5rem', marginTop: '1rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'white', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60A5FA', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#1e293b', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-color)', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Check size={14} />
                   </div>
                   <span>Airport Transfers</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'white', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60A5FA', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#1e293b', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-color)', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Check size={14} />
                   </div>
                   <span>Intercity Transfers</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'white', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60A5FA', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#1e293b', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-color)', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Check size={14} />
                   </div>
                   <span>Executive Travel & Corporate Transfers</span>
                 </div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'white', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60A5FA', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#1e293b', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-color)', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Check size={14} />
                   </div>
                   <span>Cruise Ship Transfers</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'white', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60A5FA', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#1e293b', fontSize: '0.95rem', fontWeight: 500 }}>
+                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-color)', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Check size={14} />
                   </div>
                   <span>City & Day Tours</span>

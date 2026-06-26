@@ -10,23 +10,11 @@ const Footer = () => {
   const { settings } = siteData;
 
   return (
-    <footer className="footer footer-static" style={{ borderRadius: '2rem 2rem 0 0', marginTop: '2rem' }}>
+    <footer className="footer footer-static" style={{ borderRadius: '2rem 2rem 0 0', marginTop: '2rem', background: '#121212' }}>
       <div className="footer-content">
         <div className="footer-section footer-info">
           <div className="logo-container" style={{ marginBottom: '1.5rem' }}>
-            {settings.logoImage && settings.logoImage.includes('logo_new') ? (
-              <div className="logo-new-badge">
-                <img src={settings.logoImage} alt="Happy Rides Logo" className="navbar-logo-new" />
-              </div>
-            ) : (
-              <>
-                <img src={settings.logoImage && settings.logoImage.startsWith('http') ? settings.logoImage : `/${settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
-                <div className="logo-text-wrapper">
-                  <h1 className="logo-title">{settings.siteTitle}</h1>
-                  <span className="logo-tagline">{settings.siteTagline}</span>
-                </div>
-              </>
-            )}
+            <img src="/image8.png?v=2" alt="Happy Rides Logo" style={{ height: '72px', width: 'auto', objectFit: 'contain' }} />
           </div>
           <p>{settings.footerDesc}</p>
           
@@ -62,17 +50,17 @@ const Footer = () => {
 
 
         <div className="footer-section" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1rem' }}>
-          <h4 style={{ color: '#60A5FA', fontSize: '1rem', marginBottom: '0.5rem' }}>Contact Us</h4>
+          <h4 style={{ color: 'var(--primary-color)', fontSize: '1rem', marginBottom: '0.5rem' }}>Contact Us</h4>
           <a href={`mailto:${settings.contactEmail}`} style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'white', fontSize: '0.9rem', textDecoration: 'none' }}>
-            <Mail size={18} style={{ opacity: 0.8, color: '#60A5FA' }} />
+            <Mail size={18} style={{ opacity: 0.8, color: 'var(--primary-color)' }} />
             <span>{settings.contactEmail}</span>
           </a>
           <a href={`tel:${settings.contactPhone.replace(/\D/g, '')}`} style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'white', fontSize: '0.9rem', textDecoration: 'none' }}>
-            <Phone size={18} style={{ opacity: 0.8, color: '#60A5FA' }} />
+            <Phone size={18} style={{ opacity: 0.8, color: 'var(--primary-color)' }} />
             <span>{settings.contactPhone}</span>
           </a>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'white', fontSize: '0.9rem' }}>
-            <MapPin size={18} style={{ opacity: 0.8, color: '#60A5FA' }} />
+            <MapPin size={18} style={{ opacity: 0.8, color: 'var(--primary-color)' }} />
             <span>{settings.contactAddress}</span>
           </div>
         </div>
@@ -94,8 +82,8 @@ const Footer = () => {
               width: '36px', 
               height: '36px', 
               borderRadius: '50%', 
-              border: '1px solid rgba(255,255,255,0.2)', 
-              background: 'rgba(255,255,255,0.05)', 
+              border: '1px solid rgba(255,255,255,0.15)', 
+              background: 'rgba(255,255,255,0.08)', 
               color: 'white',
               display: 'flex',
               alignItems: 'center',

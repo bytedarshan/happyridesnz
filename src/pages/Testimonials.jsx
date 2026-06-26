@@ -82,7 +82,7 @@ const Testimonials = () => {
 
           <div id="cta" className="testimonials-cta glass-panel" style={{ marginTop: '6rem', textAlign: 'center', padding: '4rem' }}>
             <h2 className="section-title">Ready for Your Journey?</h2>
-            <p style={{ color: 'rgba(255, 255, 255, 0.7)', marginBottom: '2rem' }}>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>
               Experience the same premium service that our guests are talking about.
             </p>
             <button className="btn-primary-glass" onClick={() => navigate('/contact')}>

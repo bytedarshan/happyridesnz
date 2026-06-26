@@ -9,6 +9,7 @@ const NavigationBar = () => {
   const { siteData } = useSiteData();
   const [isOpen, setIsOpen] = React.useState(false);
   const [isMobileView, setIsMobileView] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
   const location = useLocation();
 
   React.useEffect(() => {
@@ -16,6 +17,14 @@ const NavigationBar = () => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
@@ -34,29 +43,14 @@ const NavigationBar = () => {
 
   return (
     <motion.nav
-      className="navbar glass-panel"
+      className={`navbar glass-panel ${scrolled ? 'scrolled' : ''}`}
       initial={{ y: -60, opacity: 0 }} /* Less drastic initial y */
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      style={{ background: 'rgba(255, 255, 255, 0.01)' }}
     >
       <div className="logo-container">
-        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}>
-          {siteData.settings.logoImage && siteData.settings.logoImage.includes('logo_new') ? (
-            <div className="logo-new-badge">
-              <img src={siteData.settings.logoImage} alt="Happy Rides Logo" className="navbar-logo-new" />
-            </div>
-          ) : (
-            <>
-              <div className="logo-icon-bg">
-                <img src={siteData.settings.logoImage && siteData.settings.logoImage.startsWith('http') ? siteData.settings.logoImage : `/${siteData.settings.logoImage || 'logo.png'}`} alt="Happy Rides Logo" className="navbar-logo" />
-              </div>
-              <div className="logo-text-wrapper">
-                <h1 className="logo-title">{siteData.settings.siteTitle}</h1>
-                <span className="logo-tagline">{siteData.settings.siteTagline}</span>
-              </div>
-            </>
-          )}
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <img src="/image8.png?v=2" alt="Happy Rides Logo" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
         </Link>
       </div>
 
@@ -109,17 +103,17 @@ const NavigationBar = () => {
               top: 'calc(100% + 1rem)',
               left: '5%',
               right: '5%',
-              background: 'rgba(255, 255, 255, 0.01)',
-              backdropFilter: 'blur(8px) saturate(150%)',
-              WebkitBackdropFilter: 'blur(8px) saturate(150%)',
-              border: '1px solid rgba(255, 255, 255, 0.4)',
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(16px) saturate(120%)',
+              WebkitBackdropFilter: 'blur(16px) saturate(120%)',
+              border: '1px solid rgba(0, 0, 0, 0.08)',
               borderRadius: '2rem',
               padding: '1.5rem',
               display: 'flex',
               flexDirection: 'column',
               gap: '0.5rem',
               zIndex: 1002,
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)'
+              boxShadow: '0 12px 32px rgba(0, 0, 0, 0.12)'
             }}
           >
             {navLinks.map((link) => (
@@ -129,15 +123,15 @@ const NavigationBar = () => {
                 className={`mobile-nav-link ${isActive(link.path) ? 'active' : ''}`}
                 onClick={() => setIsOpen(false)}
                 style={{
-                  color: 'white',
+                  color: '#1e293b',
                   textDecoration: 'none',
                   fontSize: '1.1rem',
                   fontWeight: '600',
                   padding: '1rem',
                   borderRadius: '1rem',
                   textAlign: 'center',
-                  background: isActive(link.path) ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+                  background: isActive(link.path) ? 'rgba(59, 130, 246, 0.08)' : 'transparent',
+                  borderBottom: '1px solid rgba(0, 0, 0, 0.04)'
                 }}
               >
                 {link.name}

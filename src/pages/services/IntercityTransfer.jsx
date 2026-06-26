@@ -43,23 +43,23 @@ const IntercityTransfer = () => {
             <table className="transfers-table" style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 0.5rem' }}>
               <thead>
                 <tr>
-                  <th style={{ textAlign: 'left', padding: '1rem', color: '#60A5FA' }}>Route Destination</th>
-                  <th style={{ textAlign: 'center', padding: '1rem', color: '#60A5FA' }}>Sedan</th>
-                  <th style={{ textAlign: 'center', padding: '1rem', color: '#60A5FA' }}>SUV</th>
-                  <th style={{ textAlign: 'center', padding: '1rem', color: '#60A5FA' }}>People Mover</th>
-                  <th style={{ textAlign: 'center', padding: '1rem', color: '#60A5FA' }}>Minibus</th>
+                  <th style={{ textAlign: 'left', padding: '1rem' }}>Route Destination</th>
+                  <th style={{ textAlign: 'center', padding: '1rem' }}>Sedan</th>
+                  <th style={{ textAlign: 'center', padding: '1rem' }}>SUV</th>
+                  <th style={{ textAlign: 'center', padding: '1rem' }}>People Mover</th>
+                  <th style={{ textAlign: 'center', padding: '1rem' }}>Minibus</th>
                 </tr>
               </thead>
               <tbody>
                 {intercityRoutes.map((row, i) => (
                   <tr key={i}>
-                    <td style={{ padding: '1.2rem', background: 'rgba(255,255,255,0.03)', borderTopLeftRadius: '0.75rem', borderBottomLeftRadius: '0.75rem', fontWeight: 700 }}>
+                    <td style={{ padding: '1.2rem', borderTopLeftRadius: '0.75rem', borderBottomLeftRadius: '0.75rem', fontWeight: 700 }}>
                       {row.destination}
                     </td>
-                    <td style={{ textAlign: 'center', padding: '1.2rem', background: 'rgba(255,255,255,0.03)' }}>{row.sedan}</td>
-                    <td style={{ textAlign: 'center', padding: '1.2rem', background: 'rgba(255,255,255,0.03)' }}>{row.suv}</td>
-                    <td style={{ textAlign: 'center', padding: '1.2rem', background: 'rgba(255,255,255,0.03)' }}>{row.peopleMover}</td>
-                    <td style={{ textAlign: 'center', padding: '1.2rem', background: 'rgba(255,255,255,0.03)', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem', color: '#10B981', fontWeight: 700 }}>
+                    <td style={{ textAlign: 'center', padding: '1.2rem' }}>{row.sedan}</td>
+                    <td style={{ textAlign: 'center', padding: '1.2rem' }}>{row.suv}</td>
+                    <td style={{ textAlign: 'center', padding: '1.2rem' }}>{row.peopleMover}</td>
+                    <td style={{ textAlign: 'center', padding: '1.2rem', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem', color: '#10B981', fontWeight: 700 }}>
                       {row.minibus}
                     </td>
                   </tr>
