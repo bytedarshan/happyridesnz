@@ -509,7 +509,7 @@ body {
 
 @media (max-width: 768px) {
   .packages-page {
-    padding-top: 100px;
+    padding-top: 140px !important;
     padding-left: 4%;
     padding-right: 4%;
   }
@@ -1811,7 +1811,11 @@ textarea.input-field {
   }
 
   .hero-section {
-    padding: 120px 5% 40px;
+    padding: 360px 5% 40px !important;
+  }
+
+  .main-content {
+    padding-top: 140px !important;
   }
 
   .search-form {
@@ -1999,7 +2003,7 @@ textarea.input-field {
 
 @media (max-width: 768px) {
   .page-padding {
-    padding-top: 100px;
+    padding-top: 140px !important;
   }
 
   .responsive-hero-title {
@@ -2155,10 +2159,24 @@ textarea.input-field {
     font-size: 0.55rem !important;
   }
 
-  .main-content, .hero-section, .tour-detail-overlay {
+  .main-content, .tour-detail-overlay {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
-    padding-top: 100px !important;
+    padding-top: 130px !important;
+  }
+
+  .hero-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-top: 320px !important;
+  }
+
+  .page-padding {
+    padding-top: 130px !important;
+  }
+
+  .packages-page {
+    padding-top: 130px !important;
   }
 
   .glass-panel {
@@ -2200,6 +2218,18 @@ html, body {
 
 /* FINAL OVERRIDE FOR MOBILE NAVBAR - ENSURES 3 LINES ON ALL PHONES/TABLETS */
 @media (max-width: 1100px) {
+  .navbar,
+  .navbar.scrolled,
+  .navbar.glass-panel:hover,
+  .navbar.glass-panel.scrolled:hover {
+    background: #ffffff !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  }
+
   .nav-menu {
     display: none !important;
   }
@@ -2239,10 +2269,24 @@ html, body {
     height: 32px !important;
   }
 
-  .main-content, .hero-section, .tour-detail-overlay {
+  .main-content, .tour-detail-overlay {
     padding-left: 0.75rem !important;
     padding-right: 0.75rem !important;
-    padding-top: 80px !important;
+    padding-top: 110px !important;
+  }
+
+  .hero-section {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    padding-top: 270px !important;
+  }
+
+  .page-padding {
+    padding-top: 110px !important;
+  }
+
+  .packages-page {
+    padding-top: 110px !important;
   }
 
   .glass-panel {
