@@ -311,8 +311,9 @@ body {
   min-height: 80vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: 200px 8% 40px;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 8% 80px;
   color: var(--text-dark);
 }
 
@@ -1827,7 +1828,7 @@ textarea.input-field {
   }
 
   .hero-section {
-    padding: 360px 5% 40px !important;
+    padding: 120px 5% 60px !important;
   }
 
   .main-content {
@@ -2188,7 +2189,8 @@ textarea.input-field {
   .hero-section {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
-    padding-top: 320px !important;
+    padding-top: 100px !important;
+    padding-bottom: 60px !important;
   }
 
   .page-padding {
@@ -2302,7 +2304,8 @@ html, body {
   .hero-section {
     padding-left: 0.75rem !important;
     padding-right: 0.75rem !important;
-    padding-top: 270px !important;
+    padding-top: 90px !important;
+    padding-bottom: 50px !important;
   }
 
   .page-padding {
