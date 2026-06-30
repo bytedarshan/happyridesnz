@@ -90,7 +90,7 @@ export const SiteProvider = ({ children }) => {
 
       // New Settings from Plan
       heroSubtitle: "Leave the logistics to us. Enjoy a warm Kiwi welcome and a comfortable, premium ride to your destination.",
-      bookingLink: "https://happyrides.trial.easytaxioffice.com/booking",
+      bookingLink: "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575",
 
       // Global Images
       logoImage: "https://res.cloudinary.com/dni1i56yo/image/upload/v1782225884/happyrides/logo_new.jpg",
@@ -163,11 +163,17 @@ export const SiteProvider = ({ children }) => {
           const mergedSettings = {
             ...initialData.settings,
             ...(data.settings || {}),
-            bookingLink: data.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking",
+            bookingLink: data.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575",
             fleet: data.settings?.fleet || initialData.settings.fleet
           };
           
           let settingsChanged = false;
+
+          // Auto-migrate bookingLink if empty or matches old URL
+          if (!mergedSettings.bookingLink || mergedSettings.bookingLink.includes("happyrides.trial.easytaxioffice.com")) {
+            mergedSettings.bookingLink = "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
+            settingsChanged = true;
+          }
 
           if (mergedSettings.heroTitle && (
             mergedSettings.heroTitle.toLowerCase().includes("search, compare") || 

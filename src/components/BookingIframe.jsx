@@ -1,163 +1,157 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Clock } from 'lucide-react';
+import React from 'react';
+import { Calendar, ShieldCheck, Sparkles, ExternalLink, Car, Calculator } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-/**
- * BookingIframe — Auto-resizing iframe that avoids double scrollbars.
- * 
- * Strategy: Start at a generous initial height. Every 500ms, try to read
- * the iframe's document scrollHeight directly (works if same-origin) OR
- * listen for postMessage events from the booking software. The iframe
- * itself has overflow hidden and no scrollbar — our outer page scrolls instead.
- */
 const BookingIframe = ({ bookingLink }) => {
-  const [iframeHeight, setIframeHeight] = useState(() => {
-    return window.innerWidth < 768 ? 1320 : 990;
-  });
-
-  const [isLoaded, setIsLoaded] = useState(false);
-  const iframeRef = useRef(null);
-  const pollingRef = useRef(null);
-
-  // Try to read height directly from the iframe DOM (works same-origin)
-  const tryReadIframeHeight = () => {
-    try {
-      const iframe = iframeRef.current;
-      if (!iframe) return;
-      const doc = iframe.contentDocument || iframe.contentWindow?.document;
-      if (doc) {
-        const h = Math.max(
-          doc.body?.scrollHeight || 0,
-          doc.documentElement?.scrollHeight || 0
-        );
-        if (h > 300) {
-          setIframeHeight(Math.round((h + 40) * 1.1)); // Scale by 1.1 (10% increase)
-        }
-      }
-    } catch (e) {
-      // Cross-origin: silently ignore — postMessage listener handles this
+  const handleOpenBooking = () => {
+    if (bookingLink) {
+      window.open(bookingLink, '_blank', 'noopener,noreferrer');
     }
   };
 
-  // Poll iframe height every 600ms after it loads
-  useEffect(() => {
-    if (isLoaded) {
-      tryReadIframeHeight();
-      pollingRef.current = setInterval(tryReadIframeHeight, 600);
+  const steps = [
+    {
+      icon: <Car size={24} style={{ color: 'var(--primary-color)' }} />,
+      title: "1. Select Ride Details",
+      desc: "Enter your pickup location, destination, date, and choose your preferred vehicle type."
+    },
+    {
+      icon: <Calculator size={24} style={{ color: '#F59E0B' }} />,
+      title: "2. Get Instant Quote",
+      desc: "Our booking software calculates the transparent, fixed pricing with no hidden fees."
+    },
+    {
+      icon: <ShieldCheck size={24} style={{ color: '#10B981' }} />,
+      title: "3. Secure & Confirm",
+      desc: "Complete your booking safely and receive an instant confirmation email."
     }
-    return () => {
-      if (pollingRef.current) clearInterval(pollingRef.current);
-    };
-  }, [isLoaded]);
-
-  // Listen for postMessage events from cross-origin booking software
-  useEffect(() => {
-    const handleMessage = (event) => {
-      if (!event.data) return;
-      let height = null;
-
-      if (typeof event.data === 'string') {
-        try {
-          const parsed = JSON.parse(event.data);
-          height = parsed?.height || parsed?.scrollHeight || parsed?.iframeHeight;
-        } catch {
-          if (event.data.startsWith('height:')) height = parseInt(event.data.split(':')[1], 10);
-          else if (!isNaN(Number(event.data))) height = Number(event.data);
-        }
-      } else if (typeof event.data === 'object') {
-        height = event.data.height || event.data.scrollHeight || event.data.iframeHeight;
-      }
-
-      if (height && typeof height === 'number' && height > 300) {
-        setIframeHeight(Math.round((height + 40) * 1.1)); // Scale by 1.1 (10% increase)
-      }
-    };
-
-    window.addEventListener('message', handleMessage);
-    return () => window.removeEventListener('message', handleMessage);
-  }, []);
-
-  // Update default height on window resize
-  useEffect(() => {
-    const handleResize = () => {
-      setIframeHeight(h => {
-        const defaultH = window.innerWidth < 768 ? 1320 : 990;
-        return h < defaultH ? defaultH : h;
-      });
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  if (!bookingLink) {
-    return (
-      <div style={{
-        width: '100%', maxWidth: '1056px', height: '385px', margin: '0 auto',
-        background: '#ffffff', borderRadius: '2rem',
-        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
-        border: '1px solid rgba(255, 255, 255, 0.9)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        opacity: 0.5, color: '#1e293b'
-      }}>
-        <div style={{ textAlign: 'center' }}>
-          <Clock size={48} style={{ marginBottom: '1rem', color: 'var(--primary-color)' }} />
-          <p style={{ fontWeight: 600 }}>Booking Software Frame Placeholder</p>
-          <p style={{ fontSize: '0.8rem' }}>(Iframe link to be provided in Admin)</p>
-        </div>
-      </div>
-    );
-  }
+  ];
 
   return (
     <div style={{
       width: '100%',
-      maxWidth: '1056px',
-      height: `${iframeHeight}px`,
+      maxWidth: '850px',
       margin: '0 auto',
-      background: '#ffffff',
-      borderRadius: '2rem',
-      boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4)',
-      border: '1px solid rgba(255, 255, 255, 0.9)',
+      background: 'rgba(255, 255, 255, 0.85)',
+      backdropFilter: 'blur(16px) saturate(120%)',
+      WebkitBackdropFilter: 'blur(16px) saturate(120%)',
+      borderRadius: '2.5rem',
+      border: '1px solid rgba(255, 255, 255, 0.7)',
+      boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+      padding: '3rem 2rem',
       position: 'relative',
       overflow: 'hidden',
-      transition: 'height 0.3s ease-in-out',
+      textAlign: 'center'
     }}>
-      {/* Loading overlay */}
-      {!isLoaded && (
-        <div style={{
-          position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-          background: '#ffffff', display: 'flex', flexDirection: 'column',
-          alignItems: 'center', justifyContent: 'center', zIndex: 10, borderRadius: '2rem'
-        }}>
-          <div style={{
-            width: '40px', height: '40px',
-            border: '3px solid rgba(16, 185, 129, 0.1)',
-            borderTop: '3px solid #10b981',
-            borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '1rem'
-          }} />
-          <p style={{ color: '#64748b', fontSize: '0.9rem', fontWeight: 500 }}>
-            Loading secure booking software...
-          </p>
-          <style>{`@keyframes spin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }`}</style>
-        </div>
-      )}
+      {/* Visual background details */}
+      <div style={{
+        position: 'absolute',
+        top: '-150px',
+        right: '-150px',
+        width: '300px',
+        height: '300px',
+        background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(255,255,255,0) 70%)',
+        zIndex: 0,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        bottom: '-150px',
+        left: '-150px',
+        width: '300px',
+        height: '300px',
+        background: 'radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(255,255,255,0) 70%)',
+        zIndex: 0,
+        pointerEvents: 'none'
+      }} />
 
-      <iframe
-        ref={iframeRef}
-        src={bookingLink}
-        width="100%"
-        height="100%"
-        frameBorder="0"
-        title="Booking Software"
-        onLoad={() => {
-          setIsLoaded(true);
-          // Give the iframe content time to fully render then read its height
-          setTimeout(tryReadIframeHeight, 800);
-          setTimeout(tryReadIframeHeight, 2000);
-          setTimeout(tryReadIframeHeight, 4000);
-        }}
-        style={{ border: 'none', width: '100%', height: '100%', overflow: 'hidden', display: 'block' }}
-        scrolling="no"
-      />
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(59, 130, 246, 0.08)', padding: '0.6rem 1.2rem', borderRadius: '100px', marginBottom: '1.5rem' }}
+        >
+          <Sparkles size={16} style={{ color: 'var(--primary-color)' }} />
+          <span style={{ color: 'var(--primary-color)', fontSize: '0.85rem', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' }}>
+            Official Booking System
+          </span>
+        </motion.div>
+
+        <h3 style={{ fontSize: '2rem', fontWeight: 800, color: '#0f172a', marginBottom: '1rem', lineHeight: '1.2' }}>
+          Ready to Book Your Ride?
+        </h3>
+        <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', lineHeight: '1.6', maxWidth: '620px', margin: '0 auto 2.5rem' }}>
+          Open our secure booking portal to reserve airport transfers, private tours, or intercity transfers. Calculate your fixed rates instantly.
+        </p>
+
+        {/* Steps Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+          gap: '1.5rem',
+          marginBottom: '3rem',
+          textAlign: 'left'
+        }}>
+          {steps.map((step, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: idx * 0.15 }}
+              style={{
+                background: 'rgba(255, 255, 255, 0.6)',
+                border: '1px solid rgba(0, 0, 0, 0.04)',
+                borderRadius: '1.5rem',
+                padding: '1.5rem',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.02)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.75rem'
+              }}
+            >
+              <div style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '1rem',
+                background: 'rgba(255, 255, 255, 0.9)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.05)'
+              }}>
+                {step.icon}
+              </div>
+              <h4 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0f172a' }}>{step.title}</h4>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>{step.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <motion.button
+          onClick={handleOpenBooking}
+          whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(59, 130, 246, 0.25)' }}
+          whileTap={{ scale: 0.98 }}
+          style={{
+            background: 'linear-gradient(135deg, var(--primary-color) 0%, #1D4ED8 100%)',
+            color: '#ffffff',
+            border: 'none',
+            borderRadius: '100px',
+            padding: '1.2rem 2.8rem',
+            fontSize: '1.1rem',
+            fontWeight: 700,
+            cursor: 'pointer',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            boxShadow: '0 10px 25px rgba(59, 130, 246, 0.15)',
+            transition: 'all 0.3s ease'
+          }}
+        >
+          Book Online Now <ExternalLink size={18} />
+        </motion.button>
+      </div>
     </div>
   );
 };

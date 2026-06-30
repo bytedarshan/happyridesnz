@@ -17,7 +17,7 @@ Security & Privacy Guidelines:
 - You must ONLY provide information present in this business context.
 - Never discuss administrative settings, internal database fields, admin login credentials, email lists, database collections (like 'admins' or user accounts), Firebase configurations, or API keys.
 - If a user asks about admin access, database schemas, or personal data, politely reply that you cannot assist with that and that it is restricted.
-- If asked about booking, direct them to use the official booking link: ${publicContext.bookingLink || 'https://happyrides.trial.easytaxioffice.com/booking'}.
+- If asked about booking, direct them to use the official booking link: ${publicContext.bookingLink || 'https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575'}.
 - Keep replies concise, warm, and formatted cleanly in Markdown. Do not make up any facts or details not in the context.
 `;
 
@@ -68,7 +68,7 @@ const generateLocalResponse = (message, siteData) => {
   if (msg.includes('book') || msg.includes('reserve') || msg.includes('schedule') || msg.includes('hiring') || msg.includes('order')) {
     return `Booking a ride with **Happy Rides** is quick and easy! You can book transfers or tours online in seconds.
     
-👉 [Click here to open our Online Booking platform](${settings.bookingLink || 'https://happyrides.trial.easytaxioffice.com/booking'})
+👉 [Click here to open our Online Booking platform](${settings.bookingLink || 'https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575'})
     
 If you'd prefer to book a custom tour, feel free to contact us directly at **${settings.contactEmail || 'info@happyrides.co.nz'}** or call us at **${settings.contactPhone || '+64 21 244 0244'}**.`;
   }
@@ -77,7 +77,7 @@ If you'd prefer to book a custom tour, feel free to contact us directly at **${s
   if (msg.includes('price') || msg.includes('cost') || msg.includes('fare') || msg.includes('rate') || msg.includes('how much') || msg.includes('quote')) {
     return `We offer high-quality, reliable passenger transfers with no hidden booking fees or surge pricing! 
     
-For custom quotes or package details, please use our online [Booking System](${settings.bookingLink || 'https://happyrides.trial.easytaxioffice.com/booking'}) to get a customized estimate, or contact our team directly!`;
+For custom quotes or package details, please use our online [Booking System](${settings.bookingLink || 'https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575'}) to get a customized estimate, or contact our team directly!`;
   }
 
   // 4. Fleet / Vehicles
@@ -136,7 +136,7 @@ For custom quotes or package details, please use our online [Booking System](${s
 - **Rotorua Geothermal Wonders** (geysers and Maori culture)
 - **Paihia & Bay of Islands** (beaches and historic Waitangi grounds)
       
-You can explore our detailed itineraries on our [Tours page](/tours) or book instantly via our [Booking System](${settings.bookingLink || 'https://happyrides.trial.easytaxioffice.com/booking'}).`;
+You can explore our detailed itineraries on our [Tours page](/tours) or book instantly via our [Booking System](${settings.bookingLink || 'https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575'}).`;
     }
   }
   
@@ -144,7 +144,7 @@ You can explore our detailed itineraries on our [Tours page](/tours) or book ins
   if (msg.includes('airport') || msg.includes('transfer') || msg.includes('drop') || msg.includes('pickup') || msg.includes('pick up')) {
     return `We provide reliable, 24/7 door-to-door **Airport Transfer** services between Auckland Airport and anywhere in the Auckland region. We track your flight details so your driver is ready as soon as you land!
     
-👉 [Book your Airport Transfer online](${settings.bookingLink || 'https://happyrides.trial.easytaxioffice.com/booking'})
+👉 [Book your Airport Transfer online](${settings.bookingLink || 'https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575'})
     
 You can also view rates and destinations on our [Airport Transfers page](/services/airport-transfer).`;
   }
@@ -170,7 +170,7 @@ With fixed pricing, a luxury modern fleet, and professional drivers, we provide 
   }
 
   // 10. Fallback
-  return `I'd be happy to help you with that! For questions about custom tours, booking pricing, or general transport services, you can visit our [Services page](/services), open our [Booking platform](${settings.bookingLink || 'https://happyrides.trial.easytaxioffice.com/booking'}), or contact us directly:
+  return `I'd be happy to help you with that! For questions about custom tours, booking pricing, or general transport services, you can visit our [Services page](/services), open our [Booking platform](${settings.bookingLink || 'https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575'}), or contact us directly:
   
 - 📧 Email: **${settings.contactEmail || 'info@happyrides.co.nz'}**
 - 📞 Phone: **${settings.contactPhone || '+64 21 244 0244'}**
@@ -258,7 +258,7 @@ const ChatbotWidget = () => {
       siteTagline: siteData?.settings?.siteTagline || "Enjoy the journey. Love the ride",
       heroTitle: siteData?.settings?.heroTitle,
       heroSubtitle: siteData?.settings?.heroSubtitle,
-      bookingLink: siteData?.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking",
+      bookingLink: siteData?.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575",
       contactEmail: siteData?.settings?.contactEmail,
       contactPhone: siteData?.settings?.contactPhone,
       contactAddress: siteData?.settings?.contactAddress,

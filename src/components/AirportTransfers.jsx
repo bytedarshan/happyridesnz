@@ -17,7 +17,7 @@ const transferData = [
 
 const AirportTransfers = () => {
   const { siteData } = useSiteData();
-  const bookingLink = siteData?.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking";
+  const bookingLink = siteData?.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
 
   return (
     <section id="airport-transfers" className="transfers-section">

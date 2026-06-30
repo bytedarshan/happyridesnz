@@ -67,7 +67,7 @@ const TourDetail = ({ tour, onBack }) => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => {
-                  const link = siteData?.settings?.bookingLink || "https://happyrides.trial.easytaxioffice.com/booking";
+                  const link = siteData?.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
                   window.open(link, "_blank");
                 }}
               >
