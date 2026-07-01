@@ -48,5 +48,9 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- Vendor iframe resizer — loaded once globally so BookingIframe.jsx
+         can call window.iFrameResize() after the iframe mounts.
+         defer keeps it non-blocking for the rest of the page. -->
+    <script defer src="https://6a38cc049dc85.trial.easytaxioffice.com/assets/plugins/iframe-resizer/iframeResizer.min.js"></script>
   </body>
 </html>

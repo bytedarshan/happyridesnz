@@ -49,6 +49,7 @@ const Admin = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [localBookingLink, setLocalBookingLink] = useState(null);
 
   const handleImageUpload = async (e, onUploadSuccess) => {
     const file = e.target.files[0];
@@ -747,7 +748,29 @@ const Admin = () => {
         </h3>
         <div className="input-group">
           <label className="input-label">Booking Software URL (Iframe Link)</label>
-          <input type="text" className="input-field" placeholder="https://booking-software.com/your-id" value={siteData.settings.bookingLink || ''} onChange={(e) => updateSettings({ bookingLink: e.target.value })} />
+          <input 
+            type="text" 
+            className="input-field" 
+            placeholder="https://booking-software.com/your-id" 
+            value={localBookingLink !== null ? localBookingLink : (siteData.settings.bookingLink || '')} 
+            onFocus={() => { if (localBookingLink === null) setLocalBookingLink(siteData.settings.bookingLink || ''); }}
+            onChange={(e) => setLocalBookingLink(e.target.value)} 
+            onBlur={() => {
+              let clean = (localBookingLink || '').trim();
+              if (clean.includes('<iframe') && clean.includes('src=')) {
+                const match = clean.match(/src=["']([^"']+)["']/);
+                if (match && match[1]) {
+                  clean = match[1];
+                }
+              }
+              clean = clean.replace(/%22/g, '').replace(/["']/g, '');
+              if (clean && !/^https?:\/\//i.test(clean)) {
+                clean = `https://${clean}`;
+              }
+              updateSettings({ bookingLink: clean.trim() });
+              setLocalBookingLink(null);
+            }}
+          />
           <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>This link will be used in the frames across Home, Airport Transfer, and Intercity Transfer pages.</p>
         </div>
       </div>

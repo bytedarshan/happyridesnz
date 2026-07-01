@@ -160,119 +160,29 @@ export const SiteProvider = ({ children }) => {
       try {
         if (docSnap.exists()) {
           const data = docSnap.data();
-          const mergedSettings = {
-            ...initialData.settings,
-            ...(data.settings || {}),
-            bookingLink: data.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575",
-            fleet: data.settings?.fleet || initialData.settings.fleet
+
+          // IMPORTANT: Firestore is the single source of truth.
+          // We only fill in defaults for fields that are completely absent (undefined)
+          // from the stored document. We NEVER overwrite existing values.
+          const firestoreSettings = data.settings || {};
+          const resolvedSettings = {
+            ...initialData.settings,  // fallback defaults for keys not yet in Firestore
+            ...firestoreSettings,     // Firestore always wins for keys it has (even empty string)
           };
 
-          let settingsChanged = false;
-
-          // Auto-migrate bookingLink if empty or matches old URL
-          if (!mergedSettings.bookingLink || mergedSettings.bookingLink.includes("happyrides.trial.easytaxioffice.com")) {
-            mergedSettings.bookingLink = "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
-            settingsChanged = true;
-          }
-
-          if (mergedSettings.heroTitle && (
-            mergedSettings.heroTitle.toLowerCase().includes("search, compare") ||
-            mergedSettings.heroTitle.includes("Search, Compare")
-          )) {
-            mergedSettings.heroTitle = "Your Premium Getaway to New Zealand - Reliable & Comfortable Airport Transfers";
-            try {
-              updateDoc(siteDocRef, { 'settings.heroTitle': "Your Premium Getaway to New Zealand - Reliable & Comfortable Airport Transfers" });
-            } catch (e) {
-              console.warn("Auto-updating heroTitle in Firestore failed:", e);
-            }
-          }
-
-          // Auto-migrate settings images if they point to local files instead of Cloudinary URLs
-          const imageKeys = [
-            'logoImage', 'heroBgImage', 'heroVisualImage', 'aboutBriefImage', 'packagesBriefImage',
-            'cityAucklandImage', 'cityWaitomoImage', 'cityHobbitonImage', 'cityRotoruaImage', 'cityPaihiaImage'
-          ];
-          imageKeys.forEach(key => {
-            if (mergedSettings[key] && !mergedSettings[key].startsWith('http') && !mergedSettings[key].includes('cloudinary')) {
-              const defaultUrl = initialData.settings[key];
-              if (defaultUrl && defaultUrl.startsWith('http')) {
-                mergedSettings[key] = defaultUrl;
-                settingsChanged = true;
-              }
-            }
+          setSiteData({
+            packages: data.packages || initialData.packages,
+            testimonials: data.testimonials || initialData.testimonials,
+            services: data.services || initialData.services,
+            settings: resolvedSettings,
           });
-
-          // Auto-migrate fleet options and fleet images
-          if (mergedSettings.fleet) {
-            let currentFleet = [...mergedSettings.fleet];
-            if (!currentFleet.some(f => f.type.toUpperCase() === 'EXECUTIVE')) {
-              currentFleet.push({ id: 'f5', type: 'EXECUTIVE', img: 'https://res.cloudinary.com/dni1i56yo/image/upload/v1782225883/happyrides/executive_car.jpg', capacity: '1-3 Passengers' });
-            }
-            const typeOrder = ['SEDAN', 'SUV', 'PEOPLE MOVER', 'EXECUTIVE', 'MINIBUS'];
-            currentFleet.sort((a, b) => {
-              const indexA = typeOrder.indexOf(a.type.toUpperCase());
-              const indexB = typeOrder.indexOf(b.type.toUpperCase());
-              return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB);
-            });
-
-            // Map fleet images to Cloudinary if they are local
-            currentFleet = currentFleet.map(vehicle => {
-              if (vehicle.img && !vehicle.img.startsWith('http') && !vehicle.img.includes('cloudinary') && vehicle.img !== 'https://res.cloudinary.com/dni1i56yo/image/upload/v1782225883/happyrides/executive_car.jpg') {
-                const defaultVehicle = initialData.settings.fleet.find(f => f.id === vehicle.id);
-                if (defaultVehicle && defaultVehicle.img && defaultVehicle.img.startsWith('http')) {
-                  settingsChanged = true;
-                  return { ...vehicle, img: defaultVehicle.img };
-                }
-              }
-              return vehicle;
-            });
-
-            mergedSettings.fleet = currentFleet;
-          }
-
-          if (settingsChanged) {
-            try {
-              updateDoc(siteDocRef, { settings: mergedSettings });
-            } catch (e) {
-              console.warn("Auto-updating settings/fleet in Firestore failed:", e);
-            }
-          }
-
-          // Auto-migrate packages images if they point to local paths instead of Cloudinary URLs
-          if (data.packages) {
-            const updatedPackages = { ...data.packages };
-            let packagesChanged = false;
-
-            Object.keys(updatedPackages).forEach(category => {
-              updatedPackages[category] = (updatedPackages[category] || []).map(pkg => {
-                if (pkg.image && !pkg.image.startsWith('http') && !pkg.image.includes('cloudinary')) {
-                  const defaultPkg = initialData.packages[category]?.find(p => p.id === pkg.id);
-                  if (defaultPkg && defaultPkg.image && defaultPkg.image.startsWith('http')) {
-                    packagesChanged = true;
-                    return { ...pkg, image: defaultPkg.image };
-                  }
-                }
-                return pkg;
-              });
-            });
-
-            if (packagesChanged) {
-              data.packages = updatedPackages;
-              try {
-                updateDoc(siteDocRef, { packages: updatedPackages });
-              } catch (e) {
-                console.warn("Auto-updating packages in Firestore failed:", e);
-              }
-            }
-          }
-
-          setSiteData({ ...data, settings: mergedSettings });
           setLoading(false);
         } else {
+          // No document at all — create it with initialData
           try {
             await setDoc(siteDocRef, initialData);
           } catch (writeErr) {
-            console.warn("Failed to write initial data to Firestore (probably permission rules):", writeErr);
+            console.warn("Failed to write initial data to Firestore:", writeErr);
           }
           setSiteData(initialData);
           setLoading(false);
@@ -284,8 +194,6 @@ export const SiteProvider = ({ children }) => {
       }
     }, (error) => {
       console.error("Firestore siteData snapshot listener failed:", error);
-      // Critical fallback: if firestore fails to load/read (e.g. permission denied or offline),
-      // we must still allow the website to load using initial data.
       setSiteData(initialData);
       setLoading(false);
     });
@@ -304,7 +212,6 @@ export const SiteProvider = ({ children }) => {
       }
     }, (error) => {
       console.warn("Firestore admins snapshot listener failed:", error);
-      // Suppress or log error - no action needed since admin verification handles individual user auth anyway.
     });
     return () => unsubscribe();
   }, []);
@@ -335,7 +242,7 @@ export const SiteProvider = ({ children }) => {
     });
 
     if (addedCount > 0) {
-      await syncToFirestore({ ...siteData, packages: newPackages });
+      await updateDoc(doc(db, 'content', 'siteData'), { packages: newPackages });
       alert(`Successfully added ${addedCount} new tours without affecting your existing photos!`);
     } else {
       alert("Your site is already up to date with all default tours.");
@@ -358,57 +265,81 @@ export const SiteProvider = ({ children }) => {
     alert("Password reset email sent to " + email);
   };
 
-  const syncToFirestore = async (newData) => {
-    await updateDoc(doc(db, 'content', 'siteData'), newData);
-  };
-
+  // FIXED: Use field-level Firestore updates for settings.
+  // Each key is written as "settings.keyName" so ONLY the changed setting is
+  // updated in Firestore. Packages, testimonials, services, and other settings
+  // are NEVER touched by a settings update.
   const updateSettings = async (newSettings) => {
-    await syncToFirestore({ ...siteData, settings: { ...siteData.settings, ...newSettings } });
+    const siteDocRef = doc(db, 'content', 'siteData');
+    const fieldUpdates = {};
+    Object.keys(newSettings).forEach(key => {
+      fieldUpdates[`settings.${key}`] = newSettings[key];
+    });
+    await updateDoc(siteDocRef, fieldUpdates);
   };
 
+  // FIXED: Package operations use field-level updates targeting only the
+  // specific category array. Other categories and all settings are untouched.
   const addPackage = async (category, newPackage) => {
-    const newData = { ...siteData, packages: { ...siteData.packages, [category]: [...siteData.packages[category], { ...newPackage, id: Date.now().toString() }] } };
-    await syncToFirestore(newData);
+    const updatedCategory = [
+      ...(siteData.packages[category] || []),
+      { ...newPackage, id: Date.now().toString() }
+    ];
+    await updateDoc(doc(db, 'content', 'siteData'), {
+      [`packages.${category}`]: updatedCategory
+    });
   };
 
   const updatePackage = async (category, packageId, updatedPackage) => {
-    const newData = { ...siteData, packages: { ...siteData.packages, [category]: siteData.packages[category].map(p => p.id === packageId ? { ...p, ...updatedPackage } : p) } };
-    await syncToFirestore(newData);
+    const updatedCategory = siteData.packages[category].map(p =>
+      p.id === packageId ? { ...p, ...updatedPackage } : p
+    );
+    await updateDoc(doc(db, 'content', 'siteData'), {
+      [`packages.${category}`]: updatedCategory
+    });
   };
 
   const removePackage = async (category, packageId) => {
-    const newData = { ...siteData, packages: { ...siteData.packages, [category]: siteData.packages[category].filter(p => p.id !== packageId) } };
-    await syncToFirestore(newData);
+    const updatedCategory = siteData.packages[category].filter(p => p.id !== packageId);
+    await updateDoc(doc(db, 'content', 'siteData'), {
+      [`packages.${category}`]: updatedCategory
+    });
   };
 
   const addTestimonial = async (testimonial) => {
-    const newData = { ...siteData, testimonials: [...siteData.testimonials, { ...testimonial, id: Date.now() }] };
-    await syncToFirestore(newData);
+    const updatedTestimonials = [...siteData.testimonials, { ...testimonial, id: Date.now() }];
+    await updateDoc(doc(db, 'content', 'siteData'), { testimonials: updatedTestimonials });
   };
 
   const updateTestimonial = async (id, updatedTestimonial) => {
-    const newData = { ...siteData, testimonials: siteData.testimonials.map(t => t.id === id ? { ...t, ...updatedTestimonial } : t) };
-    await syncToFirestore(newData);
+    const updatedTestimonials = siteData.testimonials.map(t =>
+      t.id === id ? { ...t, ...updatedTestimonial } : t
+    );
+    await updateDoc(doc(db, 'content', 'siteData'), { testimonials: updatedTestimonials });
   };
 
   const removeTestimonial = async (id) => {
-    const newData = { ...siteData, testimonials: siteData.testimonials.filter(t => t.id !== id) };
-    await syncToFirestore(newData);
+    const updatedTestimonials = siteData.testimonials.filter(t => t.id !== id);
+    await updateDoc(doc(db, 'content', 'siteData'), { testimonials: updatedTestimonials });
   };
 
   const addService = async (service) => {
-    const newData = { ...siteData, services: [...siteData.services, { ...service, id: Date.now().toString() }] };
-    await syncToFirestore(newData);
+    const updatedServices = [...siteData.services, { ...service, id: Date.now().toString() }];
+    await updateDoc(doc(db, 'content', 'siteData'), { services: updatedServices });
   };
 
   const updateService = async (serviceId, updatedService) => {
-    const newData = { ...siteData, services: siteData.services.map(s => (s.id === serviceId || s.title === serviceId) ? { ...s, ...updatedService } : s) };
-    await syncToFirestore(newData);
+    const updatedServices = siteData.services.map(s =>
+      (s.id === serviceId || s.title === serviceId) ? { ...s, ...updatedService } : s
+    );
+    await updateDoc(doc(db, 'content', 'siteData'), { services: updatedServices });
   };
 
   const removeService = async (serviceId) => {
-    const newData = { ...siteData, services: siteData.services.filter(s => (s.id !== serviceId && s.title !== serviceId)) };
-    await syncToFirestore(newData);
+    const updatedServices = siteData.services.filter(s =>
+      (s.id !== serviceId && s.title !== serviceId)
+    );
+    await updateDoc(doc(db, 'content', 'siteData'), { services: updatedServices });
   };
 
   return (
