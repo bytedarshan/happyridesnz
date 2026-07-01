@@ -182,20 +182,24 @@ export const SiteProvider = ({ children }) => {
 
           const rawLink = data.settings?.bookingLink || "";
           const cleanedLink = cleanBookingLink(rawLink);
-          const finalLink = cleanedLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
+          const needsMigration = rawLink.includes("happyrides.trial.easytaxioffice.com");
 
           const mergedSettings = {
             ...initialData.settings,
             ...(data.settings || {}),
-            bookingLink: finalLink,
+            bookingLink: cleanedLink,
             fleet: data.settings?.fleet || initialData.settings.fleet
           };
           
           let settingsChanged = false;
 
-          // Auto-migrate bookingLink if it doesn't match the cleaned link or matches old URL
-          if (data.settings?.bookingLink !== finalLink || !finalLink || finalLink.includes("happyrides.trial.easytaxioffice.com")) {
+          // Auto-migrate bookingLink if it contains old URL
+          if (needsMigration) {
             mergedSettings.bookingLink = "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
+            settingsChanged = true;
+          } else if (rawLink !== cleanedLink) {
+            // Save the cleaned link if it was cleaned
+            mergedSettings.bookingLink = cleanedLink;
             settingsChanged = true;
           }
 

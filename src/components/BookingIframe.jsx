@@ -3,10 +3,10 @@ import { Calendar, ShieldCheck, Sparkles, ExternalLink, Car, Calculator } from '
 import { motion } from 'framer-motion';
 
 const BookingIframe = ({ bookingLink }) => {
+  const finalLink = bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
+
   const handleOpenBooking = () => {
-    if (bookingLink) {
-      window.open(bookingLink, '_blank', 'noopener,noreferrer');
-    }
+    window.open(finalLink, '_blank', 'noopener,noreferrer');
   };
 
   const steps = [
