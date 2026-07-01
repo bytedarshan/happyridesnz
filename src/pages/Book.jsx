@@ -14,40 +14,22 @@ const Book = () => {
     <div className="page-wrapper">
       <NavigationBar />
       
-      <div className="content-container page-padding" style={{ paddingBottom: '100px', paddingTop: '140px' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
+      <div className="page-padding" style={{ paddingBottom: '100px', paddingTop: '90px', paddingLeft: '1.5%', paddingRight: '1.5%' }}>
+        <div style={{ maxWidth: '850px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           
           {/* Header Introduction — Centered and Bold */}
+          {/* Header Logo */}
           <motion.div
-            style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.2rem' }}
+            style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              background: 'rgba(59, 130, 246, 0.09)',
-              color: '#2563EB',
-              fontSize: '0.78rem',
-              fontWeight: 700,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              padding: '0.45rem 1rem',
-              borderRadius: '100px',
-              border: '1px solid rgba(59, 130, 246, 0.15)',
-              width: 'fit-content'
-            }}>
-              <Calendar size={14} /> Official Booking System
-            </div>
-
-            <h1 className="responsive-hero-title" style={{ margin: 0, fontSize: 'clamp(2.2rem, 5vw, 3.5rem)', fontWeight: 850, lineHeight: 1.1, color: '#0f172a' }}>
-              Secure Your Transfer
-            </h1>
-            <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: 1.6, maxWidth: '600px', margin: 0 }}>
-              Calculate transparent, fixed-fare quotes instantly and confirm your private transfers or sightseeing packages in real-time.
-            </p>
+            <img 
+              src="/image8.png?v=2" 
+              alt="Happy Rides Logo" 
+              style={{ height: '160px', width: 'auto', objectFit: 'contain' }} 
+            />
           </motion.div>
 
           {/* Booking Widget — Huge, Centerpiece */}

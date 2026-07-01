@@ -3,6 +3,7 @@ import NavigationBar from '../../components/NavigationBar';
 import { motion } from 'framer-motion';
 import { Plane, MapPin } from 'lucide-react';
 import { useSiteData } from '../../context/SiteContext';
+import { useNavigate } from 'react-router-dom';
 
 const AirportTransfer = () => {
   const { siteData } = useSiteData();
@@ -23,9 +24,10 @@ const AirportTransfer = () => {
     { source: 'North Shore (Lower)' },
   ];
 
+  const navigate = useNavigate();
+
   const handleBookNow = () => {
-    const link = siteData?.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
-    window.open(link, "_blank");
+    navigate('/book');
   };
 
   const renderTable = (data, title, isAirportToCity) => (

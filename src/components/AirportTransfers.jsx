@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Plane, Car, Users, ArrowRightLeft } from 'lucide-react';
 import { useSiteData } from '../context/SiteContext';
+import { useNavigate } from 'react-router-dom';
 
 const transferData = [
   { vehicle: 'Standard', passengers: 2, priceToCBD: 65, priceToAirport: 60 },
@@ -17,7 +18,7 @@ const transferData = [
 
 const AirportTransfers = () => {
   const { siteData } = useSiteData();
-  const bookingLink = siteData?.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
+  const navigate = useNavigate();
 
   return (
     <section id="airport-transfers" className="transfers-section">
@@ -59,7 +60,7 @@ const AirportTransfers = () => {
                   <td>Auckland Airport ⇆ CBD & Beyond</td>
                   <td className="price-cell">
                     <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => {
-                      window.open(bookingLink, "_blank");
+                      navigate('/book');
                     }}>Get Quote</span>
                   </td>
                 </motion.tr>
@@ -75,7 +76,7 @@ const AirportTransfers = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
-              window.open(bookingLink, "_blank");
+              navigate('/book');
             }}
           >
             Book Transfer Now

@@ -13,9 +13,11 @@ import {
 } from '../../data/mockData';
 
 import { useSiteData } from '../../context/SiteContext';
+import { useNavigate } from 'react-router-dom';
 
 const CityTours = () => {
   const { siteData } = useSiteData();
+  const navigate = useNavigate();
   
   if (!siteData) return null;
 
@@ -68,8 +70,7 @@ const CityTours = () => {
                     <td style={{ textAlign: 'center', padding: '1rem' }}>{item.duration}</td>
                     <td style={{ textAlign: 'right', padding: '1rem', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem', color: 'var(--primary-color)', fontWeight: 600 }}>
                       <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => {
-                        const link = siteData?.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
-                        window.open(link, "_blank");
+                        navigate('/book');
                       }}>Book Now</span>
                     </td>
                   </tr>

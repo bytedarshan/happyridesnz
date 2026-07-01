@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Shield, Clock, Car, MapPin, Home as HomeIcon, Info, Settings, Package, Calendar } from 'lucide-react';
 import { useSiteData } from '../context/SiteContext';
+import BookingIframe from '../components/BookingIframe';
 
 
 const Home = () => {
@@ -39,13 +40,34 @@ const Home = () => {
     <div className="home-page">
       <NavigationBar />
       
-      <div id="hero">
-        <HeroSection />
-      </div>
+      {/* Centered Booking Section at the top of the Home page */}
+      <div className="page-padding" style={{ paddingBottom: '4rem', paddingTop: '90px', paddingLeft: '1.5%', paddingRight: '1.5%' }}>
+        <div style={{ maxWidth: '850px', width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          {/* Header Logo */}
+          <motion.div
+            style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <img 
+              src="/image8.png?v=2" 
+              alt="Happy Rides Logo" 
+              style={{ height: '160px', width: 'auto', objectFit: 'contain' }} 
+            />
+          </motion.div>
 
-
-
-      {/* Vehicle Fleet Section */}
+          {/* Booking Widget */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            style={{ width: '100%' }}
+          >
+            <BookingIframe bookingLink={siteData.settings.bookingLink} />
+          </motion.div>
+        </div>
+      </div>      {/* Vehicle Fleet Section */}
       <section id="fleet" className="brief-section glass-panel" style={{ margin: '4rem 8%', padding: '5rem 3rem' }}>
         <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '4rem' }}>Our Professional Fleet</h2>
         <div 

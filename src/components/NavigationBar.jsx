@@ -51,7 +51,7 @@ const NavigationBar = () => {
     >
       <div className="logo-container">
         <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-          <img src="/image8.png?v=2" alt="Happy Rides Logo" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
+          <img src="/image8.png?v=2" className="navbar-logo" alt="Happy Rides Logo" />
         </Link>
       </div>
 

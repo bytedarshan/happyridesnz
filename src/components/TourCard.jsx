@@ -2,9 +2,11 @@ import React, { useRef } from 'react';
 import { Clock } from 'lucide-react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useSiteData } from '../context/SiteContext';
+import { useNavigate } from 'react-router-dom';
 
 const TourCard = ({ tour, onClick }) => {
   const { siteData } = useSiteData();
+  const navigate = useNavigate();
   const cardRef = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -85,8 +87,7 @@ const TourCard = ({ tour, onClick }) => {
             whileTap={{ scale: 0.95 }}
             onClick={(e) => {
               e.stopPropagation();
-              const link = siteData?.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
-              window.open(link, "_blank");
+              navigate('/book');
             }}
           >
             Book Now

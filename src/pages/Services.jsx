@@ -49,8 +49,7 @@ const Services = () => {
               transition={{ delay: i * 0.1 }}
               onClick={() => {
                 if (s.isBooking) {
-                  const link = siteData?.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
-                  window.open(link, "_blank");
+                  navigate('/book');
                 } else if (s.path) {
                   navigate(s.path);
                 } else if (s.contactCta) {
