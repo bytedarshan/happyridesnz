@@ -45,20 +45,64 @@ const Home = () => {
       </div>
 
       {/* Booking Frame Section */}
-      <section id="booking" className="brief-section" style={{ padding: '4rem 8%' }}>
-        <motion.div 
-          className="admin-glass-panel" 
-          style={{ padding: '3rem', textAlign: 'center' }}
+      <section id="booking" style={{ padding: '5rem 8%' }}>
+        <motion.div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0,1fr) minmax(0,1.6fr)',
+            gap: '3.5rem',
+            alignItems: 'start'
+          }}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="section-title" style={{ marginBottom: '1.5rem' }}>Instant Online Booking</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '800px', margin: '0 auto 2.5rem' }}>
-            Ready to ride? Use our integrated booking platform below to secure your transfer or tour in seconds.
-          </p>
-          <BookingIframe bookingLink={siteData.settings.bookingLink} />
+          {/* Left — brand copy */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', paddingTop: '0.5rem' }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+              background: 'rgba(59,130,246,0.09)', color: '#2563EB',
+              fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.08em',
+              textTransform: 'uppercase', padding: '0.45rem 1rem',
+              borderRadius: '100px', border: '1px solid rgba(59,130,246,0.15)',
+              width: 'fit-content'
+            }}>
+              <Calendar size={14} /> Online Booking
+            </div>
+            <h2 className="section-title" style={{ margin: 0, textAlign: 'left', fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', lineHeight: 1.2 }}>
+              Book Your Ride<br />in Seconds
+            </h2>
+            <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, fontSize: '1rem', margin: 0 }}>
+              Enter your pickup &amp; dropoff, choose a date and vehicle, then get an instant fixed price — no hidden fees, no surprises.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+              {[
+                { icon: <Shield size={16} />, text: 'Fixed price, no hidden fees' },
+                { icon: <Clock size={16} />, text: '24/7 service across New Zealand' },
+                { icon: <Car size={16} />, text: 'Professional licensed drivers' },
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+                  <span style={{ color: '#2563EB', flexShrink: 0 }}>{item.icon}</span>
+                  {item.text}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — iframe widget, full width, no extra wrapper */}
+          <div>
+            <BookingIframe bookingLink={siteData.settings.bookingLink} />
+          </div>
         </motion.div>
+
+        {/* Responsive stacking on mobile */}
+        <style>{`
+          @media (max-width: 900px) {
+            #booking > div {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
       </section>
 
       {/* Vehicle Fleet Section */}
