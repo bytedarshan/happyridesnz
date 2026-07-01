@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  LayoutDashboard, 
-  Package, 
-  MessageSquare, 
-  Settings, 
-  Plus, 
-  Trash2, 
-  Edit3, 
-  Save, 
+import {
+  LayoutDashboard,
+  Package,
+  MessageSquare,
+  Settings,
+  Plus,
+  Trash2,
+  Edit3,
+  Save,
   Star,
   X,
   Image as ImageIcon,
@@ -28,9 +28,9 @@ import { uploadToCloudinary } from '../utils/cloudinary';
 import cloudinaryMapping from '../../cloudinary_mapping.json';
 
 const Admin = () => {
-  const { 
-    siteData, admins, user, login, logout, createAdmin, removeAdmin, 
-    resetAdminPassword, resetSiteData, updateSettings, addPackage, 
+  const {
+    siteData, admins, user, login, logout, createAdmin, removeAdmin,
+    resetAdminPassword, resetSiteData, updateSettings, addPackage,
     updatePackage, removePackage, addTestimonial, updateTestimonial, removeTestimonial,
     addService, updateService, removeService, syncNewDefaults
   } = useSiteData();
@@ -42,19 +42,18 @@ const Admin = () => {
   const [selectedTourCategory, setSelectedTourCategory] = useState('aucklandCityTours');
   const [selectedActivityCategory, setSelectedActivityCategory] = useState('aucklandActivities');
   const [bottomOffset, setBottomOffset] = useState(32);
-  
+
   const [newAdminEmail, setNewAdminEmail] = useState('');
   const [newAdminPassword, setNewAdminPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [localBookingLink, setLocalBookingLink] = useState(null);
 
   const handleImageUpload = async (e, onUploadSuccess) => {
     const file = e.target.files[0];
     if (!file) return;
-    
+
     setIsUploading(true);
     try {
       const url = await uploadToCloudinary(file);
@@ -175,12 +174,12 @@ const Admin = () => {
               <input type="password" className="input-field" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
             {authError && <p style={{ color: '#EF4444', fontSize: '0.9rem' }}>{authError}</p>}
-            <button 
-              type="submit" 
-              disabled={isSubmitting} 
-              style={{ 
-                padding: '1rem', 
-                background: '#3B82F6', 
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              style={{
+                padding: '1rem',
+                background: '#3B82F6',
                 color: 'white',
                 border: 'none',
                 borderRadius: '0.75rem',
@@ -202,14 +201,14 @@ const Admin = () => {
   }
 
   const renderDashboard = () => {
-    const toursCount = (siteData.packages.aucklandCityTours || []).length + 
-                       (siteData.packages.intercityTours || []).length + 
-                       (siteData.packages.rotoruaTours || []).length + 
-                       (siteData.packages.paihiaTours || []).length;
-                       
-    const activitiesCount = (siteData.packages.aucklandActivities || []).length + 
-                            (siteData.packages.rotoruaActivities || []).length + 
-                            (siteData.packages.paihiaActivities || []).length;
+    const toursCount = (siteData.packages.aucklandCityTours || []).length +
+      (siteData.packages.intercityTours || []).length +
+      (siteData.packages.rotoruaTours || []).length +
+      (siteData.packages.paihiaTours || []).length;
+
+    const activitiesCount = (siteData.packages.aucklandActivities || []).length +
+      (siteData.packages.rotoruaActivities || []).length +
+      (siteData.packages.paihiaActivities || []).length;
 
     return (
       <div className="admin-section">
@@ -300,15 +299,15 @@ const Admin = () => {
         </div>
         <div className="category-tabs" style={{ display: 'flex', gap: '1rem', overflowX: 'auto', marginBottom: '2rem' }}>
           {tourCategories.map(cat => (
-            <button 
-              key={cat} 
-              className={`pop-tag ${selectedTourCategory === cat ? 'active' : ''}`} 
-              onClick={() => setSelectedTourCategory(cat)} 
-              style={{ 
-                background: selectedTourCategory === cat ? 'var(--primary-color)' : 'rgba(255,255,255,0.05)', 
+            <button
+              key={cat}
+              className={`pop-tag ${selectedTourCategory === cat ? 'active' : ''}`}
+              onClick={() => setSelectedTourCategory(cat)}
+              style={{
+                background: selectedTourCategory === cat ? 'var(--primary-color)' : 'rgba(255,255,255,0.05)',
                 color: selectedTourCategory === cat ? '#ffffff' : 'var(--text-muted)',
-                border: 'none', 
-                padding: '0.6rem 1.2rem' 
+                border: 'none',
+                padding: '0.6rem 1.2rem'
               }}
             >
               {cat === 'intercityTours' ? 'Waitomo & Hobbiton (Intercity)' : cat.replace(/([A-Z])/g, ' $1').trim()}
@@ -352,15 +351,15 @@ const Admin = () => {
         </div>
         <div className="category-tabs" style={{ display: 'flex', gap: '1rem', overflowX: 'auto', marginBottom: '2rem' }}>
           {activityCategories.map(cat => (
-            <button 
-              key={cat} 
-              className={`pop-tag ${selectedActivityCategory === cat ? 'active' : ''}`} 
-              onClick={() => setSelectedActivityCategory(cat)} 
-              style={{ 
-                background: selectedActivityCategory === cat ? 'var(--primary-color)' : 'rgba(255,255,255,0.05)', 
+            <button
+              key={cat}
+              className={`pop-tag ${selectedActivityCategory === cat ? 'active' : ''}`}
+              onClick={() => setSelectedActivityCategory(cat)}
+              style={{
+                background: selectedActivityCategory === cat ? 'var(--primary-color)' : 'rgba(255,255,255,0.05)',
                 color: selectedActivityCategory === cat ? '#ffffff' : 'var(--text-muted)',
-                border: 'none', 
-                padding: '0.6rem 1.2rem' 
+                border: 'none',
+                padding: '0.6rem 1.2rem'
               }}
             >
               {cat.replace(/([A-Z])/g, ' $1').trim()}
@@ -411,17 +410,17 @@ const Admin = () => {
               </div>
             </div>
             <div className="admin-list-item-actions" style={{ display: 'flex', gap: '0.5rem' }}>
-              <button 
-                className="btn-outline admin-btn" 
-                style={{ flexShrink: 0, width: '45px', height: '45px', padding: 0 }} 
+              <button
+                className="btn-outline admin-btn"
+                style={{ flexShrink: 0, width: '45px', height: '45px', padding: 0 }}
                 onClick={() => setEditingItem({ ...test, type: 'testimonial', mode: 'edit' })}
                 title="Edit Review"
               >
                 <Edit3 size={18} />
               </button>
-              <button 
-                className="btn-outline admin-btn" 
-                style={{ color: '#EF4444', flexShrink: 0, width: '45px', height: '45px', padding: 0 }} 
+              <button
+                className="btn-outline admin-btn"
+                style={{ color: '#EF4444', flexShrink: 0, width: '45px', height: '45px', padding: 0 }}
                 onClick={() => removeTestimonial(test.id)}
                 title="Delete Review"
               >
@@ -437,7 +436,7 @@ const Admin = () => {
   const handleGalleryUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    
+
     setIsUploading(true);
     try {
       const url = await uploadToCloudinary(file);
@@ -457,16 +456,16 @@ const Admin = () => {
       <div className="admin-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h2 className="responsive-hero-title">Cloudinary Media Gallery</h2>
         <div>
-          <input 
-            type="file" 
-            id="cloudinary-gallery-direct-upload" 
-            style={{ display: 'none' }} 
+          <input
+            type="file"
+            id="cloudinary-gallery-direct-upload"
+            style={{ display: 'none' }}
             accept="image/*"
             onChange={handleGalleryUpload}
           />
-          <label 
-            htmlFor="cloudinary-gallery-direct-upload" 
-            className="btn-primary-glass admin-btn" 
+          <label
+            htmlFor="cloudinary-gallery-direct-upload"
+            className="btn-primary-glass admin-btn"
             style={{ display: 'inline-flex', alignItems: 'center', gap: '0.8rem', cursor: 'pointer', padding: '0.8rem 1.8rem' }}
           >
             {isUploading ? (
@@ -486,7 +485,7 @@ const Admin = () => {
       <p style={{ color: 'var(--text-muted)', marginBottom: '3rem' }}>
         {galleryImages.length} persistent Cloudinary CDN assets are connected and fully managed.
       </p>
-      
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '2rem' }}>
         {galleryImages.map((asset, index) => {
           let displayName = 'Custom Upload';
@@ -499,7 +498,7 @@ const Admin = () => {
                 displayName = displayName.substring(0, 15) + '...' + displayName.substring(displayName.length - 7);
               }
             }
-          } catch (e) {}
+          } catch (e) { }
 
           return (
             <div key={asset + index} className="admin-glass-panel" style={{ padding: '0.8rem', textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '180px' }}>
@@ -508,12 +507,12 @@ const Admin = () => {
               </div>
               <div style={{ marginTop: '0.8rem' }}>
                 <p style={{ fontSize: '0.7rem', opacity: 0.8, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '100%', marginBottom: '0.4rem' }}>{displayName}</p>
-                <button 
+                <button
                   onClick={() => {
                     navigator.clipboard.writeText(asset);
                     alert('Cloudinary CDN link copied to clipboard!');
                   }}
-                  className="btn-outline" 
+                  className="btn-outline"
                   style={{ fontSize: '0.65rem', padding: '0.2rem 0.5rem', width: '100%' }}
                 >
                   Copy URL
@@ -529,7 +528,7 @@ const Admin = () => {
   const renderSettings = () => (
     <div className="admin-section" style={{ paddingBottom: '5rem' }}>
       <h2 className="responsive-hero-title" style={{ marginBottom: '3rem' }}>Site Configuration</h2>
-      
+
       {/* Site Visuals Section */}
       <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
         <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -600,15 +599,15 @@ const Admin = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
               <label style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: '600' }}>Vehicles per line on Desktop:</label>
-              <select 
-                value={siteData?.settings?.fleetColumns || 5} 
+              <select
+                value={siteData?.settings?.fleetColumns || 5}
                 onChange={(e) => updateSettings({ fleetColumns: parseInt(e.target.value) })}
-                style={{ 
-                  padding: '0.5rem 1rem', 
-                  borderRadius: '0.5rem', 
-                  background: 'rgba(255, 255, 255, 0.9)', 
-                  border: '1px solid rgba(0, 0, 0, 0.1)', 
-                  fontSize: '0.9rem', 
+                style={{
+                  padding: '0.5rem 1rem',
+                  borderRadius: '0.5rem',
+                  background: 'rgba(255, 255, 255, 0.9)',
+                  border: '1px solid rgba(0, 0, 0, 0.1)',
+                  fontSize: '0.9rem',
                   fontWeight: '600',
                   color: '#1e293b',
                   cursor: 'pointer'
@@ -619,8 +618,8 @@ const Admin = () => {
                 ))}
               </select>
             </div>
-            <button 
-              className="btn-primary-glass admin-btn" 
+            <button
+              className="btn-primary-glass admin-btn"
               style={{ padding: '0.6rem 1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', cursor: 'pointer' }}
               onClick={() => {
                 const newFleet = [
@@ -634,37 +633,37 @@ const Admin = () => {
             </button>
           </div>
         </div>
-        <div 
-          className="fleet-container" 
-          style={{ 
-            '--fleet-cols': siteData?.settings?.fleetColumns || 5 
+        <div
+          className="fleet-container"
+          style={{
+            '--fleet-cols': siteData?.settings?.fleetColumns || 5
           }}
         >
           {fleetData.map((v, i) => (
-            <div 
-              key={v.id || i} 
-              className="admin-glass-panel fleet-card" 
+            <div
+              key={v.id || i}
+              className="admin-glass-panel fleet-card"
               style={{ background: 'rgba(255,255,255,0.5)', position: 'relative' }}
             >
-              <button 
+              <button
                 onClick={() => {
                   if (window.confirm(`Are you sure you want to delete the vehicle "${v.type || 'Unnamed'}"?`)) {
                     const newFleet = fleetData.filter((_, idx) => idx !== i);
                     updateSettings({ fleet: newFleet });
                   }
                 }}
-                style={{ 
-                  position: 'absolute', 
-                  top: '1rem', 
-                  right: '1rem', 
-                  background: 'rgba(239, 68, 68, 0.1)', 
-                  border: 'none', 
-                  borderRadius: '50%', 
-                  width: '32px', 
-                  height: '32px', 
-                  color: '#EF4444', 
-                  display: 'flex', 
-                  alignItems: 'center', 
+                style={{
+                  position: 'absolute',
+                  top: '1rem',
+                  right: '1rem',
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '32px',
+                  height: '32px',
+                  color: '#EF4444',
+                  display: 'flex',
+                  alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
                   zIndex: 10
@@ -674,7 +673,7 @@ const Admin = () => {
               >
                 <Trash2 size={16} />
               </button>
-              
+
               <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '1.5rem', paddingRight: '2rem' }}>
                 <div style={{ position: 'relative' }}>
                   <div style={{ width: '80px', height: '50px', borderRadius: '0.8rem', overflow: 'hidden', background: 'rgba(0,0,0,0.05)' }}>
@@ -747,19 +746,9 @@ const Admin = () => {
           <RefreshCw size={24} /> Booking Integration
         </h3>
         <div className="input-group">
-          <label className="input-label">Booking Software URL or Link</label>
-          <input 
-            type="text" 
-            className="input-field" 
-            placeholder="https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575" 
-            value={localBookingLink !== null ? localBookingLink : (siteData.settings.bookingLink || '')} 
-            onFocus={() => { if (localBookingLink === null) setLocalBookingLink(siteData.settings.bookingLink || ''); }}
-            onChange={(e) => setLocalBookingLink(e.target.value)} 
-            onBlur={() => { updateSettings({ bookingLink: localBookingLink || '' }); setLocalBookingLink(null); }}
-          />
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>
-            Enter the booking software URL. You can paste the direct link or the full HTML iframe snippet; the system will automatically extract the URL.
-          </p>
+          <label className="input-label">Booking Software URL (Iframe Link)</label>
+          <input type="text" className="input-field" placeholder="https://booking-software.com/your-id" value={siteData.settings.bookingLink || ''} onChange={(e) => updateSettings({ bookingLink: e.target.value })} />
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>This link will be used in the frames across Home, Airport Transfer, and Intercity Transfer pages.</p>
         </div>
       </div>
 
@@ -880,22 +869,22 @@ const Admin = () => {
                 <h2>Select Image for {editingItem.key.replace(/([A-Z])/g, ' $1').trim()}</h2>
                 <button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={24} /></button>
               </div>
-              
+
               {/* Premium Cloudinary Upload Box */}
               <div className="admin-glass-panel" style={{ padding: '2rem', marginBottom: '2.5rem', background: 'rgba(0,0,0,0.02)', textAlign: 'center', border: '1px dashed rgba(0,0,0,0.1)', borderRadius: '1.5rem' }}>
-                <input 
-                  type="file" 
-                  id="cloudinary-global-upload" 
-                  style={{ display: 'none' }} 
+                <input
+                  type="file"
+                  id="cloudinary-global-upload"
+                  style={{ display: 'none' }}
                   accept="image/*"
                   onChange={(e) => handleImageUpload(e, (url) => {
                     updateSettings({ [editingItem.key]: url });
                     setEditingItem(null);
                   })}
                 />
-                <label 
-                  htmlFor="cloudinary-global-upload" 
-                  className="btn-primary-glass admin-btn" 
+                <label
+                  htmlFor="cloudinary-global-upload"
+                  className="btn-primary-glass admin-btn"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '0.8rem', cursor: 'pointer', padding: '1rem 2rem' }}
                 >
                   {isUploading ? (
@@ -918,7 +907,7 @@ const Admin = () => {
                   let displayName = 'Image ' + (index + 1);
                   try {
                     if (asset.includes('/happyrides/')) displayName = asset.split('/happyrides/')[1].split('.')[0];
-                  } catch (e) {}
+                  } catch (e) { }
 
                   return (
                     <div key={asset} className="admin-glass-panel" style={{ padding: '0.5rem', cursor: 'pointer', border: siteData.settings[editingItem.key] === asset ? '2px solid var(--primary-color)' : 'none' }} onClick={() => { updateSettings({ [editingItem.key]: asset }); setEditingItem(null); }}>
@@ -943,13 +932,13 @@ const Admin = () => {
                 <h2>Select Vehicle Image</h2>
                 <button className="btn-outline admin-btn" onClick={() => setEditingItem(null)}><X size={24} /></button>
               </div>
-              
+
               {/* Premium Cloudinary Upload Box */}
               <div className="admin-glass-panel" style={{ padding: '2rem', marginBottom: '2.5rem', background: 'rgba(0,0,0,0.02)', textAlign: 'center', border: '1px dashed rgba(0,0,0,0.1)', borderRadius: '1.5rem' }}>
-                <input 
-                  type="file" 
-                  id="cloudinary-fleet-upload" 
-                  style={{ display: 'none' }} 
+                <input
+                  type="file"
+                  id="cloudinary-fleet-upload"
+                  style={{ display: 'none' }}
                   accept="image/*"
                   onChange={(e) => handleImageUpload(e, (url) => {
                     const newFleet = [...fleetData];
@@ -958,9 +947,9 @@ const Admin = () => {
                     setEditingItem(null);
                   })}
                 />
-                <label 
-                  htmlFor="cloudinary-fleet-upload" 
-                  className="btn-primary-glass admin-btn" 
+                <label
+                  htmlFor="cloudinary-fleet-upload"
+                  className="btn-primary-glass admin-btn"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '0.8rem', cursor: 'pointer', padding: '1rem 2rem' }}
                 >
                   {isUploading ? (
@@ -983,14 +972,14 @@ const Admin = () => {
                   let displayName = 'Image ' + (index + 1);
                   try {
                     if (asset.includes('/happyrides/')) displayName = asset.split('/happyrides/')[1].split('.')[0];
-                  } catch (e) {}
+                  } catch (e) { }
 
                   return (
-                    <div key={asset} className="admin-glass-panel" style={{ padding: '0.5rem', cursor: 'pointer', border: fleetData[editingItem.index].img === asset ? '2px solid var(--primary-color)' : 'none' }} onClick={() => { 
+                    <div key={asset} className="admin-glass-panel" style={{ padding: '0.5rem', cursor: 'pointer', border: fleetData[editingItem.index].img === asset ? '2px solid var(--primary-color)' : 'none' }} onClick={() => {
                       const newFleet = [...fleetData];
                       newFleet[editingItem.index] = { ...newFleet[editingItem.index], img: asset };
                       updateSettings({ fleet: newFleet });
-                      setEditingItem(null); 
+                      setEditingItem(null);
                     }}>
                       <img src={getImagePath(asset)} alt="" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '0.8rem' }} />
                       <p style={{ fontSize: '0.6rem', textAlign: 'center', marginTop: '0.5rem', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}>{displayName}</p>
@@ -1024,22 +1013,22 @@ const Admin = () => {
                       <button onClick={() => setIsGalleryOpen(true)} style={{ position: 'absolute', bottom: '-10px', right: '-10px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '36px', height: '36px', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }} title="Choose from Gallery"><ImageIcon size={18} /></button>
                     </div>
                     <div className="admin-editor-fields">
-                      <div className="input-group"><label className="input-label">Tour Title</label><input type="text" className="input-field" value={editingItem.title || ''} onChange={(e) => setEditingItem({...editingItem, title: e.target.value})} /></div>
-                      
+                      <div className="input-group"><label className="input-label">Tour Title</label><input type="text" className="input-field" value={editingItem.title || ''} onChange={(e) => setEditingItem({ ...editingItem, title: e.target.value })} /></div>
+
                       {/* Cloudinary File Upload Integration */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                        <input 
-                          type="file" 
-                          id="cloudinary-package-upload" 
-                          style={{ display: 'none' }} 
+                        <input
+                          type="file"
+                          id="cloudinary-package-upload"
+                          style={{ display: 'none' }}
                           accept="image/*"
                           onChange={(e) => handleImageUpload(e, (url) => {
                             setEditingItem({ ...editingItem, image: url });
                           })}
                         />
-                        <label 
-                          htmlFor="cloudinary-package-upload" 
-                          className="btn-outline admin-btn" 
+                        <label
+                          htmlFor="cloudinary-package-upload"
+                          className="btn-outline admin-btn"
                           style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.85rem', padding: '0.5rem 1rem' }}
                         >
                           {isUploading ? (
@@ -1058,25 +1047,25 @@ const Admin = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="input-group"><label className="input-label">Duration</label><input type="text" className="input-field" value={editingItem.duration || ''} onChange={(e) => setEditingItem({...editingItem, duration: e.target.value})} /></div>
-                  <div className="input-group"><label className="input-label">Description</label><textarea className="input-field" style={{ height: '150px' }} value={editingItem.description || ''} onChange={(e) => setEditingItem({...editingItem, description: e.target.value})} /></div>
+                  <div className="input-group"><label className="input-label">Duration</label><input type="text" className="input-field" value={editingItem.duration || ''} onChange={(e) => setEditingItem({ ...editingItem, duration: e.target.value })} /></div>
+                  <div className="input-group"><label className="input-label">Description</label><textarea className="input-field" style={{ height: '150px' }} value={editingItem.description || ''} onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value })} /></div>
                 </div>
               )}
               {isService && (
                 <div style={{ display: 'grid', gap: '2rem' }}>
-                  <div className="input-group"><label className="input-label">Service Title</label><input type="text" className="input-field" value={editingItem.title || ''} onChange={(e) => setEditingItem({...editingItem, title: e.target.value})} /></div>
-                  <div className="input-group"><label className="input-label">Description</label><textarea className="input-field" style={{ height: '150px' }} value={editingItem.desc || ''} onChange={(e) => setEditingItem({...editingItem, desc: e.target.value})} /></div>
+                  <div className="input-group"><label className="input-label">Service Title</label><input type="text" className="input-field" value={editingItem.title || ''} onChange={(e) => setEditingItem({ ...editingItem, title: e.target.value })} /></div>
+                  <div className="input-group"><label className="input-label">Description</label><textarea className="input-field" style={{ height: '150px' }} value={editingItem.desc || ''} onChange={(e) => setEditingItem({ ...editingItem, desc: e.target.value })} /></div>
                 </div>
               )}
               {!isPackage && !isService && (
                 <div style={{ display: 'grid', gap: '2rem' }}>
                   <div className="input-group">
                     <label className="input-label">Guest Name</label>
-                    <input type="text" className="input-field" value={editingItem.name || ''} onChange={(e) => setEditingItem({...editingItem, name: e.target.value})} required />
+                    <input type="text" className="input-field" value={editingItem.name || ''} onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })} required />
                   </div>
                   <div className="input-group">
                     <label className="input-label">Guest Location (e.g. Sydney, Australia)</label>
-                    <input type="text" className="input-field" value={editingItem.location || ''} onChange={(e) => setEditingItem({...editingItem, location: e.target.value})} required />
+                    <input type="text" className="input-field" value={editingItem.location || ''} onChange={(e) => setEditingItem({ ...editingItem, location: e.target.value })} required />
                   </div>
                   <div className="input-group">
                     <label className="input-label">Rating</label>
@@ -1099,10 +1088,10 @@ const Admin = () => {
                           className="star-btn"
                           title={`${num} Stars`}
                         >
-                          <Star 
-                            size={28} 
-                            fill={(editingItem.rating || 5) >= num ? '#F59E0B' : 'none'} 
-                            color={(editingItem.rating || 5) >= num ? '#F59E0B' : 'var(--text-muted)'} 
+                          <Star
+                            size={28}
+                            fill={(editingItem.rating || 5) >= num ? '#F59E0B' : 'none'}
+                            color={(editingItem.rating || 5) >= num ? '#F59E0B' : 'var(--text-muted)'}
                           />
                         </button>
                       ))}
@@ -1110,19 +1099,19 @@ const Admin = () => {
                   </div>
                   <div className="input-group">
                     <label className="input-label">Review Content</label>
-                    <textarea className="input-field" style={{ height: '150px' }} value={editingItem.text || ''} onChange={(e) => setEditingItem({...editingItem, text: e.target.value})} required />
+                    <textarea className="input-field" style={{ height: '150px' }} value={editingItem.text || ''} onChange={(e) => setEditingItem({ ...editingItem, text: e.target.value })} required />
                   </div>
                 </div>
               )}
-              
-              <button className="btn-primary-glass admin-btn w-full" style={{ marginTop: '2rem' }} onClick={() => { 
-                if (isPackage) { 
-                  if (editingItem.mode === 'add') addPackage(editingItem.category, editingItem); 
-                  else updatePackage(editingItem.category, editingItem.id, editingItem); 
+
+              <button className="btn-primary-glass admin-btn w-full" style={{ marginTop: '2rem' }} onClick={() => {
+                if (isPackage) {
+                  if (editingItem.mode === 'add') addPackage(editingItem.category, editingItem);
+                  else updatePackage(editingItem.category, editingItem.id, editingItem);
                 } else if (isService) {
                   if (editingItem.mode === 'add') addService(editingItem);
                   else updateService(editingItem.id || editingItem.title, editingItem);
-                } else { 
+                } else {
                   if (editingItem.mode === 'add') {
                     addTestimonial({
                       name: editingItem.name || 'Anonymous',
@@ -1138,8 +1127,8 @@ const Admin = () => {
                       text: editingItem.text || ''
                     });
                   }
-                } 
-                setEditingItem(null); 
+                }
+                setEditingItem(null);
               }}>
                 <Save size={20} /> Save Changes
               </button>
@@ -1156,7 +1145,7 @@ const Admin = () => {
                     let displayName = 'Image ' + (index + 1);
                     try {
                       if (asset.includes('/happyrides/')) displayName = asset.split('/happyrides/')[1].split('.')[0];
-                    } catch (e) {}
+                    } catch (e) { }
 
                     return (
                       <div key={asset} className="admin-glass-panel" style={{ padding: '0.5rem', cursor: 'pointer', border: editingItem.image === asset ? '2px solid var(--primary-color)' : 'none' }} onClick={() => { setEditingItem({ ...editingItem, image: asset }); setIsGalleryOpen(false); }}>
@@ -1190,12 +1179,12 @@ const Admin = () => {
         </AnimatePresence>
       </div>
       <AnimatePresence>{editingItem && renderEditor()}</AnimatePresence>
-      <motion.div 
-        className="category-nav-wrapper" 
+      <motion.div
+        className="category-nav-wrapper"
         style={{ bottom: `${bottomOffset}px`, position: 'fixed' }}
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ 
+        transition={{
           y: { type: 'spring', stiffness: 260, damping: 20, delay: 0.3 },
           opacity: { duration: 0.3 },
           bottom: { duration: 0 }
@@ -1216,6 +1205,9 @@ const Admin = () => {
       </motion.div>
     </div>
   );
+};
+
+export default Admin;
 };
 
 export default Admin;

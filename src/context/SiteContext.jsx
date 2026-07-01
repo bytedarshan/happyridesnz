@@ -160,50 +160,23 @@ export const SiteProvider = ({ children }) => {
       try {
         if (docSnap.exists()) {
           const data = docSnap.data();
-          // Clean up and extract URL from iframe string if present
-          const cleanBookingLink = (link) => {
-            if (!link) return "";
-            let clean = link.trim();
-            // If it contains iframe code, extract the src attribute
-            if (clean.includes('<iframe') && clean.includes('src=')) {
-              const match = clean.match(/src=["']([^"']+)["']/);
-              if (match && match[1]) {
-                clean = match[1];
-              }
-            }
-            // Strip out any trailing quotes or URL encoded quotes (%22)
-            clean = clean.replace(/%22/g, '').replace(/["']/g, '');
-            // Prepend https:// if not present
-            if (clean && !/^https?:\/\//i.test(clean)) {
-              clean = `https://${clean}`;
-            }
-            return clean.trim();
-          };
-
-          const rawLink = data.settings?.bookingLink !== undefined ? data.settings.bookingLink : initialData.settings.bookingLink;
-          const cleanedLink = cleanBookingLink(rawLink);
-          const needsMigration = rawLink && rawLink.includes("happyrides.trial.easytaxioffice.com");
-
           const mergedSettings = {
             ...initialData.settings,
             ...(data.settings || {}),
-            rawBookingLink: rawLink,
-            bookingLink: cleanedLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575",
+            bookingLink: data.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575",
             fleet: data.settings?.fleet || initialData.settings.fleet
           };
 
-          if (needsMigration) {
+          let settingsChanged = false;
+
+          // Auto-migrate bookingLink if empty or matches old URL
+          if (!mergedSettings.bookingLink || mergedSettings.bookingLink.includes("happyrides.trial.easytaxioffice.com")) {
             mergedSettings.bookingLink = "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
-            mergedSettings.rawBookingLink = "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
-            try {
-              updateDoc(siteDocRef, { 'settings.bookingLink': "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575" });
-            } catch (e) {
-              console.warn("Auto-updating bookingLink in Firestore failed:", e);
-            }
+            settingsChanged = true;
           }
 
           if (mergedSettings.heroTitle && (
-            mergedSettings.heroTitle.toLowerCase().includes("search, compare") || 
+            mergedSettings.heroTitle.toLowerCase().includes("search, compare") ||
             mergedSettings.heroTitle.includes("Search, Compare")
           )) {
             mergedSettings.heroTitle = "Your Premium Getaway to New Zealand - Reliable & Comfortable Airport Transfers";
@@ -241,7 +214,7 @@ export const SiteProvider = ({ children }) => {
               const indexB = typeOrder.indexOf(b.type.toUpperCase());
               return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB);
             });
-            
+
             // Map fleet images to Cloudinary if they are local
             currentFleet = currentFleet.map(vehicle => {
               if (vehicle.img && !vehicle.img.startsWith('http') && !vehicle.img.includes('cloudinary') && vehicle.img !== 'https://res.cloudinary.com/dni1i56yo/image/upload/v1782225883/happyrides/executive_car.jpg') {
@@ -253,7 +226,7 @@ export const SiteProvider = ({ children }) => {
               }
               return vehicle;
             });
-            
+
             mergedSettings.fleet = currentFleet;
           }
 
@@ -269,7 +242,7 @@ export const SiteProvider = ({ children }) => {
           if (data.packages) {
             const updatedPackages = { ...data.packages };
             let packagesChanged = false;
-            
+
             Object.keys(updatedPackages).forEach(category => {
               updatedPackages[category] = (updatedPackages[category] || []).map(pkg => {
                 if (pkg.image && !pkg.image.startsWith('http') && !pkg.image.includes('cloudinary')) {
@@ -282,7 +255,7 @@ export const SiteProvider = ({ children }) => {
                 return pkg;
               });
             });
-            
+
             if (packagesChanged) {
               data.packages = updatedPackages;
               try {
