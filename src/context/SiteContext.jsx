@@ -160,17 +160,37 @@ export const SiteProvider = ({ children }) => {
       try {
         if (docSnap.exists()) {
           const data = docSnap.data();
+          // Clean up and extract URL from iframe string if present
+          const cleanBookingLink = (link) => {
+            if (!link) return "";
+            let clean = link.trim();
+            // If it contains iframe code, extract the src attribute
+            if (clean.includes('<iframe') && clean.includes('src=')) {
+              const match = clean.match(/src=["']([^"']+)["']/);
+              if (match && match[1]) {
+                clean = match[1];
+              }
+            }
+            // Strip out any trailing quotes or URL encoded quotes (%22)
+            clean = clean.replace(/%22/g, '').replace(/["']/g, '');
+            return clean.trim();
+          };
+
+          const rawLink = data.settings?.bookingLink || "";
+          const cleanedLink = cleanBookingLink(rawLink);
+          const finalLink = cleanedLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
+
           const mergedSettings = {
             ...initialData.settings,
             ...(data.settings || {}),
-            bookingLink: data.settings?.bookingLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575",
+            bookingLink: finalLink,
             fleet: data.settings?.fleet || initialData.settings.fleet
           };
           
           let settingsChanged = false;
 
-          // Auto-migrate bookingLink if empty or matches old URL
-          if (!mergedSettings.bookingLink || mergedSettings.bookingLink.includes("happyrides.trial.easytaxioffice.com")) {
+          // Auto-migrate bookingLink if it doesn't match the cleaned link or matches old URL
+          if (data.settings?.bookingLink !== finalLink || !finalLink || finalLink.includes("happyrides.trial.easytaxioffice.com")) {
             mergedSettings.bookingLink = "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
             settingsChanged = true;
           }

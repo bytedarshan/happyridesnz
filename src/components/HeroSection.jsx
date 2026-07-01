@@ -9,7 +9,7 @@ const HeroSection = ({ title, subtitle }) => {
   const { settings } = siteData;
 
   return (
-    <section className="hero-section">
+    <section className="hero-section" style={{ padding: '560px 8% 40px', justifyContent: 'flex-start', minHeight: '80vh' }}>
       <div className="hero-main-layout">
         <motion.div
           className="hero-content"
