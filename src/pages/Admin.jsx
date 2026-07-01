@@ -710,7 +710,7 @@ const Admin = () => {
                   <input 
                     type="text" 
                     className="input-field" 
-                    style={{ fontSize: '0.85rem', padding: '0.6rem 0.8rem', borderRadius: '0.6rem' }} 
+                    style={{ fontSize: '0.85rem', padding: '0.6rem 0.8rem', borderRadius: '0.6rem', textAlign: 'left' }} 
                     value={v.type} 
                     onChange={(e) => {
                       const newFleet = [...fleetData];
@@ -795,7 +795,7 @@ const Admin = () => {
               setLocalBookingLink(null);
             }}
           />
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>This link will be used in the frames across Home, Airport Transfer, and Intercity Transfer pages.</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>This link will be used in the frames across Book, Airport Transfer, and Intercity Transfer pages.</p>
         </div>
       </div>
 

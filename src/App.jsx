@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
+import Book from './pages/Book';
 import Services from './pages/Services';
 import AirportTransfer from './pages/services/AirportTransfer';
 import IntercityTransfer from './pages/services/IntercityTransfer';
@@ -45,6 +46,7 @@ const AppContent = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/book" element={<Book />} />
           <Route path="/services" element={<Services />} />
           <Route path="/services/airport-transfer" element={<AirportTransfer />} />
           <Route path="/services/intercity-transfer" element={<IntercityTransfer />} />

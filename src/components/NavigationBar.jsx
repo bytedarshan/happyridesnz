@@ -30,6 +30,7 @@ const NavigationBar = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
+    { name: 'Book', path: '/book' },
     { name: 'Services', path: '/services' },
     { name: 'Tours', path: '/tours' },
     { name: 'Activities', path: '/activities' },
