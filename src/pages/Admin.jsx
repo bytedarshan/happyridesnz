@@ -675,27 +675,51 @@ const Admin = () => {
                 <Trash2 size={16} />
               </button>
 
-              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center', marginBottom: '1.5rem', paddingRight: '2rem' }}>
-                <div style={{ position: 'relative' }}>
-                  <div style={{ width: '80px', height: '50px', borderRadius: '0.8rem', overflow: 'hidden', background: 'rgba(0,0,0,0.05)' }}>
-                    <img src={getImagePath(v.img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </div>
-                  <button onClick={() => setEditingItem({ type: 'fleet_image', index: i })} style={{ position: 'absolute', bottom: '-5px', right: '-5px', background: 'var(--primary-color)', border: 'none', borderRadius: '50%', width: '24px', height: '24px', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ImageIcon size={12} /></button>
-                </div>
-                <div style={{ flex: 1 }}>
-                  <input type="text" className="input-field" style={{ fontSize: '0.9rem', padding: '0.5rem' }} value={v.type} onChange={(e) => {
-                    const newFleet = [...fleetData];
-                    newFleet[i] = { ...newFleet[i], type: e.target.value };
-                    updateSettings({ fleet: newFleet });
-                  }} placeholder="Vehicle Type" />
-                </div>
+              {/* Image Container — centered, full width, similar to Home page */}
+              <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', borderRadius: '1rem', overflow: 'hidden', marginBottom: '1.2rem', background: 'rgba(0,0,0,0.03)' }}>
+                <img src={getImagePath(v.img)} alt={v.type} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <button 
+                  onClick={() => setEditingItem({ type: 'fleet_image', index: i })} 
+                  style={{ 
+                    position: 'absolute', 
+                    bottom: '8px', 
+                    right: '8px', 
+                    background: 'var(--primary-color)', 
+                    border: 'none', 
+                    borderRadius: '50%', 
+                    width: '32px', 
+                    height: '32px', 
+                    color: 'white', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+                    cursor: 'pointer'
+                  }}
+                  className="admin-btn"
+                  title="Change Image"
+                >
+                  <ImageIcon size={14} />
+                </button>
               </div>
-              <div className="input-group">
-                <input type="text" className="input-field" style={{ fontSize: '0.8rem', padding: '0.5rem' }} value={v.capacity} onChange={(e) => {
-                  const newFleet = [...fleetData];
-                  newFleet[i] = { ...newFleet[i], capacity: e.target.value };
-                  updateSettings({ fleet: newFleet });
-                }} placeholder="Capacity Label" />
+
+              {/* Text Fields stacked vertically */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                <div className="input-group" style={{ margin: 0 }}>
+                  <label className="input-label" style={{ fontSize: '0.7rem', display: 'block', textAlign: 'left', marginBottom: '0.2rem' }}>Vehicle Type</label>
+                  <input 
+                    type="text" 
+                    className="input-field" 
+                    style={{ fontSize: '0.85rem', padding: '0.6rem 0.8rem', borderRadius: '0.6rem' }} 
+                    value={v.type} 
+                    onChange={(e) => {
+                      const newFleet = [...fleetData];
+                      newFleet[i] = { ...newFleet[i], type: e.target.value };
+                      updateSettings({ fleet: newFleet });
+                    }} 
+                    placeholder="e.g. SEDAN" 
+                  />
+                </div>
               </div>
             </div>
           ))}
