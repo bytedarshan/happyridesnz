@@ -49,6 +49,7 @@ const Admin = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [localBookingLink, setLocalBookingLink] = useState(null);
 
   const handleImageUpload = async (e, onUploadSuccess) => {
     const file = e.target.files[0];
@@ -751,8 +752,10 @@ const Admin = () => {
             type="text" 
             className="input-field" 
             placeholder="https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575" 
-            value={siteData.settings.rawBookingLink !== undefined ? siteData.settings.rawBookingLink : (siteData.settings.bookingLink || '')} 
-            onChange={(e) => updateSettings({ bookingLink: e.target.value })} 
+            value={localBookingLink !== null ? localBookingLink : (siteData.settings.bookingLink || '')} 
+            onFocus={() => { if (localBookingLink === null) setLocalBookingLink(siteData.settings.bookingLink || ''); }}
+            onChange={(e) => setLocalBookingLink(e.target.value)} 
+            onBlur={() => { updateSettings({ bookingLink: localBookingLink || '' }); setLocalBookingLink(null); }}
           />
           <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>
             Enter the booking software URL. You can paste the direct link or the full HTML iframe snippet; the system will automatically extract the URL.
