@@ -28,7 +28,7 @@ const Book = () => {
             <img 
               src="/image8.png?v=2" 
               alt="Happy Rides Logo" 
-              style={{ height: '160px', width: 'auto', objectFit: 'contain' }} 
+              style={{ height: '160px', maxWidth: '100%', width: 'auto', objectFit: 'contain', padding: '0 1rem' }} 
             />
           </motion.div>
 
