@@ -746,9 +746,17 @@ const Admin = () => {
           <RefreshCw size={24} /> Booking Integration
         </h3>
         <div className="input-group">
-          <label className="input-label">Booking Software URL (Iframe Link)</label>
-          <input type="text" className="input-field" placeholder="https://booking-software.com/your-id" value={siteData.settings.bookingLink || ''} onChange={(e) => updateSettings({ bookingLink: e.target.value })} />
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>This link will be used in the frames across Home, Airport Transfer, and Intercity Transfer pages.</p>
+          <label className="input-label">Booking Software URL or Link</label>
+          <input 
+            type="text" 
+            className="input-field" 
+            placeholder="https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575" 
+            value={siteData.settings.bookingLink || ''} 
+            onChange={(e) => updateSettings({ bookingLink: e.target.value })} 
+          />
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>
+            Enter the booking software URL. You can paste the direct link or the full HTML iframe snippet; the system will automatically extract the URL.
+          </p>
         </div>
       </div>
 
