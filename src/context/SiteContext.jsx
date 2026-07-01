@@ -173,6 +173,10 @@ export const SiteProvider = ({ children }) => {
             }
             // Strip out any trailing quotes or URL encoded quotes (%22)
             clean = clean.replace(/%22/g, '').replace(/["']/g, '');
+            // Prepend https:// if not present
+            if (clean && !/^https?:\/\//i.test(clean)) {
+              clean = `https://${clean}`;
+            }
             return clean.trim();
           };
 
