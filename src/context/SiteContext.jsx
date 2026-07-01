@@ -180,27 +180,26 @@ export const SiteProvider = ({ children }) => {
             return clean.trim();
           };
 
-          const rawLink = data.settings?.bookingLink || "";
+          const rawLink = data.settings?.bookingLink !== undefined ? data.settings.bookingLink : initialData.settings.bookingLink;
           const cleanedLink = cleanBookingLink(rawLink);
-          const needsMigration = rawLink.includes("happyrides.trial.easytaxioffice.com");
+          const needsMigration = rawLink && rawLink.includes("happyrides.trial.easytaxioffice.com");
 
           const mergedSettings = {
             ...initialData.settings,
             ...(data.settings || {}),
-            bookingLink: cleanedLink,
+            rawBookingLink: rawLink,
+            bookingLink: cleanedLink || "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575",
             fleet: data.settings?.fleet || initialData.settings.fleet
           };
-          
-          let settingsChanged = false;
 
-          // Auto-migrate bookingLink if it contains old URL
           if (needsMigration) {
             mergedSettings.bookingLink = "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
-            settingsChanged = true;
-          } else if (rawLink !== cleanedLink) {
-            // Save the cleaned link if it was cleaned
-            mergedSettings.bookingLink = cleanedLink;
-            settingsChanged = true;
+            mergedSettings.rawBookingLink = "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575";
+            try {
+              updateDoc(siteDocRef, { 'settings.bookingLink': "https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575" });
+            } catch (e) {
+              console.warn("Auto-updating bookingLink in Firestore failed:", e);
+            }
           }
 
           if (mergedSettings.heroTitle && (

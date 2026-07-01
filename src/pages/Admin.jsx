@@ -751,7 +751,7 @@ const Admin = () => {
             type="text" 
             className="input-field" 
             placeholder="https://6a38cc049dc85.trial.easytaxioffice.com/booking?site_key=7e3f3d3085b900d598bc40543d611575" 
-            value={siteData.settings.bookingLink || ''} 
+            value={siteData.settings.rawBookingLink !== undefined ? siteData.settings.rawBookingLink : (siteData.settings.bookingLink || '')} 
             onChange={(e) => updateSettings({ bookingLink: e.target.value })} 
           />
           <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '0.5rem' }}>
