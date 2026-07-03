@@ -11,7 +11,7 @@ import Tours from './pages/Tours';
 import Activities from './pages/Activities';
 
 import Contact from './pages/Contact';
-import Testimonials from './pages/Testimonials';
+// import Testimonials from './pages/Testimonials';
 import CustomCursor from './components/CustomCursor';
 import Footer from './components/Footer';
 // import ChatbotWidget from './components/ChatbotWidget';
@@ -53,7 +53,7 @@ const AppContent = () => {
           <Route path="/services/city-tours" element={<CityTours />} />
           <Route path="/tours" element={<Tours />} />
           <Route path="/activities" element={<Activities />} />
-          <Route path="/testimonials" element={<Testimonials />} />
+          {/* <Route path="/testimonials" element={<Testimonials />} /> */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

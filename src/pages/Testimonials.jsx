@@ -6,6 +6,10 @@ import { useSiteData } from '../context/SiteContext';
 import { useNavigate } from 'react-router-dom';
 
 const Testimonials = () => {
+  // Testimonials is temporarily commented out as requested.
+  return null;
+
+  /*
   const { siteData } = useSiteData();
   const testimonials = siteData.testimonials;
   const navigate = useNavigate();
@@ -38,7 +42,7 @@ const Testimonials = () => {
             </motion.p>
           </div>
 
-          {/* Grid: 2 columns on desktop. If odd count, last card is centered */}
+          {/* Grid: 2 columns on desktop. If odd count, last card is centered * /}
           <div className="testimonials-2col-grid">
             {testimonials.map((testimonial, idx) => {
               const isLastOdd = isOdd && idx === testimonials.length - 1;
@@ -93,6 +97,7 @@ const Testimonials = () => {
       </main>
     </div>
   );
+  */
 };
 
 export default Testimonials;

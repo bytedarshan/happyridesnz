@@ -37,11 +37,13 @@ export const SiteProvider = ({ children }) => {
   // Initial Data Structure
   const initialData = {
     packages: { aucklandCityTours, aucklandActivities, intercityTours, rotoruaTours, rotoruaActivities, paihiaTours, paihiaActivities },
+    /*
     testimonials: [
       { id: 1, name: "Sarah Johnson", location: "Sydney, Australia", text: "The Auckland City Tour was the highlight of our trip! The driver was professional and knew all the best spots for photos. The frosted glass design of the website really reflects the premium service they provide.", rating: 5 },
       { id: 2, name: "Mark Thompson", location: "London, UK", text: "Seamless airport transfer. I arrived after a long flight and having a friendly face waiting for me made all the difference. Highly recommend Happy Rides for anyone visiting New Zealand.", rating: 5 },
       { id: 3, name: "Emily Chen", location: "Singapore", text: "We booked the Rotorua day trip. The itinerary was perfectly balanced and the luxury transport was incredibly comfortable for the long drive. Five stars!", rating: 5 }
     ],
+    */
     services: [
       { title: 'Airport Transfers', desc: 'Reliable and punctual transfers to and from all major airports. We monitor your flight to ensure we are there when you land.' },
       { title: 'Corporate Travel', desc: 'Discreet and professional transport for business professionals. Priority bookings and dedicated accounts available.' },
@@ -85,8 +87,10 @@ export const SiteProvider = ({ children }) => {
       contactSubline: "Have questions or want to book a custom tour? We're here to help.",
       servicesHeadline: "Our Premium Services",
       servicesSubline: "Tailored transport solutions to meet every travel need.",
+      /*
       testimonialsHeadline: "Guest Testimonials",
       testimonialsSubline: "Hear from travelers who explored the beauty of New Zealand with Happy Rides. We take pride in delivering unforgettable experiences.",
+      */
 
       // New Settings from Plan
       heroSubtitle: "Leave the logistics to us. Enjoy a warm Kiwi welcome and a comfortable, premium ride to your destination.",
@@ -172,7 +176,7 @@ export const SiteProvider = ({ children }) => {
 
           setSiteData({
             packages: data.packages || initialData.packages,
-            testimonials: data.testimonials || initialData.testimonials,
+            // testimonials: data.testimonials || initialData.testimonials,
             services: data.services || initialData.services,
             settings: resolvedSettings,
           });
@@ -306,6 +310,7 @@ export const SiteProvider = ({ children }) => {
     });
   };
 
+  /*
   const addTestimonial = async (testimonial) => {
     const updatedTestimonials = [...siteData.testimonials, { ...testimonial, id: Date.now() }];
     await updateDoc(doc(db, 'content', 'siteData'), { testimonials: updatedTestimonials });
@@ -322,6 +327,7 @@ export const SiteProvider = ({ children }) => {
     const updatedTestimonials = siteData.testimonials.filter(t => t.id !== id);
     await updateDoc(doc(db, 'content', 'siteData'), { testimonials: updatedTestimonials });
   };
+  */
 
   const addService = async (service) => {
     const updatedServices = [...siteData.services, { ...service, id: Date.now().toString() }];
@@ -346,7 +352,7 @@ export const SiteProvider = ({ children }) => {
     <SiteContext.Provider value={{
       siteData, admins, user, loading,
       login, logout, createAdmin, removeAdmin, resetAdminPassword, resetSiteData, syncNewDefaults,
-      updateSettings, addPackage, updatePackage, removePackage, addTestimonial, updateTestimonial, removeTestimonial,
+      updateSettings, addPackage, updatePackage, removePackage, /* addTestimonial, updateTestimonial, removeTestimonial, */
       addService, updateService, removeService
     }}>
       {!loading && children}

@@ -31,7 +31,7 @@ const Admin = () => {
   const {
     siteData, admins, user, login, logout, createAdmin, removeAdmin,
     resetAdminPassword, resetSiteData, updateSettings, addPackage,
-    updatePackage, removePackage, addTestimonial, updateTestimonial, removeTestimonial,
+    updatePackage, removePackage, /* addTestimonial, updateTestimonial, removeTestimonial, */
     addService, updateService, removeService, syncNewDefaults
   } = useSiteData();
 
@@ -150,7 +150,7 @@ const Admin = () => {
     { id: 'tours', label: 'Tours', icon: <Package size={18} /> },
     { id: 'activities', label: 'Activities', icon: <MapPin size={18} /> },
     { id: 'services', label: 'Services', icon: <Car size={18} /> },
-    { id: 'testimonials', label: 'Reviews', icon: <MessageSquare size={18} /> },
+    // { id: 'testimonials', label: 'Reviews', icon: <MessageSquare size={18} /> },
     { id: 'team', label: 'Team', icon: <Users size={18} /> },
     { id: 'gallery', label: 'Gallery', icon: <ImageIcon size={18} /> },
     { id: 'settings', label: 'Global', icon: <Settings size={18} /> }
@@ -225,11 +225,11 @@ const Admin = () => {
             <h3>Active Activities</h3>
             <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{activitiesCount}</p>
           </div>
-          <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
+          {/* <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
             <MessageSquare size={32} color="#10B981" style={{ marginBottom: '1rem' }} />
             <h3>Reviews</h3>
             <p style={{ fontSize: '2.5rem', fontWeight: 800 }}>{siteData.testimonials.length}</p>
-          </div>
+          </div> */}
           <div className="admin-glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
             <Users size={32} color="#F59E0B" style={{ marginBottom: '1rem' }} />
             <h3>Admin Team</h3>
@@ -392,6 +392,7 @@ const Admin = () => {
     );
   };
 
+  /*
   const renderTestimonials = () => (
     <div className="admin-section">
       <div className="admin-section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
@@ -433,6 +434,7 @@ const Admin = () => {
       </div>
     </div>
   );
+  */
 
   const handleGalleryUpload = async (e) => {
     const file = e.target.files[0];
@@ -842,7 +844,7 @@ const Admin = () => {
       </div>
 
       {/* Testimonials Page Configuration */}
-      <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
+      {/* <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
         <h3 style={{ marginBottom: '2rem', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <MessageSquare size={24} /> Testimonials Page
         </h3>
@@ -850,7 +852,7 @@ const Admin = () => {
           <div className="input-group"><label className="input-label">Testimonials Page Headline</label><input type="text" className="input-field" value={siteData.settings.testimonialsHeadline || ''} onChange={(e) => updateSettings({ testimonialsHeadline: e.target.value })} /></div>
           <div className="input-group"><label className="input-label">Testimonials Page Subtitle / Brief</label><textarea className="input-field" style={{ height: '100px' }} value={siteData.settings.testimonialsSubline || ''} onChange={(e) => updateSettings({ testimonialsSubline: e.target.value })} /></div>
         </div>
-      </div>
+      </div> */}
 
       {/* Contact Details Section */}
       <div className="admin-glass-panel" style={{ padding: '3rem', marginBottom: '3rem' }}>
@@ -1104,7 +1106,7 @@ const Admin = () => {
                   <div className="input-group"><label className="input-label">Description</label><textarea className="input-field" style={{ height: '150px' }} value={editingItem.desc || ''} onChange={(e) => setEditingItem({ ...editingItem, desc: e.target.value })} /></div>
                 </div>
               )}
-              {!isPackage && !isService && (
+              {/* {!isPackage && !isService && (
                 <div style={{ display: 'grid', gap: '2rem' }}>
                   <div className="input-group">
                     <label className="input-label">Guest Name</label>
@@ -1149,7 +1151,7 @@ const Admin = () => {
                     <textarea className="input-field" style={{ height: '150px' }} value={editingItem.text || ''} onChange={(e) => setEditingItem({ ...editingItem, text: e.target.value })} required />
                   </div>
                 </div>
-              )}
+              )} */}
 
               <button className="btn-primary-glass admin-btn w-full" style={{ marginTop: '2rem' }} onClick={() => {
                 if (isPackage) {
@@ -1159,6 +1161,7 @@ const Admin = () => {
                   if (editingItem.mode === 'add') addService(editingItem);
                   else updateService(editingItem.id || editingItem.title, editingItem);
                 } else {
+                  /*
                   if (editingItem.mode === 'add') {
                     addTestimonial({
                       name: editingItem.name || 'Anonymous',
@@ -1174,6 +1177,7 @@ const Admin = () => {
                       text: editingItem.text || ''
                     });
                   }
+                  */
                 }
                 setEditingItem(null);
               }}>
@@ -1219,7 +1223,7 @@ const Admin = () => {
           {activeTab === 'tours' && <motion.div key="tours" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderTours()}</motion.div>}
           {activeTab === 'activities' && <motion.div key="activities" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderActivities()}</motion.div>}
           {activeTab === 'services' && <motion.div key="svc" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderServices()}</motion.div>}
-          {activeTab === 'testimonials' && <motion.div key="test" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderTestimonials()}</motion.div>}
+          {/* {activeTab === 'testimonials' && <motion.div key="test" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderTestimonials()}</motion.div>} */}
           {activeTab === 'team' && <motion.div key="team" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderTeam()}</motion.div>}
           {activeTab === 'gallery' && <motion.div key="gal" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderGallery()}</motion.div>}
           {activeTab === 'settings' && <motion.div key="set" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{renderSettings()}</motion.div>}

@@ -2048,7 +2048,7 @@ textarea.input-field {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Testimonials Styles */
+/* Testimonials Styles
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -2123,7 +2123,7 @@ textarea.input-field {
   background: rgba(255, 255, 255, 0.6);
 }
 
-/* 2-column grid for testimonials — collapses to 1 on mobile */
+[2-column grid for testimonials — collapses to 1 on mobile]
 .testimonials-2col-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2139,13 +2139,14 @@ textarea.input-field {
   .testimonials-2col-grid {
     grid-template-columns: 1fr;
   }
-  /* Remove 50% constraint on last odd card on mobile so it fills the column */
+  [Remove 50% constraint on last odd card on mobile so it fills the column]
   .testimonials-2col-grid .testimonial-card:last-child {
     max-width: 100% !important;
     grid-column: auto !important;
     margin: 0 !important;
   }
 }
+*/
 
 /* --- FINAL COMPREHENSIVE IPHONE/MOBILE FIXES --- */
 @media (max-width: 480px) {
@@ -2368,16 +2369,16 @@ html, body {
     gap: 1rem;
   }
 
-  /* Testimonials: single column on mobile */
+  /* [Testimonials: single column on mobile]
   .testimonials-grid,
   [class*="testimonials"] > div {
     grid-template-columns: 1fr !important;
   }
 
-  /* Last odd testimonial card should not be constrained on mobile */
+  [Last odd testimonial card should not be constrained on mobile]
   .testimonial-card[style*="maxWidth: 50%"] {
     max-width: 100% !important;
-  }
+  } */
 }
 
 /* ── Button Outline Style ────────────────────────────────── */

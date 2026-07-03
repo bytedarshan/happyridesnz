@@ -41,7 +41,7 @@ const BookingIframe = ({ bookingLink }) => {
         allow="geolocation"
         scrolling="no"
         title="Happy Rides Online Booking"
-        style={{ width: '1px', minWidth: '100%', minHeight: '650px', border: 0, display: 'block' }}
+        style={{ width: '1px', minWidth: '100%', minHeight: '200px', border: 0, display: 'block' }}
       />
       <style>{`
         .hr-bw {
