@@ -5,9 +5,11 @@ import TourDetail from '../components/TourDetail';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSiteData } from '../context/SiteContext';
 import { MapPin, Compass, Shield, Clock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Tours = () => {
   const { siteData } = useSiteData();
+  const navigate = useNavigate();
   const [selectedTour, setSelectedTour] = useState(null);
   const [activeTab, setActiveTab] = useState('auckland');
 
@@ -155,6 +157,35 @@ const Tours = () => {
                 </div>
               )}
             </motion.div>
+
+            {activeTab === 'auckland' && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                style={{ 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  marginTop: '4rem' 
+                }}
+              >
+                <button
+                  className="btn-primary-glass"
+                  onClick={() => navigate('/book')}
+                  style={{
+                    padding: '1.2rem 3rem',
+                    fontSize: '1.2rem',
+                    fontWeight: 700,
+                    borderRadius: '2rem',
+                    cursor: 'pointer',
+                    boxShadow: '0 10px 25px rgba(59, 130, 246, 0.25)',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  Book Auckland City Tour Now
+                </button>
+              </motion.div>
+            )}
           </motion.div>
         ) : (
           <TourDetail
