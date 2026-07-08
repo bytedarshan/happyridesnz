@@ -104,7 +104,7 @@ const NavigationBar = () => {
               top: 'calc(100% + 1rem)',
               left: '5%',
               right: '5%',
-              background: 'rgba(255, 255, 255, 0.95)',
+              background: 'rgba(255, 255, 255, 0.85)',
               backdropFilter: 'blur(16px) saturate(120%)',
               WebkitBackdropFilter: 'blur(16px) saturate(120%)',
               border: '1px solid rgba(0, 0, 0, 0.08)',

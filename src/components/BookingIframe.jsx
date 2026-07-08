@@ -46,7 +46,7 @@ const BookingIframe = ({ bookingLink }) => {
       <style>{`
         .hr-bw {
           width: 100%;
-          background: rgba(255, 255, 255, 0.92);
+          background: rgba(255, 255, 255, 0.8);
           backdrop-filter: blur(20px) saturate(140%);
           -webkit-backdrop-filter: blur(20px) saturate(140%);
           border: 1px solid rgba(255, 255, 255, 0.8);

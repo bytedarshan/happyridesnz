@@ -92,7 +92,7 @@ body {
 
 /* Premium Light Cards */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(12px) saturate(120%);
   -webkit-backdrop-filter: blur(12px) saturate(120%);
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -107,7 +107,7 @@ body {
 }
 
 .glass-panel:hover {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.88);
   transform: translateY(-6px) scale(1.02);
   border-color: rgba(0, 0, 0, 0.1);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
@@ -174,7 +174,7 @@ body {
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.7) !important;
+  background: rgba(255, 255, 255, 0.58) !important;
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
@@ -186,7 +186,7 @@ body {
 }
 
 .navbar.scrolled {
-  background: rgba(255, 255, 255, 0.95) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(20px) saturate(130%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(130%) !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
@@ -195,13 +195,13 @@ body {
 
 .navbar.glass-panel:hover {
   transform: none !important;
-  background: rgba(255, 255, 255, 0.7) !important;
+  background: rgba(255, 255, 255, 0.58) !important;
   border-color: rgba(0, 0, 0, 0.06) !important;
   box-shadow: none !important;
 }
 
-.navbar.glass-panel.scrolled:hover {
-  background: rgba(255, 255, 255, 0.95) !important;
+.navbar.scrolled:hover {
+  background: rgba(255, 255, 255, 0.85) !important;
   border-color: rgba(0, 0, 0, 0.08) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
 }
@@ -384,7 +384,7 @@ body {
   width: max-content;
   border-radius: 100px;
   padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
@@ -415,7 +415,7 @@ body {
 }
 
 .search-form {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 2.5rem;
@@ -611,7 +611,7 @@ body {
   will-change: transform;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -641,7 +641,7 @@ body {
   border-radius: 2.5rem;
   padding: 3rem 2rem;
   text-align: center;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -661,7 +661,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(0, 0, 0, 0.08);
   color: #1e293b;
@@ -1491,7 +1491,7 @@ textarea.input-field {
 }
 
 .admin-glass-panel {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
   border: 1px solid rgba(0, 0, 0, 0.06);
