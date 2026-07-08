@@ -17,6 +17,16 @@ const TourCard = ({ tour, onClick }) => {
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
 
+  const isAucklandCityTour = tour.id && tour.id.startsWith('act-');
+
+  const handleCardClick = (e) => {
+    if (isAucklandCityTour) {
+      navigate('/book');
+    } else {
+      onClick(e);
+    }
+  };
+
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
@@ -43,7 +53,7 @@ const TourCard = ({ tour, onClick }) => {
       className="tour-card glass-panel"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onClick={onClick}
+      onClick={handleCardClick}
       style={{
         rotateX,
         rotateY,
@@ -74,24 +84,57 @@ const TourCard = ({ tour, onClick }) => {
         </div>
 
         <div className="tour-footer">
-          <motion.button 
-            className="btn-outline"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            View Details
-          </motion.button>
-          <motion.button 
-            className="btn-primary-glass"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate('/book');
-            }}
-          >
-            Book Now
-          </motion.button>
+          {/* View Details button - commented out for Auckland City Tour cards because they redirect straight to booking */}
+          {!isAucklandCityTour ? (
+            <motion.button 
+              className="btn-outline"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View Details
+            </motion.button>
+          ) : (
+            /* Commented out View Details code to preserve it:
+            <motion.button 
+              className="btn-outline"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View Details
+            </motion.button>
+            */
+            null
+          )}
+
+          {/* Book Now button - commented out for Auckland City Tour cards because they redirect straight to booking */}
+          {!isAucklandCityTour ? (
+            <motion.button 
+              className="btn-primary-glass"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate('/book');
+              }}
+            >
+              Book Now
+            </motion.button>
+          ) : (
+            /* Commented out Book Now code to preserve it:
+            <motion.button 
+              className="btn-primary-glass"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate('/book');
+              }}
+            >
+              Book Now
+            </motion.button>
+            */
+            null
+          )}
         </div>
       </div>
     </motion.div>
