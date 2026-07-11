@@ -171,7 +171,7 @@ const Tours = () => {
               >
                 <button
                   className="btn-primary-glass"
-                  onClick={() => navigate('/book')}
+                  onClick={() => navigate('/contact')}
                   style={{
                     padding: '1.2rem 3rem',
                     fontSize: '1.2rem',
@@ -182,7 +182,7 @@ const Tours = () => {
                     transition: 'all 0.3s ease'
                   }}
                 >
-                  Book Auckland City Tour Now
+                  Enquire about Auckland City Tour
                 </button>
               </motion.div>
             )}

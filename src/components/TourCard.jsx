@@ -21,7 +21,7 @@ const TourCard = ({ tour, onClick }) => {
 
   const handleCardClick = (e) => {
     if (isAucklandCityTour) {
-      navigate('/book');
+      navigate('/contact');
     } else {
       onClick(e);
     }
@@ -114,10 +114,10 @@ const TourCard = ({ tour, onClick }) => {
               whileTap={{ scale: 0.95 }}
               onClick={(e) => {
                 e.stopPropagation();
-                navigate('/book');
+                navigate('/contact');
               }}
             >
-              Book Now
+              Enquire Now
             </motion.button>
           ) : (
             /* Commented out Book Now code to preserve it:

@@ -70,8 +70,8 @@ const CityTours = () => {
                     <td style={{ textAlign: 'center', padding: '1rem' }}>{item.duration}</td>
                     <td style={{ textAlign: 'right', padding: '1rem', borderTopRightRadius: '0.75rem', borderBottomRightRadius: '0.75rem', color: 'var(--primary-color)', fontWeight: 600 }}>
                       <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => {
-                        navigate('/book');
-                      }}>Book Now</span>
+                        navigate('/contact');
+                      }}>Enquire Now</span>
                     </td>
                   </tr>
                 ))}

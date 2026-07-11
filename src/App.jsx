@@ -36,12 +36,8 @@ const AppContent = () => {
       <div className="app-wrapper">
         <CustomCursor />
 
-        {/* Global dark background image for the glass effect */}
-        <img 
-          src={siteData.settings.heroBgImage && siteData.settings.heroBgImage.startsWith('http') ? siteData.settings.heroBgImage : `/${siteData.settings.heroBgImage || 'hero_bg.jpeg'}`} 
-          className="global-bg" 
-          alt="background" 
-        />
+        {/* Global solid background color */}
+        <div className="global-bg" />
 
         <Routes>
           <Route path="/" element={<Home />} />

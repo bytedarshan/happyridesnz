@@ -100,34 +100,34 @@ const AboutUs = () => {
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.2rem 1.5rem', marginTop: '1rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#1e293b', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-color)', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="about-list-item">
+                  <div className="about-list-icon">
                     <Check size={14} />
                   </div>
                   <span>Airport Transfers</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#1e293b', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-color)', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="about-list-item">
+                  <div className="about-list-icon">
                     <Check size={14} />
                   </div>
                   <span>Intercity Transfers</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#1e293b', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-color)', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="about-list-item">
+                  <div className="about-list-icon">
                     <Check size={14} />
                   </div>
                   <span>Executive Travel & Corporate Transfers</span>
                 </div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#1e293b', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-color)', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="about-list-item">
+                  <div className="about-list-icon">
                     <Check size={14} />
                   </div>
                   <span>Cruise Ship Transfers</span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: '#1e293b', fontSize: '0.95rem', fontWeight: 500 }}>
-                  <div style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--primary-color)', padding: '0.35rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="about-list-item">
+                  <div className="about-list-icon">
                     <Check size={14} />
                   </div>
                   <span>City & Day Tours</span>

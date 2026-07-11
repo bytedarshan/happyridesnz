@@ -69,12 +69,12 @@ const TourDetail = ({ tour, onBack }) => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => {
-                  navigate('/book');
+                  navigate('/contact');
                 }}
               >
-                Book Now
+                Enquire Now
               </motion.button>
-              <p className="sidebar-hint">* Instant confirmation upon booking</p>
+              <p className="sidebar-hint">* We will get back to you shortly</p>
             </div>
           </div>
         </div>
